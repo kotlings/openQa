@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yubao.dao.SysconfDao">
+    <select id="getVersion" resultType="String">
+       SELECT value FROM sysconf  WHERE `key`='version' LIMIT 1
+    </select>
+
+    <select id="getDownload" resultType="int">
+        SELECT value FROM sysconf  WHERE `key`='download' LIMIT 1
+    </select>
+
+    <select id="addDownload" parameterType="int">
+        UPDATE sysconf SET VALUE = VALUE + 1 WHERE `key`='download'
+    </select>
+</mapper>

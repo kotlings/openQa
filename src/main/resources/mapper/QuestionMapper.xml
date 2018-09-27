@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yubao.dao.QuestionMapper">
+    <resultMap id="BaseResultMap" type="com.yubao.model.Question">
+        <id column="Id" property="id" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="Content" property="content" jdbcType="VARCHAR"/>
+        <result column="SupportCnt" property="supportcnt" jdbcType="INTEGER"/>
+        <result column="OpposeCnt" property="opposecnt" jdbcType="INTEGER"/>
+        <result column="CommentTo" property="commentto" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="TIMESTAMP"/>
+        <result column="UserId" property="userid" jdbcType="VARCHAR"/>
+        <result column="hits" property="hits" jdbcType="INTEGER"/>
+        <result column="stick" property="stick" jdbcType="INTEGER"/>
+        <result column="comment" property="comment" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="experience" property="experience" jdbcType="INTEGER"/>
+        <result column="accept" property="accept" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        Id, title, Content, SupportCnt, OpposeCnt, CommentTo, time, UserId, hits, stick,
+        comment, status, experience, accept
+    </sql>
+
+    <resultMap type="com.util.temp.QuestionViewModel" id="questionvmmapper">
+        <id column="Id" property="id" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="Content" property="content" jdbcType="VARCHAR"/>
+        <result column="SupportCnt" property="supportcnt" jdbcType="INTEGER"/>
+        <result column="OpposeCnt" property="opposecnt" jdbcType="INTEGER"/>
+        <result column="CommentTo" property="commentto" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="TIMESTAMP"/>
+        <result column="hits" property="hits" jdbcType="INTEGER"/>
+        <result column="stick" property="stick" jdbcType="INTEGER"/>
+        <result column="comment" property="comment" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="experience" property="experience" jdbcType="INTEGER"/>
+        <result column="accept" property="accept" jdbcType="VARCHAR"/>
+
+        <association property="user" column="UserId" javaType="com.util.temp.UserViewModel">
+            <id column="UserId" property="id" jdbcType="VARCHAR"/>
+            <result column="name" property="name" jdbcType="VARCHAR"/>
+            <result column="rmb" property="rmb" jdbcType="INTEGER"/>
+            <result column="pic" property="pic" jdbcType="VARCHAR"/>
+        </association>
+
+        <collection property="answers" javaType="java.util.List" ofType="com.util.temp.AnswerViewModel">
+            <id column="answer_id" property="id" jdbcType="VARCHAR"/>
+            <result column="answer_content" property="content" jdbcType="VARCHAR"/>
+            <result column="answer_time" property="time" jdbcType="TIMESTAMP"/>
+
+        </collection>
+
+
+    </resultMap>
+
+    <!--根据回答用户的ID获取问题-->
+    <select id="countByUserAnswer" parameterType="String" resultType="int">
+        select count(*) from question q
+        LEFT JOIN answer a on q.Id=a.AnswerTo
+        where a.UserId=#{uid}
+    </select>
+    <select id="getByUserAnswer" resultMap="questionvmmapper">
+        select q.*,a.id as answer_id, a.Content as answer_content, a.time as answer_time from question q
+        LEFT JOIN answer a on q.Id=a.AnswerTo
+        where a.UserId=#{uid}
+        order by a.time desc
+        LIMIT #{offset}, #{limit}
+    </select>
+    <!--根据回答用户的ID获取问题end-->
+
+
+    <select id="getQuestionVM" resultMap="questionvmmapper" parameterType="String">
+        SELECT q.*,u.`name`,u.rmb,u.pic from question as q LEFT JOIN `user` as u on q.UserId=u.id where q.id=#{id}
+    </select>
+
+    <select id="getQuestionVMs" resultMap="questionvmmapper" parameterType="com.yubao.model.QuestionExample">
+        SELECT q.*,u.`name`,u.rmb,u.pic from question as q LEFT JOIN `user` as u on q.UserId=u.id
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="limit != null">
+            <if test="offset != null">
+                limit ${offset}, ${limit}
+            </if>
+            <if test="offset == null">
+                limit ${limit}
+            </if>
+        </if>
+    </select>
+
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yubao.model.QuestionExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from question
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="limit != null">
+            <if test="offset != null">
+                limit ${offset}, ${limit}
+            </if>
+            <if test="offset == null">
+                limit ${limit}
+            </if>
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from question
+        where Id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from question
+        where Id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.yubao.model.QuestionExample">
+        delete from question
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.yubao.model.Question">
+        insert into question (Id, title, Content,
+        SupportCnt, OpposeCnt, CommentTo,
+        time, UserId, hits,
+        stick, comment, status,
+        experience, accept)
+        values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
+        #{supportcnt,jdbcType=INTEGER}, #{opposecnt,jdbcType=INTEGER}, #{commentto,jdbcType=VARCHAR},
+        #{time,jdbcType=TIMESTAMP}, #{userid,jdbcType=VARCHAR}, #{hits,jdbcType=INTEGER},
+        #{stick,jdbcType=INTEGER}, #{comment,jdbcType=INTEGER}, #{status,jdbcType=INTEGER},
+        #{experience,jdbcType=INTEGER}, #{accept,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.yubao.model.Question">
+        insert into question
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                Id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="content != null">
+                Content,
+            </if>
+            <if test="supportcnt != null">
+                SupportCnt,
+            </if>
+            <if test="opposecnt != null">
+                OpposeCnt,
+            </if>
+            <if test="commentto != null">
+                CommentTo,
+            </if>
+            <if test="time != null">
+                time,
+            </if>
+            <if test="userid != null">
+                UserId,
+            </if>
+            <if test="hits != null">
+                hits,
+            </if>
+            <if test="stick != null">
+                stick,
+            </if>
+            <if test="comment != null">
+                comment,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="experience != null">
+                experience,
+            </if>
+            <if test="accept != null">
+                accept,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="supportcnt != null">
+                #{supportcnt,jdbcType=INTEGER},
+            </if>
+            <if test="opposecnt != null">
+                #{opposecnt,jdbcType=INTEGER},
+            </if>
+            <if test="commentto != null">
+                #{commentto,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userid != null">
+                #{userid,jdbcType=VARCHAR},
+            </if>
+            <if test="hits != null">
+                #{hits,jdbcType=INTEGER},
+            </if>
+            <if test="stick != null">
+                #{stick,jdbcType=INTEGER},
+            </if>
+            <if test="comment != null">
+                #{comment,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="experience != null">
+                #{experience,jdbcType=INTEGER},
+            </if>
+            <if test="accept != null">
+                #{accept,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.yubao.model.QuestionExample" resultType="java.lang.Integer">
+        select count(*) from question
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update question
+        <set>
+            <if test="record.id != null">
+                Id = #{record.id,jdbcType=VARCHAR},
+            </if>
+            <if test="record.title != null">
+                title = #{record.title,jdbcType=VARCHAR},
+            </if>
+            <if test="record.content != null">
+                Content = #{record.content,jdbcType=VARCHAR},
+            </if>
+            <if test="record.supportcnt != null">
+                SupportCnt = #{record.supportcnt,jdbcType=INTEGER},
+            </if>
+            <if test="record.opposecnt != null">
+                OpposeCnt = #{record.opposecnt,jdbcType=INTEGER},
+            </if>
+            <if test="record.commentto != null">
+                CommentTo = #{record.commentto,jdbcType=VARCHAR},
+            </if>
+            <if test="record.time != null">
+                time = #{record.time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.userid != null">
+                UserId = #{record.userid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.hits != null">
+                hits = #{record.hits,jdbcType=INTEGER},
+            </if>
+            <if test="record.stick != null">
+                stick = #{record.stick,jdbcType=INTEGER},
+            </if>
+            <if test="record.comment != null">
+                comment = #{record.comment,jdbcType=INTEGER},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.experience != null">
+                experience = #{record.experience,jdbcType=INTEGER},
+            </if>
+            <if test="record.accept != null">
+                accept = #{record.accept,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update question
+        set Id = #{record.id,jdbcType=VARCHAR},
+        title = #{record.title,jdbcType=VARCHAR},
+        Content = #{record.content,jdbcType=VARCHAR},
+        SupportCnt = #{record.supportcnt,jdbcType=INTEGER},
+        OpposeCnt = #{record.opposecnt,jdbcType=INTEGER},
+        CommentTo = #{record.commentto,jdbcType=VARCHAR},
+        time = #{record.time,jdbcType=TIMESTAMP},
+        UserId = #{record.userid,jdbcType=VARCHAR},
+        hits = #{record.hits,jdbcType=INTEGER},
+        stick = #{record.stick,jdbcType=INTEGER},
+        comment = #{record.comment,jdbcType=INTEGER},
+        status = #{record.status,jdbcType=INTEGER},
+        experience = #{record.experience,jdbcType=INTEGER},
+        accept = #{record.accept,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.yubao.model.Question">
+        update question
+        <set>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                Content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="supportcnt != null">
+                SupportCnt = #{supportcnt,jdbcType=INTEGER},
+            </if>
+            <if test="opposecnt != null">
+                OpposeCnt = #{opposecnt,jdbcType=INTEGER},
+            </if>
+            <if test="commentto != null">
+                CommentTo = #{commentto,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null">
+                time = #{time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userid != null">
+                UserId = #{userid,jdbcType=VARCHAR},
+            </if>
+            <if test="hits != null">
+                hits = #{hits,jdbcType=INTEGER},
+            </if>
+            <if test="stick != null">
+                stick = #{stick,jdbcType=INTEGER},
+            </if>
+            <if test="comment != null">
+                comment = #{comment,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="experience != null">
+                experience = #{experience,jdbcType=INTEGER},
+            </if>
+            <if test="accept != null">
+                accept = #{accept,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where Id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.yubao.model.Question">
+        update question
+        set title = #{title,jdbcType=VARCHAR},
+        Content = #{content,jdbcType=VARCHAR},
+        SupportCnt = #{supportcnt,jdbcType=INTEGER},
+        OpposeCnt = #{opposecnt,jdbcType=INTEGER},
+        CommentTo = #{commentto,jdbcType=VARCHAR},
+        time = #{time,jdbcType=TIMESTAMP},
+        UserId = #{userid,jdbcType=VARCHAR},
+        hits = #{hits,jdbcType=INTEGER},
+        stick = #{stick,jdbcType=INTEGER},
+        comment = #{comment,jdbcType=INTEGER},
+        status = #{status,jdbcType=INTEGER},
+        experience = #{experience,jdbcType=INTEGER},
+        accept = #{accept,jdbcType=VARCHAR}
+        where Id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="update" parameterType="com.yubao.model.Question">
+        update question
+        set title = #{title,jdbcType=VARCHAR},
+        Content = #{content,jdbcType=VARCHAR}
+        where Id = #{id,jdbcType=VARCHAR}
+
+    </update>
+</mapper>
