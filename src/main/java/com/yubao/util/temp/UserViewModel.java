@@ -1,8 +1,7 @@
-package com.util.temp;
+package com.yubao.util.temp;
 
-import com.agapple.mapping.BeanCopy;
-import com.agapple.mapping.BeanMapping;
 import com.yubao.model.User;
+import org.dozer.DozerBeanMapper;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,20 +11,18 @@ import java.util.List;
  * Created by Administrator on 2016-12-05.
  */
 public class UserViewModel {
+    static DozerBeanMapper mapper = new DozerBeanMapper();
     static public UserViewModel From(User user){
-        BeanCopy mapping = BeanCopy.create(User.class, UserViewModel.class);
-        UserViewModel vm = new UserViewModel();
-        mapping.copy(user, vm);
+        UserViewModel vm = mapper.map(user, UserViewModel.class);
         return vm;
     }
 
     static public List<UserViewModel> From(List<User> users){
-        BeanCopy mapping = BeanCopy.create(User.class, UserViewModel.class);
         List<UserViewModel> vms = new ArrayList<UserViewModel>();
 
         for (User user:users){
             UserViewModel vm = new UserViewModel();
-            mapping.copy(user, vm);
+            mapper.map(user, UserViewModel.class);
             vms.add(vm);
         }
         return vms;

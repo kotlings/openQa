@@ -7,9 +7,9 @@ server:
 spring:
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/openauth?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+        url: jdbc:mysql://openauth.me:3306/openauth?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
         username: root
-        password: 123456
+        password: 01211987
         maxActive: 2335
         maxIdel: 120
         maxWait: 100 

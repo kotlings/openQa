@@ -1,4 +1,4 @@
-package com.util;
+package com.yubao.util;
 
 /**
  * Created by Administrator on 2016-11-30.

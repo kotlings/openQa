@@ -1,4 +1,4 @@
-package com.util.temp;
+package com.yubao.util.temp;
 
 import com.yubao.model.Question;
 

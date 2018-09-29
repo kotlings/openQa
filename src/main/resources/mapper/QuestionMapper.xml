@@ -82,7 +82,7 @@
         comment, status, experience, accept
     </sql>
 
-    <resultMap type="com.util.temp.QuestionViewModel" id="questionvmmapper">
+    <resultMap type="com.yubao.util.temp.QuestionViewModel" id="questionvmmapper">
         <id column="Id" property="id" jdbcType="VARCHAR"/>
         <result column="title" property="title" jdbcType="VARCHAR"/>
         <result column="Content" property="content" jdbcType="VARCHAR"/>
@@ -97,14 +97,14 @@
         <result column="experience" property="experience" jdbcType="INTEGER"/>
         <result column="accept" property="accept" jdbcType="VARCHAR"/>
 
-        <association property="user" column="UserId" javaType="com.util.temp.UserViewModel">
+        <association property="user" column="UserId" javaType="com.yubao.util.temp.UserViewModel">
             <id column="UserId" property="id" jdbcType="VARCHAR"/>
             <result column="name" property="name" jdbcType="VARCHAR"/>
             <result column="rmb" property="rmb" jdbcType="INTEGER"/>
             <result column="pic" property="pic" jdbcType="VARCHAR"/>
         </association>
 
-        <collection property="answers" javaType="java.util.List" ofType="com.util.temp.AnswerViewModel">
+        <collection property="answers" javaType="java.util.List" ofType="com.yubao.util.temp.AnswerViewModel">
             <id column="answer_id" property="id" jdbcType="VARCHAR"/>
             <result column="answer_content" property="content" jdbcType="VARCHAR"/>
             <result column="answer_time" property="time" jdbcType="TIMESTAMP"/>

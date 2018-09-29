@@ -1,7 +1,9 @@
 package com.yubao.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.yubao.model.User;
 import com.yubao.service.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -23,7 +24,7 @@ import java.util.Date;
 @Controller
 @RequestMapping(value="/api")
 public class ApiController extends BaseController {
-    @Resource
+    @Autowired
     LoginService loginService;
 
     @ResponseBody
@@ -61,7 +62,7 @@ public class ApiController extends BaseController {
             response.Result = url + "/upload/" +filename;
         }
 
-        out.getWriter().print(gson.toJson(response));
+        out.getWriter().print(JSON.toJSONString(response));
     }
 
     private String format(String oldFilename){

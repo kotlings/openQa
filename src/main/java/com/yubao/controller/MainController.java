@@ -1,9 +1,7 @@
 package com.yubao.controller;
 
-import com.yubao.service.SysconfigService;
-
+import com.yubao.service.SysconfService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,8 +19,7 @@ import java.io.PrintWriter;
 public class MainController {
 
     @Autowired
-    @Qualifier("sysconfigservice")
-    SysconfigService sysconfigservice;
+    SysconfService sysconfigservice;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {

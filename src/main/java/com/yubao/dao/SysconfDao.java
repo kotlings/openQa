@@ -1,6 +1,5 @@
 package com.yubao.dao;
 
-import com.yubao.model.Sysconf;
 import org.springframework.stereotype.Repository;
 
 /**

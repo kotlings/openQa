@@ -1,11 +1,11 @@
 package com.yubao.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.yubao.model.Question;
 import com.yubao.model.User;
 import com.yubao.service.LoginService;
 import com.yubao.service.QuestionService;
-
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,10 +22,10 @@ import java.io.IOException;
 @RequestMapping(value="/questions")
 public class QuestionsController extends BaseController {
     @Resource
-    @Qualifier("_questionservice")
+    @Autowired
     QuestionService _service;
 
-    @Resource
+    @Autowired
     LoginService loginService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -48,7 +48,7 @@ public class QuestionsController extends BaseController {
         response.Status = true;
         response.Result = _service.Get(key, type, index, size);
 
-        out.getWriter().print(gson.toJson(response));
+        out.getWriter().print(JSON.toJSONString(response));
     }
 
     /**
@@ -66,7 +66,7 @@ public class QuestionsController extends BaseController {
         response.Status = true;
         response.Result = _service.getHot(key, index, size);
 
-        out.getWriter().print(gson.toJson(response));
+        out.getWriter().print(JSON.toJSONString(response));
     }
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
@@ -80,7 +80,7 @@ public class QuestionsController extends BaseController {
         out.setContentType("text/html; charset=utf-8");
         response.Status = true;
         response.Result = _service.Get(id);
-        out.getWriter().print(gson.toJson(response));
+        out.getWriter().print(JSON.toJSONString(response));
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -109,7 +109,7 @@ public class QuestionsController extends BaseController {
             response.Message = e.getMessage();
         }
 
-        out.getWriter().print(gson.toJson(response));
+        out.getWriter().print(JSON.toJSONString(response));
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -136,7 +136,7 @@ public class QuestionsController extends BaseController {
             response.Message = e.getMessage();
         }
 
-        out.getWriter().print(gson.toJson(response));
+        out.getWriter().print(JSON.toJSONString(response));
     }
 
     /**
@@ -156,7 +156,7 @@ public class QuestionsController extends BaseController {
             response.Message = e.getMessage();
         }
 
-        out.getWriter().print(gson.toJson(response));
+        out.getWriter().print(JSON.toJSONString(response));
     }
 
     /**
@@ -176,7 +176,7 @@ public class QuestionsController extends BaseController {
             response.Message = e.getMessage();
         }
 
-        out.getWriter().print(gson.toJson(response));
+        out.getWriter().print(JSON.toJSONString(response));
     }
 
     @ResponseBody
@@ -194,7 +194,7 @@ public class QuestionsController extends BaseController {
             response.Message = e.getMessage();
         }
 
-        out.getWriter().print(gson.toJson(response));
+        out.getWriter().print(JSON.toJSONString(response));
     }
 
     /**
@@ -214,7 +214,7 @@ public class QuestionsController extends BaseController {
             response.Message = e.getMessage();
         }
 
-        out.getWriter().print(gson.toJson(response));
+        out.getWriter().print(JSON.toJSONString(response));
     }
 
     /**
@@ -234,7 +234,7 @@ public class QuestionsController extends BaseController {
             response.Message = e.getMessage();
         }
 
-        out.getWriter().print(gson.toJson(response));
+        out.getWriter().print(JSON.toJSONString(response));
     }
 
 
@@ -245,7 +245,7 @@ public class QuestionsController extends BaseController {
         response.Status = true;
         response.Result = _service.getbyuser(uid, index, size);
 
-        out.getWriter().print(gson.toJson(response));
+        out.getWriter().print(JSON.toJSONString(response));
     }
 
 
@@ -256,7 +256,7 @@ public class QuestionsController extends BaseController {
         response.Status = true;
         response.Result = _service.getByUserAnswer(uid, index, size);
 
-        out.getWriter().print(gson.toJson(response));
+        out.getWriter().print(JSON.toJSONString(response));
     }
 
 }

@@ -1,12 +1,10 @@
 package com.yubao.dao;
 
-import com.util.temp.AnswerViewModel;
-import com.util.temp.QuestionViewModel;
+import com.yubao.util.temp.AnswerViewModel;
 import com.yubao.model.Answer;
 import com.yubao.model.AnswerExample;
 import java.util.List;
 
-import com.yubao.model.QuestionExample;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

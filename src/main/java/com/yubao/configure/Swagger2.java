@@ -1,4 +1,4 @@
-package com.configure;
+package com.yubao.configure;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,10 +21,10 @@ public class Swagger2 {
 				.paths(PathSelectors.any())
 				.build();
 	}
-	
+
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
-				.title("yubaolee_qa")
+				.title("openauth.qa")
 				.version("1.0")
 				.build();
 	}

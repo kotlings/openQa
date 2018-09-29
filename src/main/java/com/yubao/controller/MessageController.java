@@ -1,18 +1,14 @@
 package com.yubao.controller;
 
-import com.google.gson.Gson;
-import com.util.Response;
-import com.yubao.service.LoginService;
+import com.alibaba.fastjson.JSON;
+import com.yubao.util.Response;
 import com.yubao.service.MessageService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -40,7 +36,7 @@ public class MessageController {
         } catch (Exception e) {
             response.Message = e.getMessage();
         }
-        out.getWriter().print(new Gson().toJson(response));
+        out.getWriter().print(JSON.toJSONString(response));
     }
 
     @ResponseBody
@@ -54,7 +50,7 @@ public class MessageController {
         } catch (Exception e) {
             response.Message = e.getMessage();
         }
-        out.getWriter().print(new Gson().toJson(response));
+        out.getWriter().print(JSON.toJSONString(response));
     }
 
     @ResponseBody
@@ -68,6 +64,6 @@ public class MessageController {
         } catch (Exception e) {
             response.Message = e.getMessage();
         }
-        out.getWriter().print(new Gson().toJson(response));
+        out.getWriter().print(JSON.toJSONString(response));
     }
 }

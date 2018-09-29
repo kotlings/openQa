@@ -1,21 +1,19 @@
 package com.yubao.controller;
 
-import com.util.Const;
-import com.util.MD5;
-import com.util.Response;
-import com.util.temp.UserViewModel;
+import com.alibaba.fastjson.JSON;
+import com.yubao.util.Const;
+import com.yubao.util.MD5;
+import com.yubao.util.Response;
+import com.yubao.util.temp.UserViewModel;
 import com.yubao.model.User;
 import com.yubao.service.LoginService;
 import com.yubao.service.UserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,11 +27,9 @@ import java.io.IOException;
 public class UserController extends BaseController {
 
     @Autowired
-    @Qualifier("userService")
     UserService userService;
 
     @Autowired
-    @Qualifier("loginfService")
     LoginService loginfService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -85,7 +81,7 @@ public class UserController extends BaseController {
             resp.Result = UserViewModel.From(user);
         }
 
-        out.getWriter().print(gson.toJson(resp));
+        out.getWriter().print(JSON.toJSONString(resp));
     }
 
     @ResponseBody
@@ -102,7 +98,7 @@ public class UserController extends BaseController {
             resp.Result = UserViewModel.From(user);
         }
 
-        out.getWriter().print(gson.toJson(resp));
+        out.getWriter().print(JSON.toJSONString(resp));
     }
 
     @ResponseBody
@@ -122,7 +118,7 @@ public class UserController extends BaseController {
             response.Status = false;
             response.Message = e.getMessage();
         }
-        out.getWriter().print(gson.toJson(response));
+        out.getWriter().print(JSON.toJSONString(response));
     }
 
     @ResponseBody
@@ -140,7 +136,7 @@ public class UserController extends BaseController {
             response.Status = false;
             response.Message = e.getMessage();
         }
-        out.getWriter().print(gson.toJson(response));
+        out.getWriter().print(JSON.toJSONString(response));
     }
 
     @ResponseBody
@@ -150,6 +146,6 @@ public class UserController extends BaseController {
         response.Status = true;
         response.Result = userService.Get(key, index, size);
 
-        out.getWriter().print(gson.toJson(response));
+        out.getWriter().print(JSON.toJSONString(response));
     }
 }

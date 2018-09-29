@@ -1,4 +1,4 @@
-package com.util;
+package com.yubao.util;
 
 import sun.misc.BASE64Encoder;
 

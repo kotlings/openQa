@@ -1,6 +1,6 @@
 package com.yubao.dao;
 
-import com.util.temp.QuestionViewModel;
+import com.yubao.util.temp.QuestionViewModel;
 import com.yubao.model.Question;
 import com.yubao.model.QuestionExample;
 import java.util.List;

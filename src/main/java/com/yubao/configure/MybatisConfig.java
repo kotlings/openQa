@@ -1,8 +1,7 @@
-package com.configure;
+package com.yubao.configure;
 
 import java.util.Properties;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -19,7 +18,7 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 
 import com.github.pagehelper.PageHelper;
 @Configuration
-@MapperScan("com")
+@MapperScan("com.yubao.dao")
 public class MybatisConfig implements TransactionManagementConfigurer {
 	
 	@Bean(name = "dataSource")
