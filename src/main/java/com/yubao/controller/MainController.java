@@ -1,10 +1,12 @@
 package com.yubao.controller;
 
 import com.yubao.service.SysconfService;
+import com.yubao.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
@@ -32,16 +34,43 @@ public class MainController {
 	 * @return
 	 */
     @RequestMapping(value = "/getversion", method = RequestMethod.GET)
-    public ModelAndView GetVersion() {
-        ModelAndView modelAndView = new ModelAndView("version");
-        modelAndView.addObject("version", sysconfigservice.getVersion());
-        modelAndView.addObject("download", sysconfigservice.getDownload());
-        return modelAndView;
+    @ResponseBody
+    public Response GetVersion() {
+        Version v = new Version();
+        v.setVersion(sysconfigservice.getVersion());
+        v.setDownload(sysconfigservice.getDownload());
+        Response response = new Response();
+        response.Status = true;
+        response.Result = v;
+        return response;
     }
 
     @RequestMapping(value="/addDownload", method = RequestMethod.POST)
     public void AddDownload(PrintWriter out) throws IOException {
     	sysconfigservice.addDownload();
         out.print("ok");
+    }
+
+    class Version{
+        private String version;
+
+        public String getVersion() {
+            return version;
+        }
+
+        public void setVersion(String version) {
+            this.version = version;
+        }
+
+        public int getDownload() {
+            return download;
+        }
+
+        public void setDownload(int download) {
+            this.download = download;
+        }
+
+        private int download;
+
     }
 }
