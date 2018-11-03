@@ -1,6 +1,6 @@
 package com.yubao.dao;
 
-import com.yubao.util.temp.AnswerViewModel;
+import com.yubao.response.AnswerViewModel;
 import com.yubao.model.Answer;
 import com.yubao.model.AnswerExample;
 import java.util.List;

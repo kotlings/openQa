@@ -21,18 +21,11 @@ public class LoginService {
     UserService userService;
 
     public User get() {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
 
-                if (cookie.getName().equals(Const.COOKIE_LOGIN_USER)) {
-                    String id = cookie.getValue();
-                    if(id != null && !id.equals("")){
-                        User user = userService.selectByPrimaryKey(id);
-                        return user;
-                    }
-                }
-            }
+        String id = request.getHeader("X-Token");
+        if(id != null && !id.equals("")){
+            User user = userService.selectByPrimaryKey(id);
+            return user;
         }
         return null;
     }

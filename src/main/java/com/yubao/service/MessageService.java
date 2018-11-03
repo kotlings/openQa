@@ -1,6 +1,6 @@
 package com.yubao.service;
 
-import com.yubao.util.temp.PageObject;
+import com.yubao.response.PageObject;
 import com.yubao.dao.MessageMapper;
 import com.yubao.model.*;
 

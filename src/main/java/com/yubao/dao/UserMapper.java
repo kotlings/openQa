@@ -1,5 +1,6 @@
 package com.yubao.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yubao.model.User;
 import com.yubao.model.UserExample;
 import java.util.List;
@@ -7,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserMapper {
+public interface UserMapper extends BaseMapper<User> {
     int countByExample(UserExample example);
 
     int deleteByExample(UserExample example);

@@ -1,6 +1,6 @@
 package com.yubao.controller;
 
-import com.yubao.util.Response;
+import com.yubao.response.Response;
 
 /**
  * Created by Administrator on 2016-11-30.

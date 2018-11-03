@@ -1,13 +1,12 @@
 package com.yubao.controller;
 
 import com.yubao.service.SysconfService;
-import com.yubao.util.Response;
+import com.yubao.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,8 +39,7 @@ public class MainController {
         v.setVersion(sysconfigservice.getVersion());
         v.setDownload(sysconfigservice.getDownload());
         Response response = new Response();
-        response.Status = true;
-        response.Result = v;
+        response.data = v;
         return response;
     }
 

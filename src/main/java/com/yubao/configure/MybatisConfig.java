@@ -39,7 +39,7 @@ public class MybatisConfig implements TransactionManagementConfigurer {
         properties.setProperty("rowBoundsWithCount", "true");
         properties.setProperty("reasonable", "true");
         properties.setProperty("supportMethodsArguments", "true");
-        properties.setProperty("returnPageInfo", "check");
+        properties.setProperty("returnPageInfo", "login");
         properties.setProperty("params", "pageNum=page;pageSize=rows;orderBy=orderBy");
         pageHelper.setProperties(properties);
         sqlSessionFactoryBean.setPlugins(new Interceptor[]{pageHelper});

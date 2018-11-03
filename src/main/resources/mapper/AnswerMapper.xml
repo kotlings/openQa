@@ -75,7 +75,7 @@
   </sql>
 
 
-  <resultMap type="com.yubao.util.temp.AnswerViewModel" id="answervmmapper">
+  <resultMap type="com.yubao.response.AnswerViewModel" id="answervmmapper">
     <id column="Id" property="id" jdbcType="VARCHAR" />
     <result column="Content" property="content" jdbcType="VARCHAR" />
     <result column="SupportCnt" property="supportcnt" jdbcType="INTEGER" />
@@ -85,7 +85,7 @@
     <result column="UserId" property="userid" jdbcType="VARCHAR" />
     <result column="accept" property="accept" jdbcType="INTEGER" />
     <result column="praise" property="praise" jdbcType="INTEGER" />
-    <association property="user" column="UserId" javaType="com.yubao.util.temp.UserViewModel">
+    <association property="user" column="UserId" javaType="com.yubao.response.UserViewModel">
       <id column="UserId" property="id" jdbcType="VARCHAR" />
       <result column="name" property="name" jdbcType="VARCHAR" />
       <result column="rmb" property="rmb" jdbcType="INTEGER" />

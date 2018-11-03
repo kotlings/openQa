@@ -3,6 +3,7 @@ package com.yubao.controller;
 import com.alibaba.fastjson.JSON;
 import com.yubao.model.User;
 import com.yubao.service.LoginService;
+import com.yubao.util.ResultConstCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.Response;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -29,14 +31,14 @@ public class ApiController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public void upload(HttpServletRequest request,
-                    HttpServletResponse out) throws IOException {
+    public com.yubao.response.Response upload(HttpServletRequest request,
+                                              HttpServletResponse out) throws IOException {
         out.setContentType("text/html; charset=utf-8");
         User user = loginService.get();
         if(user ==  null)
         {
-            response.Status = false;
-            response.Message ="亲！登个录先~~";
+            response.code = ResultConstCode.ERROR_500;
+            response.message ="亲！登个录先~~";
         }
         else{
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
@@ -51,18 +53,15 @@ public class ApiController extends BaseController {
             orginalFile.transferTo(newFile);
 
 
-            response.Status = true;
-            response.Message = "操作成功";
-
             String url ="http://" +request.getServerName();
             if(request.getServerPort() != 80)
             {
                 url += ":" +request.getServerPort();
             }
-            response.Result = url + "/upload/" +filename;
+            response.data = url + "/upload/" +filename;
         }
 
-        out.getWriter().print(JSON.toJSONString(response));
+        return response;
     }
 
     private String format(String oldFilename){

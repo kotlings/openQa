@@ -1,7 +1,9 @@
 package com.yubao.service;
 
-import com.yubao.util.temp.PageObject;
-import com.yubao.util.temp.QuestionViewModel;
+import com.yubao.request.AddAnswerRequest;
+import com.yubao.request.QuestionListReq;
+import com.yubao.response.PageObject;
+import com.yubao.response.QuestionViewModel;
 import com.yubao.dao.AnswerMapper;
 import com.yubao.dao.QuestionMapper;
 import com.yubao.dao.UserMapper;
@@ -33,7 +35,11 @@ public class QuestionService {
 	@Autowired
     MessageService _msgService;
 
-    public PageObject<QuestionViewModel> Get(String key, String type, int index, int size) {
+        public PageObject<QuestionViewModel> queryList(QuestionListReq req) {
+            int index = req.getIndex();
+            int size = req.getSize();
+            String type = req.getType();
+            String key = req.getKey();
         if(index == 0) index = 1;
         if(size ==0) size = 10;
         if(type == null) type="";
@@ -190,18 +196,11 @@ public class QuestionService {
         return obj;
     }
 
-    public PageObject<QuestionViewModel> getHot(String key, int index, int size) {
-        if(index == 0) index = 1;
-        if(size ==0) size = 10;
-
+    public PageObject<QuestionViewModel> getHot() {
+            int index = 1;
+            int size = 10;
         QuestionExample exp = new QuestionExample();
         exp.setOrderByClause("hits desc,time desc");
-
-        if(key != null && !key.equals(""))
-        {
-            QuestionExample.Criteria criteria = exp.createCriteria();
-            criteria.andTitleLike(key);
-        }
 
         PageObject<QuestionViewModel> obj = new PageObject<QuestionViewModel>();
         obj.size = size;
@@ -218,18 +217,18 @@ public class QuestionService {
         return obj;
     }
 
-    public String addAnswer(String jid, String content) throws Exception {
+    public String addAnswer(AddAnswerRequest request) throws Exception {
         User user = checkLogin();
-        String id = addAnswer(jid, content, user);
+        String id = addAnswer(request.getJid(), request.getContent(), user);
 
         user.setAnswercnt(user.getAnswercnt() + 1);
         _userMapper.updateByPrimaryKey(user);
 
         QuestionExample exp = new QuestionExample();
         QuestionExample.Criteria criteria = exp.createCriteria();
-        criteria.andIdEqualTo(jid);
+        criteria.andIdEqualTo(request.getJid());
 
-        Question question = _mapper.selectByPrimaryKey(jid);
+        Question question = _mapper.selectByPrimaryKey(request.getJid());
         question.setComment(question.getComment() + 1);
         _mapper.updateByExampleSelective(question, exp);
 

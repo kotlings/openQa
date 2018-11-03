@@ -1,8 +1,9 @@
 package com.yubao.service;
 
+import com.yubao.request.LoginRequest;
 import com.yubao.util.MD5;
-import com.yubao.util.temp.PageObject;
-import com.yubao.util.temp.UserViewModel;
+import com.yubao.response.PageObject;
+import com.yubao.response.UserViewModel;
 import com.yubao.dao.UserMapper;
 import com.yubao.model.User;
 import com.yubao.model.UserExample;
@@ -50,16 +51,16 @@ public class UserService {
         return userMapper.insert(record);
     }
 
-    public  User check(String account,String pwd) throws Exception {
+    public  User login(LoginRequest request) throws Exception {
         UserExample exp = new UserExample();
         UserExample.Criteria criteria = exp.createCriteria();
-        criteria.andAccountEqualTo(account);
+        criteria.andAccountEqualTo(request.getAccount());
 
         List<User> user = selectByExample(exp);
         if(user.isEmpty())
             throw new Exception("用户不存在");
 
-        String md5pwd = MD5.Encode(pwd);
+        String md5pwd = MD5.Encode(request.getPwd());
         if(!user.get(0).getPwd().equals(md5pwd))
         {
             throw new Exception("密码错误");
@@ -95,18 +96,14 @@ public class UserService {
         return userMapper.updateByPrimaryKey(record);
     }
 
-    public PageObject<UserViewModel> Get(String key, int index, int size) {
-        if(index == 0) index = 1;
-        if(size ==0) size = 10;
+    public PageObject<UserViewModel> GetNew() {
+        int index = 1;
+        int size = 12;
 
         UserExample exp = new UserExample();
 
         exp.setOrderByClause("createtime desc");
-        if(key != null && !key.equals(""))
-        {
-            UserExample.Criteria criteria = exp.createCriteria();
-            criteria.andNameEqualTo(key);
-        }
+
 
         PageObject<UserViewModel> obj = new PageObject<UserViewModel>();
         obj.size = size;

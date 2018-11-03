@@ -1,15 +1,16 @@
 package com.yubao.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.yubao.util.Response;
+import com.yubao.model.Message;
+import com.yubao.response.Response;
 import com.yubao.service.MessageService;
+import com.yubao.util.ResultConstCode;
+import com.yubao.response.PageObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -25,45 +26,45 @@ public class MessageController {
 
     @ResponseBody
     @RequestMapping(value = "/get", method = RequestMethod.POST)
-    public void get(String key, int index, int size,
-                       HttpServletResponse out) throws IOException {
-        out.setContentType("text/html; charset=utf-8");
-        Response response = new Response();
+    public Response<PageObject<Message>> get(String key, int index, int size) throws IOException {
+        Response<PageObject<Message>> response = new Response();
         try {
-            response.Status = true;
-            response.Result = messageService.get(key, index, size);
+            response.data = messageService.get(key, index, size);
 
         } catch (Exception e) {
-            response.Message = e.getMessage();
+            response.code = ResultConstCode.ERROR_500;
+            response.message = e.getMessage();
         }
-        out.getWriter().print(JSON.toJSONString(response));
+        return response;
     }
 
     @ResponseBody
     @RequestMapping(value = "/del", method = RequestMethod.POST)
-    public void del(String id, HttpServletResponse out) throws IOException {
-        out.setContentType("text/html; charset=utf-8");
-        Response response = new Response();
+    public Response<Boolean> del(String id) throws IOException {
+        Response<Boolean> response = new Response();
         try {
-        	messageService.del(id);
-            response.Status = true;
+            messageService.del(id);
+
         } catch (Exception e) {
-            response.Message = e.getMessage();
+            response.code = ResultConstCode.ERROR_500;
+            response.message = e.getMessage();
         }
-        out.getWriter().print(JSON.toJSONString(response));
+        return response;
+
     }
 
     @ResponseBody
     @RequestMapping(value = "/clear", method = RequestMethod.POST)
-    public void clear(HttpServletResponse out) throws IOException {
-        out.setContentType("text/html; charset=utf-8");
-        Response response = new Response();
+    public Response<Boolean> clear() throws IOException {
+        Response<Boolean> response = new Response();
         try {
-        	messageService.delall();
-            response.Status = true;
+            messageService.delall();
+
         } catch (Exception e) {
-            response.Message = e.getMessage();
+            response.code = ResultConstCode.ERROR_500;
+            response.message = e.getMessage();
         }
-        out.getWriter().print(JSON.toJSONString(response));
+        return response;
+
     }
 }
