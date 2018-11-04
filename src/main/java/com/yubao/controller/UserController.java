@@ -11,6 +11,7 @@ import com.yubao.response.UserViewModel;
 import com.yubao.model.User;
 import com.yubao.service.LoginService;
 import com.yubao.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,13 +46,11 @@ public class UserController extends BaseController {
         return "clubindex";
     }
 
-    /**
-     * 获取登陆的用户
-     * @throws IOException
-     */
+
     @ResponseBody
-    @RequestMapping(value = "/getuser", method = RequestMethod.GET)
-    public Response<UserViewModel> getUser() throws IOException {
+    @RequestMapping(value = "/getLoginUser", method = RequestMethod.GET)
+    @ApiOperation(httpMethod = "GET", value = "获取登陆的用户")
+    public Response<UserViewModel> getLoginUser() throws IOException {
         Response<UserViewModel> response = new Response();
         try {
             User user = loginfService.get();

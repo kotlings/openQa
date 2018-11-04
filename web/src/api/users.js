@@ -11,6 +11,13 @@ export function login(username, password) {
   })
 }
 
+export function getLoginUser() {
+  return request({
+    url: '/user/getLoginUser',
+    method: 'get'
+  })
+}
+
 export function getById(params) {
   return request({
     url: '/user/getbyid',

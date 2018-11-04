@@ -1,4 +1,4 @@
-import { login, getById, logout } from '@/api/users'
+import { login, getLoginUser, logout } from '@/api/users'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
@@ -34,7 +34,7 @@ const user = {
     // 获取用户信息
     getLoginUser({ commit }) {
       return new Promise((resolve, reject) => {
-        getById({uid:getToken()}).then(response => {
+        getLoginUser().then(response => {
           const data = response.data
           commit('SET_USER', data)
           resolve()
