@@ -4,6 +4,7 @@ import com.yubao.response.PageObject;
 import com.yubao.dao.MessageMapper;
 import com.yubao.model.*;
 
+import com.yubao.response.UserViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +48,7 @@ public class MessageService {
     }
 
     public PageObject<Message> get(String key, int index, int size) throws Exception {
-        User user = _loginService.get();
+        UserViewModel user = _loginService.get();
         if(user == null)
             throw new Exception("亲！等个录先~~");
 
@@ -82,7 +83,7 @@ public class MessageService {
 
     public void delall() throws Exception {
         MessageExample exp = new MessageExample();
-        User user = _loginService.get();
+        UserViewModel user = _loginService.get();
         if(user == null)
             throw new Exception("亲！等个录先~~");
 

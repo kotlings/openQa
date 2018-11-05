@@ -1,5 +1,6 @@
 package com.yubao.service;
 
+import com.yubao.response.UserViewModel;
 import com.yubao.util.Const;
 import com.yubao.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by Administrator on 2016-12-04.
+ * 从缓存中读取用户信息
  */
 @Service
 public class LoginService {
@@ -20,12 +21,14 @@ public class LoginService {
     @Autowired
     UserService userService;
 
-    public User get() {
+    @Autowired
+    CacheService cacheService;
 
-        String id = request.getHeader("X-Token");
-        if(id != null && !id.equals("")){
-            User user = userService.selectByPrimaryKey(id);
-            return user;
+    public UserViewModel get() {
+
+        String token = request.getHeader("X-Token");
+        if(token != null && !token.equals("")){
+            return cacheService.get(token);
         }
         return null;
     }

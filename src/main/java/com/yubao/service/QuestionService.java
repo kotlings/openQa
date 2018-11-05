@@ -9,6 +9,7 @@ import com.yubao.dao.QuestionMapper;
 import com.yubao.dao.UserMapper;
 import com.yubao.model.*;
 
+import com.yubao.response.UserViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -78,7 +79,7 @@ public class QuestionService {
     }
 
     public String add(Question question) throws Exception {
-        User user = checkLogin();
+       UserViewModel user = checkLogin();
         String id = UUID.randomUUID().toString();
         question.setUserid(user.getId());
         question.setTime(new Date());
@@ -94,7 +95,7 @@ public class QuestionService {
     }
 
     public void del(String id) throws Exception {
-        User user = checkLogin();
+       UserViewModel user = checkLogin();
         if(user.getAuth() != 1)
         {
             throw new Exception("哇偶！快联系站长删除");
@@ -104,7 +105,7 @@ public class QuestionService {
     }
 
     public void set(String id, String field, int rank) throws Exception {
-        User user = checkLogin();
+       UserViewModel user = checkLogin();
         if(user.getAuth() != 1 && user.getAuth() != 2)
         {
             throw new Exception("哇偶！这是站长那帮人干的事");
@@ -129,7 +130,7 @@ public class QuestionService {
     }
 
     public void delAnswer(String id) throws Exception {
-        User user = checkLogin();
+       UserViewModel user = checkLogin();
         if(user.getAuth() != 1)
         {
             throw new Exception("哇偶！快联系站长删除");
@@ -139,20 +140,20 @@ public class QuestionService {
     }
 
     public void accept(String id) throws Exception {
-        User user = checkLogin();
+       UserViewModel loginuser = checkLogin();
         Answer answer = _answerMapper.selectByPrimaryKey(id);
 
-        if(user.getAuth() != 1 &&user.getAuth()!= 2 && answer.getUserid() == user.getId() )
+        if(loginuser.getAuth() != 1 &&loginuser.getAuth()!= 2 && answer.getUserid() == loginuser.getId() )
         {
             throw new Exception("哇偶！你无权干涉这个问题");
         }
 
         Question question = _mapper.selectByPrimaryKey(answer.getAnswerto());
         question.setAccept(answer.getId());
-
         _mapper.updateByPrimaryKey(question);
 
-        user.setExperience(user.getExperience() + question.getExperience());
+        User user = _userMapper.selectByPrimaryKey(loginuser.getId());
+        user.setExperience(loginuser.getExperience() + question.getExperience());
         _userMapper.updateByPrimaryKey(user);
     }
 
@@ -218,10 +219,11 @@ public class QuestionService {
     }
 
     public String addAnswer(AddAnswerRequest request) throws Exception {
-        User user = checkLogin();
-        String id = addAnswer(request.getJid(), request.getContent(), user);
+       UserViewModel loginUser = checkLogin();
+        String id = addAnswer(request.getJid(), request.getContent(), loginUser);
 
-        user.setAnswercnt(user.getAnswercnt() + 1);
+        User user = _userMapper.selectByPrimaryKey(loginUser.getId());
+        user.setAnswercnt(loginUser.getAnswercnt() + 1);
         _userMapper.updateByPrimaryKey(user);
 
         QuestionExample exp = new QuestionExample();
@@ -237,7 +239,7 @@ public class QuestionService {
 
     }
 
-    private String addAnswer(String jid, String content, User user) {
+    private String addAnswer(String jid, String content, UserViewModel user) {
         String id = UUID.randomUUID().toString();
         Answer answer = new Answer();
         answer.setId(id);
@@ -262,8 +264,8 @@ public class QuestionService {
 
 
 
-    private User checkLogin() throws Exception {
-        User user = loginService.get();
+    private UserViewModel checkLogin() throws Exception {
+        UserViewModel user = loginService.get();
         if(user == null){
             throw new Exception("请先登录");
         }

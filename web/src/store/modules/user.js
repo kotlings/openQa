@@ -21,10 +21,10 @@ const user = {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then(response => {
-          const data = response.data
-          setToken(data.id)
-          commit('SET_TOKEN', data.id)
-          commit('SET_USER', data)
+          const token = response.data
+          setToken(token)
+          commit('SET_TOKEN', token)
+          // commit('SET_USER', data)
           resolve()
         }).catch(error => {
           reject(error)

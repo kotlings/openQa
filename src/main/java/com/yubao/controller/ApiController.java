@@ -2,6 +2,7 @@ package com.yubao.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.yubao.model.User;
+import com.yubao.response.UserViewModel;
 import com.yubao.service.LoginService;
 import com.yubao.util.ResultConstCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class ApiController extends BaseController {
     public com.yubao.response.Response upload(HttpServletRequest request,
                                               HttpServletResponse out) throws IOException {
         out.setContentType("text/html; charset=utf-8");
-        User user = loginService.get();
+        UserViewModel user = loginService.get();
         if(user ==  null)
         {
             response.code = ResultConstCode.ERROR_500;

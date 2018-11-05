@@ -2,6 +2,7 @@ package com.yubao.controller;
 
 import com.yubao.request.LoginRequest;
 import com.yubao.request.QuestionListReq;
+import com.yubao.service.CacheService;
 import com.yubao.util.Const;
 import com.yubao.util.MD5;
 import com.yubao.response.Response;
@@ -11,6 +12,7 @@ import com.yubao.response.UserViewModel;
 import com.yubao.model.User;
 import com.yubao.service.LoginService;
 import com.yubao.service.UserService;
+import com.yubao.util.UuidUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +38,9 @@ public class UserController extends BaseController {
     @Autowired
     LoginService loginfService;
 
+    @Autowired
+    CacheService cacheService;
+
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletResponse out) {
@@ -53,12 +58,12 @@ public class UserController extends BaseController {
     public Response<UserViewModel> getLoginUser() throws IOException {
         Response<UserViewModel> response = new Response();
         try {
-            User user = loginfService.get();
+            UserViewModel user = loginfService.get();
             if(user == null){
                 response.code = ResultConstCode.ERROR_500;
                 response.data = null;
             }else{
-                response.data = UserViewModel.From(user);
+                response.data =user;
             }
 
         } catch (Exception e) {
@@ -109,11 +114,14 @@ public class UserController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Response<UserViewModel> login(@RequestBody LoginRequest loginRequest) throws IOException {
-        Response<UserViewModel> response = new Response();
+    public Response<String> login(@RequestBody LoginRequest loginRequest) throws IOException {
+        Response<String> response = new Response();
         try {
             User u = userService.login(loginRequest);
-            response.data = UserViewModel.From(u);
+            UserViewModel userVM = UserViewModel.From(u);
+            String token = UuidUtil.getUUID();
+            cacheService.create(token, userVM);
+            response.data = token;
         } catch (Exception e) {
             response.code = ResultConstCode.ERROR_500;
             response.message = e.getMessage();
