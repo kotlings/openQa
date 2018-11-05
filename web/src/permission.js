@@ -10,6 +10,9 @@ router.beforeEach((to, from, next) => {
     if(store.getters.user.id == undefined){  //登录了，但没有用户信息？页面被刷新了
       store.dispatch('getLoginUser').then(() => { 
         next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
+      }).catch(error=>{   //有token，但没能在服务器上取到用户信息
+        store.dispatch('logout')
+        next('/login')
       })
     }
     if (to.path === '/login') {

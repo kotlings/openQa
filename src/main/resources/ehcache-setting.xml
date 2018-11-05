@@ -3,5 +3,5 @@
     <cache name="token"
     eternal="false"
     maxEntriesLocalHeap="0"
-    timeToIdleSeconds="200"/>
+    timeToIdleSeconds="3600"/>
 </ehcache>
