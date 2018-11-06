@@ -5,13 +5,18 @@ import com.yubao.model.User;
 import com.yubao.response.UserViewModel;
 import com.yubao.service.LoginService;
 import com.yubao.util.ResultConstCode;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,12 +34,13 @@ import java.util.Date;
 public class ApiController extends BaseController {
     @Autowired
     LoginService loginService;
+    @Autowired
+    HttpServletRequest request;
 
     @ResponseBody
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public com.yubao.response.Response upload(HttpServletRequest request,
-                                              HttpServletResponse out) throws IOException {
-        out.setContentType("text/html; charset=utf-8");
+    @ApiOperation(value = "文件上传", httpMethod = "POST")
+    public com.yubao.response.Response upload(@RequestParam("file") MultipartFile file) throws IOException {
         UserViewModel user = loginService.get();
         if(user ==  null)
         {
@@ -42,16 +48,11 @@ public class ApiController extends BaseController {
             response.message ="亲！登个录先~~";
         }
         else{
-            MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-            CommonsMultipartFile orginalFile = (CommonsMultipartFile) multipartRequest
-                    .getFile("file");// 表单中对应的文件名；
-
-            String filename = format(orginalFile.getOriginalFilename());  //服务器上的文件名
-
+            String filename = format(file.getOriginalFilename());  //服务器上的文件名
             String path = request.getRealPath("/upload") +"/"+ filename;  //linux不能用\\
             File newFile=new File(path);
             //通过CommonsMultipartFile的方法直接写文件（注意这个时候）
-            orginalFile.transferTo(newFile);
+            file.transferTo(newFile);
 
 
             String url ="http://" +request.getServerName();
