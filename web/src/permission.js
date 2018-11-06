@@ -6,27 +6,20 @@ import {
 
 const needLoginList = ['/question/add'] // 需要登录的页面
 router.beforeEach((to, from, next) => {
-  if (getToken()) {  //登录后，随便跑
-    if(store.getters.user.id == undefined){  //登录了，但没有用户信息？页面被刷新了
-      store.dispatch('getLoginUser').then(() => { 
-        next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
-      }).catch(error=>{   //有token，但没能在服务器上取到用户信息
-        store.dispatch('logout')
-        next('/login')
-      })
-    }
-    if (to.path === '/login') {
-      next({
-        path: '/'
-      })
-    } else {
+
+  if(getToken() && store.getters.user.loginState == null){  //登录了，但还没有获取用户信息
+    store.dispatch('getLoginUser').catch(error=>{
+      store.dispatch('logout')  //获取失败，则删除token
+    })
+  }
+
+  if (needLoginList.indexOf(to.path) == -1) {  //不需要登录的页面，直接跳过
+    if(store.getters.user.loginState != null && to.path === '/login'){  //已经登录再进登录页面，会直接跳转到主页
+      next({path:'/'})
+    }else{
       next()
     }
-  } else {  //没有登录时
-    if (needLoginList.indexOf(to.path) == -1) {
-      next()
-    } else {
-      next('/login')
-    }
+  } else {
+    next('/login')
   }
 })

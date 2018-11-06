@@ -11,13 +11,13 @@
           <i class="iconfont icon-ui"></i>框架
         </a>
       </div>
-      <div v-if="user.token != undefined" class="nav-user">
+      <div v-if="checkLogin()" class="nav-user">
         <div id="view">
-          <!-- 登入后的状态 -->
-          <a class="avatar" :href="'/user/index?uid='+ user.id">
-            <img :src="'static/fly/images/avatar/'+user.pic" alt="" />
-            <cite>{{ user.name }}</cite>
-            <i v-if="user.rmb>0">Vip{{ user.rmb}}</i>
+          <!-- 成功登录，加载用户信息 -->
+          <a class="avatar" :href="'/user/index?uid='+ user.loginState.id">
+            <img :src="'static/fly/images/avatar/'+user.loginState.pic" alt="" />
+            <cite>{{ user.loginState.name }}</cite>
+            <i v-if="user.loginState.rmb>0">Vip{{ user.loginState.rmb}}</i>
           </a>
 
           <div class="nav">
@@ -58,6 +58,10 @@
         this.$store.dispatch('logout').then(() => {
           location.reload() // 为了重新实例化vue-router对象 避免bug
         })
+      },
+      checkLogin(){
+        //console.log(JSON.stringify(this.user))
+        return (this.user.loginState != null)
       }
     },
     computed: {

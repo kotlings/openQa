@@ -4,6 +4,7 @@ import { getToken, setToken, removeToken } from '@/utils/auth'
 const user = {
   state: {
     token: getToken(),
+    loginState:null
   },
 
   mutations: {
@@ -11,7 +12,8 @@ const user = {
       state.token = token
     },
     SET_USER: (state, user) => {
-      Object.assign(state, user)
+      state.loginState = user
+     // Object.assign(state.user, user)
     }
   },
 
@@ -43,19 +45,6 @@ const user = {
         })
       })
     },
-
-    // // 登出
-    // logout({ commit, state }) {
-    //   return new Promise((resolve, reject) => {
-    //     logout(state.token).then(() => {
-    //       commit('SET_TOKEN', '')
-    //       removeToken()
-    //       resolve()
-    //     }).catch(error => {
-    //       reject(error)
-    //     })
-    //   })
-    // },
 
     // 前端 登出
     logout({ commit }) {
