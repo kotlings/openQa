@@ -2,7 +2,9 @@ name: yuboolee
 server:
     contextPath: /
     port: 8889
-    
+
+appsettings:
+    picfilesport: 8887 #nginx中，上传的静态图片端口
     
 spring:
     cache:
