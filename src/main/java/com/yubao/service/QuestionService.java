@@ -1,6 +1,7 @@
 package com.yubao.service;
 
 import com.yubao.request.AddAnswerRequest;
+import com.yubao.request.QueryQuestionsByUser;
 import com.yubao.request.QuestionListReq;
 import com.yubao.response.PageObject;
 import com.yubao.response.QuestionViewModel;
@@ -117,11 +118,11 @@ public class QuestionService {
 
         Question question = _mapper.selectByPrimaryKey(id);
 
-        if(field.equals("stick"))
+        if(field.equals("stick"))  //置顶
         {
             question.setStick(rank);
         }
-        else if(field.equals("status"))
+        else if(field.equals("status")) //精贴
         {
             question.setStatus(rank);
         }
@@ -157,7 +158,8 @@ public class QuestionService {
         _userMapper.updateByPrimaryKey(user);
     }
 
-    public PageObject<QuestionViewModel> getbyuser(String uid, int index, int size) {
+    public PageObject<QuestionViewModel> getbyuser(QueryQuestionsByUser request) {
+            int index = request.getIndex(), size = request.getSize();
         if(index == 0) index = 1;
         if(size ==0) size = 10;
 
@@ -165,7 +167,7 @@ public class QuestionService {
         exp.setOrderByClause("time desc");
 
         QuestionExample.Criteria criteria = exp.createCriteria();
-        criteria.andUseridEqualTo(uid);
+        criteria.andUseridEqualTo(request.getUid());
 
         PageObject<QuestionViewModel> obj = new PageObject<QuestionViewModel>();
         obj.size = size;
@@ -182,17 +184,18 @@ public class QuestionService {
         return obj;
     }
 
-    public PageObject<QuestionViewModel> getByUserAnswer(String uid, int index, int size) {
+    public PageObject<QuestionViewModel> getByUserAnswer(QueryQuestionsByUser request) {
+        int index = request.getIndex(), size = request.getSize();
         if(index == 0) index = 1;
         if(size ==0) size = 10;
 
         PageObject<QuestionViewModel> obj = new PageObject<QuestionViewModel>();
         obj.size = size;
         obj.index = index;
-        obj.setTotal(_mapper.countByUserAnswer(uid));
+        obj.setTotal(_mapper.countByUserAnswer(request.getUid()));
 
         int startindex = (index-1)*size;
-        obj.objects =_mapper.getByUserAnswer(uid, startindex, size);
+        obj.objects =_mapper.getByUserAnswer(request.getUid(), startindex, size);
 
         return obj;
     }

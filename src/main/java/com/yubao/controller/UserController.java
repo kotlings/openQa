@@ -75,6 +75,7 @@ public class UserController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/getbyid", method = RequestMethod.GET)
+    @ApiOperation(value = "获取用户的基本信息")
     public Response<UserViewModel> getbyid(String uid) throws IOException {
         Response<UserViewModel> response = new Response();
         try {
@@ -94,6 +95,7 @@ public class UserController extends BaseController {
     }
 
     @ResponseBody
+    @ApiOperation(value = "添加用户")
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public Response<Boolean> addUser(String name, String account, String pwd) throws IOException {
         Response<Boolean> response = new Response();
@@ -113,6 +115,7 @@ public class UserController extends BaseController {
     }
 
     @ResponseBody
+    @ApiOperation(value = "登录")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Response<String> login(@RequestBody LoginRequest loginRequest) throws IOException {
         Response<String> response = new Response();
@@ -131,6 +134,7 @@ public class UserController extends BaseController {
     }
 
     @ResponseBody
+    @ApiOperation(value = "获取最新注册的用户")
     @RequestMapping(value = "/getnew", method = RequestMethod.GET)
     public Response<PageObject<UserViewModel>> getnew() throws IOException {
         Response<PageObject<UserViewModel>> response = new Response<>();

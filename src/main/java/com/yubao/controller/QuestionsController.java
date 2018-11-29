@@ -2,6 +2,7 @@ package com.yubao.controller;
 
 import com.yubao.model.Question;
 import com.yubao.request.AddAnswerRequest;
+import com.yubao.request.QueryQuestionsByUser;
 import com.yubao.request.QuestionListReq;
 import com.yubao.service.LoginService;
 import com.yubao.service.QuestionService;
@@ -9,7 +10,11 @@ import com.yubao.response.Response;
 import com.yubao.util.ResultConstCode;
 import com.yubao.response.PageObject;
 import com.yubao.response.QuestionViewModel;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +39,7 @@ public class QuestionsController extends BaseController {
      * @param questionListReq@throws IOException
      */
     @ResponseBody
+    @ApiOperation(value = "贴子列表")
     @RequestMapping(value = "/queryList", method = RequestMethod.POST)
     public Response<PageObject<QuestionViewModel>> queryList(@RequestBody QuestionListReq questionListReq) {
 
@@ -49,10 +55,11 @@ public class QuestionsController extends BaseController {
     }
 
     /**
-     * 近期热门问题
+     * 近期热门贴子
      * @throws IOException
      */
     @ResponseBody
+    @ApiOperation(value = "近期热门贴子")
     @RequestMapping(value = "/gethot", method = RequestMethod.GET)
     public  Response<PageObject<QuestionViewModel>> getHot() throws IOException {
 
@@ -70,6 +77,7 @@ public class QuestionsController extends BaseController {
 
 
     @ResponseBody
+    @ApiOperation(value = "获取一个贴子的详细情况")
     @RequestMapping(value = "/getone", method = RequestMethod.GET)
     public Response<QuestionViewModel> getone( String id) throws IOException {
         Response<QuestionViewModel> response = new Response<>();
@@ -87,6 +95,7 @@ public class QuestionsController extends BaseController {
 
 
     @ResponseBody
+    @ApiOperation(value="发布一个贴子")
     @RequestMapping(value="add",method = RequestMethod.POST)
     public Response<String> add(@RequestBody Question question) throws IOException {
         Response<String> response = new Response<>();
@@ -104,6 +113,7 @@ public class QuestionsController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value="edit",method = RequestMethod.POST)
+    @ApiOperation(value = "修改贴子")
     public Response<Boolean> edit(@RequestBody Question question) throws IOException {
         Response<Boolean> response = new Response<>();
         try{
@@ -118,29 +128,30 @@ public class QuestionsController extends BaseController {
     }
 
     /**
-     * 删除问答
+     * 删除贴子
      */
     @ResponseBody
     @RequestMapping(value="del",method = RequestMethod.POST)
+    @ApiOperation(value = "删除贴子")
     public Response<Boolean> del(@RequestBody String id) throws IOException {
         Response<Boolean> response = new Response<>();
         try{
             _service.del(id);
-
         }catch(Exception e){
             response.code = ResultConstCode.ERROR_500;
             response.message = e.getMessage();
         }
-
         return response;
     }
 
-    /**
-     * 设置问题状态
-     */
     @ResponseBody
     @RequestMapping(value="set",method = RequestMethod.POST)
-    public Response<Boolean> set( String id, String field, int rank) throws IOException {
+    @ApiOperation(httpMethod = "POST", value = "管理员设置贴子的一些属性值，比如置顶状态、精贴")
+    public Response<Boolean> set( String id,
+                                  @ApiParam(value = "当为stick标识【置顶】，为status标识【精贴】")
+                                  String field,
+                                  @ApiParam(value = "1为设置，0为取消")
+                                  int rank) throws IOException {
         Response<Boolean> response = new Response<>();
         try {
             _service.set(id, field, rank);
@@ -154,6 +165,7 @@ public class QuestionsController extends BaseController {
     }
 
     @ResponseBody
+    @ApiOperation(value = "回答一个贴子")
     @RequestMapping(value="addAnswer",method = RequestMethod.POST)
     public Response<String> addAnswer(@RequestBody AddAnswerRequest addAnswerRequest) throws IOException {
         Response<String> response = new Response<>();
@@ -173,6 +185,7 @@ public class QuestionsController extends BaseController {
      * 删除回答
      */
     @ResponseBody
+    @ApiOperation(value="删除一个回复")
     @RequestMapping(value="delAnswer",method = RequestMethod.POST)
     public Response<Boolean> delAnswer( String id) throws IOException {
         Response<Boolean> response = new Response<>();
@@ -188,10 +201,8 @@ public class QuestionsController extends BaseController {
 
     }
 
-    /**
-     * 采纳
-     */
     @ResponseBody
+    @ApiOperation(value = "采纳一个回复为最优回复（即问题的答案）")
     @RequestMapping(value="accept",method = RequestMethod.POST)
     public Response<Boolean> accept( String id) throws IOException {
         Response<Boolean> response = new Response<>();
@@ -208,11 +219,12 @@ public class QuestionsController extends BaseController {
 
 
     @ResponseBody
+    @ApiOperation(value = "获取用户发的贴子")
     @RequestMapping(value = "/getbyuser", method = RequestMethod.GET)
-    public Response<PageObject<QuestionViewModel>> getbyuser( String uid, int index, int size) throws IOException {
+    public Response<PageObject<QuestionViewModel>> getbyuser(@RequestBody QueryQuestionsByUser request) throws IOException {
         Response<PageObject<QuestionViewModel>> response = new Response<>();
         try {
-            response.data = _service.getbyuser(uid, index, size);
+            response.data = _service.getbyuser(request);
 
         } catch (Exception e) {
             response.code = ResultConstCode.ERROR_500;
@@ -224,11 +236,12 @@ public class QuestionsController extends BaseController {
 
 
     @ResponseBody
+    @ApiOperation(value = "获取用户【回复过】的贴子")
     @RequestMapping(value = "/getbyuseranswer", method = RequestMethod.GET)
-    public Response<PageObject<QuestionViewModel>> getByUserAnswer( String uid, int index, int size) throws IOException {
+    public Response<PageObject<QuestionViewModel>> getByUserAnswer( @RequestBody QueryQuestionsByUser request) throws IOException {
         Response<PageObject<QuestionViewModel>> response = new Response<>();
         try {
-            response.data = _service.getByUserAnswer(uid, index, size);
+            response.data = _service.getByUserAnswer(request);
 
         } catch (Exception e) {
             response.code = ResultConstCode.ERROR_500;
