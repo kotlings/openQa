@@ -1,6 +1,7 @@
 package com.yubao.controller;
 
 import com.yubao.model.Message;
+import com.yubao.request.MsgListReq;
 import com.yubao.response.Response;
 import com.yubao.service.MessageService;
 import com.yubao.util.ResultConstCode;
@@ -26,10 +27,10 @@ public class MessageController {
 
     @ResponseBody
     @RequestMapping(value = "/get", method = RequestMethod.POST)
-    public Response<PageObject<Message>> get(String key, int index, int size) throws IOException {
+    public Response<PageObject<Message>> get(MsgListReq msgListReq) throws IOException {
         Response<PageObject<Message>> response = new Response();
         try {
-            response.data = messageService.get(key, index, size);
+            response.data = messageService.get(msgListReq);
 
         } catch (Exception e) {
             response.code = ResultConstCode.ERROR_500;

@@ -1,7 +1,7 @@
 package com.yubao.controller;
 
+import com.yubao.request.AddUserReq;
 import com.yubao.request.LoginRequest;
-import com.yubao.request.QuestionListReq;
 import com.yubao.service.CacheService;
 import com.yubao.util.Const;
 import com.yubao.util.MD5;
@@ -97,13 +97,13 @@ public class UserController extends BaseController {
     @ResponseBody
     @ApiOperation(value = "添加用户")
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    public Response<Boolean> addUser(String name, String account, String pwd) throws IOException {
+    public Response<Boolean> addUser(@RequestBody AddUserReq addUserReq) throws IOException {
         Response<Boolean> response = new Response();
         try {
             User user = new User();
-            user.setName(name);
-            user.setAccount(account);
-            user.setPwd(MD5.Encode(pwd));
+            user.setName(addUserReq.getName());
+            user.setAccount(addUserReq.getAccount());
+            user.setPwd(MD5.Encode(addUserReq.getPwd()));
 
             userService.insert(user);
 

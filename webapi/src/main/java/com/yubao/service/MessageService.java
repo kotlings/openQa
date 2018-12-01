@@ -1,5 +1,6 @@
 package com.yubao.service;
 
+import com.yubao.request.MsgListReq;
 import com.yubao.response.PageObject;
 import com.yubao.dao.MessageMapper;
 import com.yubao.model.*;
@@ -47,21 +48,22 @@ public class MessageService {
         _mapper.insertSelective(msg);
     }
 
-    public PageObject<Message> get(String key, int index, int size) throws Exception {
+    public PageObject<Message> get(MsgListReq req) throws Exception {
         UserViewModel user = _loginService.get();
         if(user == null)
             throw new Exception("亲！等个录先~~");
-
+        int index = req.getIndex();
+        int size = req.getSize();
         if(index == 0) index = 1;
         if(size ==0) size = 10;
 
         MessageExample exp = new MessageExample();
 
         exp.setOrderByClause("time desc");
-        if(key != null && !key.equals(""))
+        if(req.getKey() != null && !req.getKey().equals(""))
         {
             MessageExample.Criteria criteria = exp.createCriteria();
-            criteria.andContentEqualTo(key);
+            criteria.andContentEqualTo(req.getKey());
         }
 
         PageObject<Message> obj = new PageObject<Message>();
