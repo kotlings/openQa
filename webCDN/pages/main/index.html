@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>OpenAuth</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../css/common.css">
+</head>
+
+<body>
+	<div id="app">
+		<el-container>
+			<el-header class="box-flex align-center">
+				<app-header :current="current"></app-header>
+			</el-header>
+			<el-main>
+				<div class="container p-t-m box-flex">
+					<div class="left-body flex-1">
+						<el-tabs v-model="activeName" @tab-click="handleClick">
+							<el-tab-pane label="全部" name="first">
+						   </el-tab-pane>
+						    <el-tab-pane label="未结帖" name="second">
+
+							</el-tab-pane>
+							<el-tab-pane label="已采纳" name="third">
+
+							</el-tab-pane>
+							<el-tab-pane label="精帖" name="fourth">
+
+							</el-tab-pane>
+						</el-tabs>
+					</div>
+					<div class="right-body">
+						2
+					</div>
+				</div>
+			</el-main>
+			<el-footer height="100px">
+				<app-footer></app-footer>
+			</el-footer>
+		</el-container>
+	</div>
+
+</body>
+<!-- import Vue before Element -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="../../js/header.js"></script>
+<script src="../../js/footer.js"></script>
+<script>
+	new Vue({
+		data() {
+			return {
+				current: "qa",
+				activeName: "first"
+			}
+		},
+		methods: {
+			handleClick() {
+
+			}
+		}
+	}).$mount('#app')
+</script>
+
+</html>
