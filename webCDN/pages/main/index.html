@@ -8,6 +8,46 @@
 	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 	<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="../../css/common.css">
+	<style>
+		.list{
+			border-bottom: 1px dashed #efefef;
+			padding: 15px;
+			height:45px;
+			cursor: pointer;
+		}
+		.list .left-img{
+			width:45px;
+			height:45px;
+			border-radius: 2px;
+			padding-right: 10px;
+		}
+		.list .left-img img{
+			width: 100%;
+			height:100%;
+		}
+
+		
+		.list .content{
+			flex:1;
+			max-width:calc(100% - 60px);
+		}
+		.list .content .title{
+			font-size:14px;
+			line-height: 30px;
+			width:calc(100% - 50px);
+		}
+		.list .info{
+			font-size:12px;
+			line-height: 20px;
+			color:#999;
+		}
+		.el-card__body{
+			padding: 0;
+		}
+		.el-card__body:last-child .list{
+			border-bottom: 0;
+		}
+	</style>
 </head>
 
 <body>
@@ -18,23 +58,59 @@
 			</el-header>
 			<el-main>
 				<div class="container p-t-m box-flex">
-					<div class="left-body flex-1">
-						<el-tabs v-model="activeName" @tab-click="handleClick">
-							<el-tab-pane label="全部" name="first">
-						   </el-tab-pane>
-						    <el-tab-pane label="未结帖" name="second">
+					<el-card class="left-body flex-1 card-small" shadow="never">
+						<div slot="header" class="clearfix box-flex">
+							<el-radio-group v-model="tabPosition" size="small">
+								<el-radio-button label="all">全部</el-radio-button>
+								<el-radio-button label="unAdopt">未结贴</el-radio-button>
+								<el-radio-button label="adopt">已采纳</el-radio-button>
+								<el-radio-button label="classical">精帖</el-radio-button>
+							</el-radio-group>
+							<div class="p-l-m">
+								<el-input placeholder="请输入内容" size="small" prefix-icon="el-icon-search" v-model="searchKeyword"></el-input>
+							</div>
+							<div class="flex-1 box-flex justify-end">
+								<el-button type="primary" size="small">发布问题</el-button>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="list box-flex flex-wrap">
+								<div class="left-img">
+									<img src="../../img/logo.png" />
+								</div>
+								<div class="content">
+									<div class="title ellipsis">
+										<el-tag type="success" class="p-r-m" size="small">标签三</el-tag>
+										OpenAuth.Net/Core授权说明【即OpenAuth.Pro源码获取说明】
+										/Core授权说明【即OpenAuth.Pro源码获取说明】
+										/Core授权说明【即OpenAuth.Pro源码获取说明
+									</div>
+									<div class="info box-flex">
+										管理员 <span class="p-l-m p-r-m">Nov 29, 2018 9:09:20 AM</span>OpenAuth.Net框架综合
+										<div class="flex-1 text-right">
+											<i class="fa fa-commenting fa-fw" aria-hidden="true"></i>
+											<span class="p-l-sm p-r-sm">123</span>
+											<i class="fa fa-fw fa-eye"></i>123
+										</div>
+									</div>
+								</div>
+							</div>
 
-							</el-tab-pane>
-							<el-tab-pane label="已采纳" name="third">
+							<el-pagination style="margin:10px 0" page-size="20" background layout="prev, pager, next" :total="1000"></el-pagination>
+						</div>
+					</el-card>
 
-							</el-tab-pane>
-							<el-tab-pane label="精帖" name="fourth">
-
-							</el-tab-pane>
-						</el-tabs>
-					</div>
 					<div class="right-body">
-						2
+						<el-card class="left-body flex-1 card-small" shadow="never">
+							<div slot="header" class="clearfix box-flex">
+								新注册用户
+							</div>
+						</el-card>
+						<el-card class="left-body flex-1 card-small" shadow="never">
+							<div slot="header" class="clearfix box-flex">
+								新注册用户2
+							</div>
+						</el-card>
 					</div>
 				</div>
 			</el-main>
@@ -57,7 +133,10 @@
 		data() {
 			return {
 				current: "qa",
-				activeName: "first"
+				activeName: "first",
+				tabPosition: 'all',
+				searchKeyword: '',
+				tag: true
 			}
 		},
 		methods: {
