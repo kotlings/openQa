@@ -1,0 +1,103 @@
+.list{
+    border-bottom: 1px dashed #efefef;
+    padding: 15px;
+    height:45px;
+    cursor: pointer;
+}
+.list .left-img{
+    width:45px;
+    height:45px;
+    border-radius: 2px;
+    padding-right: 10px;
+}
+.list .left-img img{
+    width: 100%;
+    height:100%;
+}
+
+
+.list .content{
+    flex:1;
+    max-width:calc(100% - 60px);
+}
+.list .content .title{
+    font-size:14px;
+    line-height: 30px;
+    width:calc(100% - 50px);
+}
+.list .info{
+    font-size:12px;
+    line-height: 20px;
+    color:#999;
+}
+.el-card__body{
+    padding: 0;
+}
+.el-card__body:last-child .list{
+    border-bottom: 0;
+}
+
+.card-body .user{
+    width:73px;
+    height: 98px;
+    margin-right:7px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.card-body .user:nth-child(4n+4){
+    margin-right:0;
+}
+
+.card-body .user .avatar{
+    width:73px;
+    height:78px;
+    position: relative;
+}
+.card-body .user .avatar img{
+    width:73px;
+    height:78px;
+    border-radius: 2px;
+}
+.card-body .user .avatar .info{
+    position:absolute;
+    background-color: #333333;
+    opacity: 0.5;
+    color:white;
+    font-size: 12px;
+    line-height: 20px;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+.card-body .user .tips{
+    text-align: center;
+    font-size:12px;
+    line-height:20px;
+}
+.news .new{
+    line-height: 30px;
+    height:30px;
+    font-size:14px;
+    color:#333;
+}
+.news .new .num{
+    font-style: oblique;
+    color: #009E94;
+}
+.news .new .title{
+    padding-left: 5px;
+    padding-right: 5px;
+    max-width: calc(100% - 90px);
+}
+.news .new .scan{
+    color:#ccc;
+}
+.news .new .scan i{
+    font-size:14px;
+}
+.link a{
+    padding: 5px 10px;
+    color:#333;
+    font-size: 14px;
+}

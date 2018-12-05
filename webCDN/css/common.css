@@ -168,7 +168,13 @@ a {
     padding-right: 10px;
 }
 
+.p-b-m{
+    padding-bottom: 10px
+}
 
+.p-m{
+    padding: 10px;
+}
 
 .m-l-llg {
     margin-left: 20px;

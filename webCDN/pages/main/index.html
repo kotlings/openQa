@@ -8,46 +8,7 @@
 	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 	<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="../../css/common.css">
-	<style>
-		.list{
-			border-bottom: 1px dashed #efefef;
-			padding: 15px;
-			height:45px;
-			cursor: pointer;
-		}
-		.list .left-img{
-			width:45px;
-			height:45px;
-			border-radius: 2px;
-			padding-right: 10px;
-		}
-		.list .left-img img{
-			width: 100%;
-			height:100%;
-		}
-
-		
-		.list .content{
-			flex:1;
-			max-width:calc(100% - 60px);
-		}
-		.list .content .title{
-			font-size:14px;
-			line-height: 30px;
-			width:calc(100% - 50px);
-		}
-		.list .info{
-			font-size:12px;
-			line-height: 20px;
-			color:#999;
-		}
-		.el-card__body{
-			padding: 0;
-		}
-		.el-card__body:last-child .list{
-			border-bottom: 0;
-		}
-	</style>
+	<link rel="stylesheet" href="../../css/main/index.css">
 </head>
 
 <body>
@@ -76,7 +37,7 @@
 						<div class="card-body">
 							<div class="list box-flex flex-wrap">
 								<div class="left-img">
-									<img src="../../img/logo.png" />
+									<img src="../../img/001.png" />
 								</div>
 								<div class="content">
 									<div class="title ellipsis">
@@ -96,7 +57,7 @@
 								</div>
 							</div>
 
-							<el-pagination style="margin:10px 0" page-size="20" background layout="prev, pager, next" :total="1000"></el-pagination>
+							<el-pagination style="margin:10px 0" background layout="prev, pager, next" :total="1000"></el-pagination>
 						</div>
 					</el-card>
 
@@ -105,10 +66,166 @@
 							<div slot="header" class="clearfix box-flex">
 								新注册用户
 							</div>
+							<div class="card-body p-m box-flex flex-wrap">
+
+								<div class="user">
+									<div class="avatar">
+										<img src="../../img/1.jpg" />
+										<div class="info">
+											万福
+										</div>
+									</div>
+									<div class="tips">
+										5次回答
+									</div>
+								</div>
+								<div class="user">
+									<div class="avatar">
+										<img src="../../img/1.jpg" />
+										<div class="info">
+											万福
+										</div>
+										<div class="tips">
+											5次回答
+										</div>
+									</div>
+								</div>
+								<div class="user">
+									<div class="avatar">
+										<img src="../../img/1.jpg" />
+										<div class="info">
+											万福
+										</div>
+										<div class="tips">
+											5次回答
+										</div>
+									</div>
+								</div>
+								<div class="user">
+									<div class="avatar">
+										<img src="../../img/1.jpg" />
+										<div class="info">
+											万福
+										</div>
+										<div class="tips">
+											5次回答
+										</div>
+									</div>
+								</div>
+								<div class="user">
+									<div class="avatar">
+										<img src="../../img/1.jpg" />
+										<div class="info">
+											万福
+										</div>
+										<div class="tips">
+											4次回答
+										</div>
+									</div>
+								</div>
+								<div class="user">
+									<div class="avatar">
+										<img src="../../img/1.jpg" />
+										<div class="info">
+											万福
+										</div>
+										<div class="tips">
+											3次回答
+										</div>
+									</div>
+								</div>
+								<div class="user">
+									<div class="avatar">
+										<img src="../../img/1.jpg" />
+										<div class="info">
+											万福
+										</div>
+										<div class="tips">
+											1次回答
+										</div>
+									</div>
+								</div>
+								<div class="user">
+									<div class="avatar">
+										<img src="../../img/1.jpg" />
+										<div class="info">
+											万福
+										</div>
+										<div class="tips">
+											2次回答
+										</div>
+									</div>
+								</div>
+							</div>
 						</el-card>
 						<el-card class="left-body flex-1 card-small" shadow="never">
 							<div slot="header" class="clearfix box-flex">
-								新注册用户2
+								最近热帖
+							</div>
+							<div class="p-m news">
+								<div class="new ellipsis box-flex align-center">
+									<div class="num">01.</div>
+									<div class="title ellipsis">
+										我是来写代码得我是来写代码得我是来写代码得我是来写代码得我是来写代码得
+									</div>
+									<div class="scan">
+										<i class="fa fa-fw fa-eye">123213</i>
+									</div>
+								</div>
+								<div class="new box-flex align-center">
+									<div class="num">01</div>
+									<div class="title ellipsis"></div>
+									<div class="scan">
+										<i class="fa fa-fw fa-eye">123213</i>
+									</div>
+								</div>
+								<div class="new ellipsis box-flex align-center">
+									<div class="num">01</div>
+									<div class="title"></div>
+									<div class="scan">
+										<i class="fa fa-fw fa-eye">123213</i>
+									</div>
+								</div>
+								<div class="new ellipsis box-flex align-center">
+									<div class="num">01</div>
+									<div class="title"></div>
+									<div class="scan">
+										<i class="fa fa-fw fa-eye">123213</i>
+									</div>
+								</div>
+								<div class="new ellipsis box-flex align-center">
+									<div class="num">01</div>
+									<div class="title"></div>
+									<div class="scan">
+										<i class="fa fa-fw fa-eye">123213</i>
+									</div>
+								</div>
+
+							</div>
+						</el-card>
+						<el-card class="left-body flex-1 card-small" shadow="never">
+							<div slot="header" class="clearfix box-flex">
+								最近热帖
+							</div>
+							<div class="box-flex flex-wrap p-m">
+								<div class="link">
+									<a href="https://cn.vuejs.org/" target="_blank">VUE</a>
+								</div>
+								<div class="link">
+									<a href="http://www.openauth.me/" target="_blank">OpenAuth</a>
+								</div>
+								<div class="link">
+									<a href="http://element.eleme.io/#/zh-CN" target="_blank">ELement-UI</a>
+								</div>
+								<div class="link">
+									<a href="http://mint-ui.github.io/#!/zh-cn" target="_blank">MINT-UI</a>
+								</div>
+								<div class="link">
+									<a href="https://elemefe.github.io/vue-amap/#/" target="_blank">高德VUE</a>
+								</div>
+								<div class="link">
+									<a href="https://fly.layui.com/" target="_blank">LayUI</a>
+								</div>
 							</div>
 						</el-card>
 					</div>
@@ -126,8 +243,10 @@
 
 <!-- import JavaScript -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="../../js/header.js"></script>
 <script src="../../js/footer.js"></script>
+<script src="../../js/common.js"></script>
 <script>
 	new Vue({
 		data() {
@@ -138,6 +257,19 @@
 				searchKeyword: '',
 				tag: true
 			}
+		},
+		created(){
+			service({
+				url: '/questions/queryList',
+				method:'post',
+				data:{
+					"index": 0,
+					"size": 10,
+					"type": "string"	
+				}
+			}).then((res) => {
+				console.log(res)
+			})
 		},
 		methods: {
 			handleClick() {
