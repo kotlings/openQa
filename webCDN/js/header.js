@@ -31,10 +31,10 @@ Vue.component('app-header', {
                 </div>
             </div>
             <div class="right-nav flex-1 justify-end box-flex">
-                <div class="nav m-r-llg">
+                <div class="nav m-r-llg" :class="current === 'login'?'active':''">
                     <i class="fa fa-user-circle fa-fw p-r-m" aria-hidden="true"></i>登录
                 </div>
-                <div class="nav m-l-llg">
+                <div class="nav m-l-llg" :class="current === 'register'?'active':''">
                         注册
                 </div>
                 <div class="nav m-l-llg">

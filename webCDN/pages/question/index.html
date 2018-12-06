@@ -1,9 +1,282 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-	</head>
-	<body>
-	</body>
+
+<head>
+	<title>OpenAuth</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../css/common.css">
+	<link rel="stylesheet" href="../../css/main/index.css">
+</head>
+
+<body>
+	<div id="app">
+		<el-container>
+			<el-header class="box-flex align-center">
+				<app-header :current="current"></app-header>
+			</el-header>
+			<el-main>
+				<div class="container p-t-m box-flex">
+					<el-card class="left-body flex-1 card-small" shadow="never">
+						<div slot="header" class="clearfix box-flex">
+							<el-radio-group v-model="tabPosition" size="small">
+								<el-radio-button label="all">全部</el-radio-button>
+								<el-radio-button label="unAdopt">未结贴</el-radio-button>
+								<el-radio-button label="adopt">已采纳</el-radio-button>
+								<el-radio-button label="classical">精帖</el-radio-button>
+							</el-radio-group>
+							<div class="p-l-m">
+								<el-input placeholder="请输入内容" size="small" prefix-icon="el-icon-search" v-model="searchKeyword"></el-input>
+							</div>
+							<div class="flex-1 box-flex justify-end">
+								<el-button type="primary" size="small">发布问题</el-button>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="list box-flex flex-wrap">
+								<div class="left-img">
+									<img src="../../img/001.png" />
+								</div>
+								<div class="content">
+									<div class="title ellipsis">
+										<el-tag type="success" class="p-r-m" size="small">标签三</el-tag>
+										OpenAuth.Net/Core授权说明【即OpenAuth.Pro源码获取说明】
+										/Core授权说明【即OpenAuth.Pro源码获取说明】
+										/Core授权说明【即OpenAuth.Pro源码获取说明
+									</div>
+									<div class="info box-flex">
+										管理员 <span class="p-l-m p-r-m">Nov 29, 2018 9:09:20 AM</span>OpenAuth.Net框架综合
+										<div class="flex-1 text-right">
+											<i class="fa fa-commenting fa-fw" aria-hidden="true"></i>
+											<span class="p-l-sm p-r-sm">123</span>
+											<i class="fa fa-fw fa-eye"></i>123
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<el-pagination style="margin:10px 0" background layout="prev, pager, next" :total="1000"></el-pagination>
+						</div>
+					</el-card>
+
+					<div class="right-body">
+						<el-card class="left-body flex-1 card-small" shadow="never">
+							<div slot="header" class="clearfix box-flex">
+								新注册用户
+							</div>
+							<div class="card-body p-m box-flex flex-wrap">
+
+								<div class="user">
+									<div class="avatar">
+										<img src="../../img/1.jpg" />
+										<div class="info">
+											万福
+										</div>
+									</div>
+									<div class="tips">
+										5次回答
+									</div>
+								</div>
+								<div class="user">
+									<div class="avatar">
+										<img src="../../img/1.jpg" />
+										<div class="info">
+											万福
+										</div>
+										<div class="tips">
+											5次回答
+										</div>
+									</div>
+								</div>
+								<div class="user">
+									<div class="avatar">
+										<img src="../../img/1.jpg" />
+										<div class="info">
+											万福
+										</div>
+										<div class="tips">
+											5次回答
+										</div>
+									</div>
+								</div>
+								<div class="user">
+									<div class="avatar">
+										<img src="../../img/1.jpg" />
+										<div class="info">
+											万福
+										</div>
+										<div class="tips">
+											5次回答
+										</div>
+									</div>
+								</div>
+								<div class="user">
+									<div class="avatar">
+										<img src="../../img/1.jpg" />
+										<div class="info">
+											万福
+										</div>
+										<div class="tips">
+											4次回答
+										</div>
+									</div>
+								</div>
+								<div class="user">
+									<div class="avatar">
+										<img src="../../img/1.jpg" />
+										<div class="info">
+											万福
+										</div>
+										<div class="tips">
+											3次回答
+										</div>
+									</div>
+								</div>
+								<div class="user">
+									<div class="avatar">
+										<img src="../../img/1.jpg" />
+										<div class="info">
+											万福
+										</div>
+										<div class="tips">
+											1次回答
+										</div>
+									</div>
+								</div>
+								<div class="user">
+									<div class="avatar">
+										<img src="../../img/1.jpg" />
+										<div class="info">
+											万福
+										</div>
+										<div class="tips">
+											2次回答
+										</div>
+									</div>
+								</div>
+							</div>
+						</el-card>
+						<el-card class="left-body flex-1 card-small" shadow="never">
+							<div slot="header" class="clearfix box-flex">
+								最近热帖
+							</div>
+							<div class="p-m news">
+								<div class="new ellipsis box-flex align-center">
+									<div class="num">01.</div>
+									<div class="title ellipsis">
+										我是来写代码得我是来写代码得我是来写代码得我是来写代码得我是来写代码得
+									</div>
+									<div class="scan">
+										<i class="fa fa-fw fa-eye">123213</i>
+									</div>
+								</div>
+								<div class="new box-flex align-center">
+									<div class="num">01</div>
+									<div class="title ellipsis"></div>
+									<div class="scan">
+										<i class="fa fa-fw fa-eye">123213</i>
+									</div>
+								</div>
+								<div class="new ellipsis box-flex align-center">
+									<div class="num">01</div>
+									<div class="title"></div>
+									<div class="scan">
+										<i class="fa fa-fw fa-eye">123213</i>
+									</div>
+								</div>
+								<div class="new ellipsis box-flex align-center">
+									<div class="num">01</div>
+									<div class="title"></div>
+									<div class="scan">
+										<i class="fa fa-fw fa-eye">123213</i>
+									</div>
+								</div>
+								<div class="new ellipsis box-flex align-center">
+									<div class="num">01</div>
+									<div class="title"></div>
+									<div class="scan">
+										<i class="fa fa-fw fa-eye">123213</i>
+									</div>
+								</div>
+
+							</div>
+						</el-card>
+						<el-card class="left-body flex-1 card-small" shadow="never">
+							<div slot="header" class="clearfix box-flex">
+								友情链接
+							</div>
+							<div class="box-flex flex-wrap p-m">
+								<div class="link">
+									<a href="https://cn.vuejs.org/" target="_blank">VUE</a>
+								</div>
+								<div class="link">
+									<a href="http://www.openauth.me/" target="_blank">OpenAuth</a>
+								</div>
+								<div class="link">
+									<a href="http://element.eleme.io/#/zh-CN" target="_blank">ELement-UI</a>
+								</div>
+								<div class="link">
+									<a href="http://mint-ui.github.io/#!/zh-cn" target="_blank">MINT-UI</a>
+								</div>
+								<div class="link">
+									<a href="https://elemefe.github.io/vue-amap/#/" target="_blank">高德VUE</a>
+								</div>
+								<div class="link">
+									<a href="https://fly.layui.com/" target="_blank">LayUI</a>
+								</div>
+							</div>
+						</el-card>
+					</div>
+				</div>
+			</el-main>
+			<el-footer height="100px">
+				<app-footer></app-footer>
+			</el-footer>
+		</el-container>
+	</div>
+
+</body>
+<!-- import Vue before Element -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="../../js/header.js"></script>
+<script src="../../js/footer.js"></script>
+<script src="../../js/common.js"></script>
+<script>
+	new Vue({
+		data() {
+			return {
+				current: "qa",
+				activeName: "first",
+				tabPosition: 'all',
+				searchKeyword: '',
+				tag: true
+			}
+		},
+		created(){
+			service({
+				url: '/questions/queryList',
+				method:'post',
+				data:{
+					"index": 0,
+					"size": 10,
+					"type": "string"	
+				}
+			}).then((res) => {
+				console.log(res)
+			})
+		},
+		methods: {
+			handleClick() {
+
+			}
+		}
+	}).$mount('#app')
+</script>
+
 </html>

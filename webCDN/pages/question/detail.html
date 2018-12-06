@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>OpenAuth</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="../../css/common.css">
+		<style>
+			.article .title {
+				font-size: 18px;
+				font-weight: 600;
+				line-height: 40px;
+			}
+
+			.article .tags .el-tag {
+				font-size: 12px;
+				color: #666666;
+				height: auto;
+				padding: 5px 10px;
+				line-height: 1;
+				border-radius: 2px;
+			}
+
+			.article .scan-see {
+				font-size: 14px;
+				color: #666666;
+			}
+
+			.article .scan-see i {
+				margin-top: -2px;
+			}
+
+			.article .user-info {
+				margin-top: 20px;
+				margin-bottom: 20px;
+				padding: 20px;
+				background-color: #efefef;
+
+			}
+
+			.article .user-info .user-avator,
+			.article .user-info .user-avator>img {
+				width: 50px;
+				height: 50px;
+				border-radius: 2px;
+			}
+
+			.article .user-info .user-avator {
+				margin-right: 10px;
+			}
+
+			.article .user-info .user {
+				line-height: 25px;
+				height: 25px;
+				font-size: 14px;
+			}
+
+			.article .user-info .user .name {
+				color: #009E94;
+				padding-right: 10px;
+			}
+
+			.article .user-info .user .role {
+				color: #FF7200;
+				padding-right: 10px;
+			}
+
+			.article .user-info .user .time {
+				color: #666666;
+				font-size: 12px;
+			}
+
+			.article .user-info .sa {
+				color: #FF7200;
+				font-size: 14px;
+				line-height: 25px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<el-container>
+				<el-header class="box-flex align-center">
+					<app-header :current="current"></app-header>
+				</el-header>
+				<el-main class="bg-white">
+					<div class="container p-t-m box-flex">
+						<div class="left-body flex-1">
+							<div class="article">
+								<div class="title">
+									OpenAuth.Net/Core授权说明【即OpenAuth.Pro源码获取说明】
+								</div>
+								<div class="box-flex justify-content-space-between align-center">
+									<div class="tags">
+										<el-tag>置顶帖 </el-tag>
+										<el-tag>未结贴 </el-tag>
+
+									</div>
+									<div class="scan-see">
+										<i class="fa fa-fw fa-eye"></i>123
+										<i class="fa fa-fw fa-fa-commenting"></i>123
+									</div>
+								</div>
+								<div class="user-info box-flex">
+									<div class="user-avator">
+										<img src="../../img/1.jpg" />
+									</div>
+									<div class="flex-1">
+										<div class="user">
+											<span class="name">管理员</span>
+											<span class="role">VIP2</span>
+											<span class="time">发布于Apr 8, 2018 12:00:56 AM</span>
+										</div>
+										<div class="sa">
+											悬赏：100飞吻
+										</div>
+									</div>
+								</div>
+								<div class="body">
+									个人站点。
+
+									但，如果觉得它的设计开发符合你的工作场景，并用于企业或商业应用，从事相关的商业活动，请尊重知识产权，授权后再进行使用。
+
+									授权后，您不但可以拥有独立的知识产权，OpenAuth.Pro企业版全部源码、并且可以获得作者1V1专属VIP技术支持等服务。OpenAuth.Pro为基于VUE框架的单页面SPA程序，可以极大地提高开发效率。
+
+									付费的存在，是我们目前唯一的物质支撑，所以如果你希望OpenAuth.Net能够持续发展下去，并使得您的项目能够得到它持久的技术输出，您的任何一笔授权都意义
+								</div>
+							</div>
+						</div>
+
+						<div class="right-body">
+							<el-card class="left-body flex-1 card-small" shadow="never">
+								<div slot="header" class="clearfix box-flex">
+									最近热帖
+								</div>
+								<div class="p-m news">
+									<div class="new ellipsis box-flex align-center">
+										<div class="num">01.</div>
+										<div class="title ellipsis">
+											我是来写代码得我是来写代码得我是来写代码得我是来写代码得我是来写代码得
+										</div>
+										<div class="scan">
+											<i class="fa fa-fw fa-eye">123213</i>
+										</div>
+									</div>
+									<div class="new box-flex align-center">
+										<div class="num">01</div>
+										<div class="title ellipsis"></div>
+										<div class="scan">
+											<i class="fa fa-fw fa-eye">123213</i>
+										</div>
+									</div>
+									<div class="new ellipsis box-flex align-center">
+										<div class="num">01</div>
+										<div class="title"></div>
+										<div class="scan">
+											<i class="fa fa-fw fa-eye">123213</i>
+										</div>
+									</div>
+									<div class="new ellipsis box-flex align-center">
+										<div class="num">01</div>
+										<div class="title"></div>
+										<div class="scan">
+											<i class="fa fa-fw fa-eye">123213</i>
+										</div>
+									</div>
+									<div class="new ellipsis box-flex align-center">
+										<div class="num">01</div>
+										<div class="title"></div>
+										<div class="scan">
+											<i class="fa fa-fw fa-eye">123213</i>
+										</div>
+									</div>
+
+								</div>
+							</el-card>
+
+							<el-card class="left-body flex-1 card-small" shadow="never">
+								<div slot="header" class="clearfix box-flex">
+									友情链接
+								</div>
+								<div class="box-flex flex-wrap p-m">
+									<div class="link">
+										<a href="https://cn.vuejs.org/" target="_blank">VUE</a>
+									</div>
+									<div class="link">
+										<a href="http://www.openauth.me/" target="_blank">OpenAuth</a>
+									</div>
+									<div class="link">
+										<a href="http://element.eleme.io/#/zh-CN" target="_blank">ELement-UI</a>
+									</div>
+									<div class="link">
+										<a href="http://mint-ui.github.io/#!/zh-cn" target="_blank">MINT-UI</a>
+									</div>
+									<div class="link">
+										<a href="https://elemefe.github.io/vue-amap/#/" target="_blank">高德VUE</a>
+									</div>
+									<div class="link">
+										<a href="https://fly.layui.com/" target="_blank">LayUI</a>
+									</div>
+								</div>
+							</el-card>
+						</div>
+					</div>
+				</el-main>
+				<el-footer height="100px">
+					<app-footer></app-footer>
+				</el-footer>
+			</el-container>
+		</div>
+
+	</body>
+	<!-- import Vue before Element -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+	<!-- import JavaScript -->
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="../../js/header.js"></script>
+	<script src="../../js/footer.js"></script>
+	<script src="../../js/common.js"></script>
+	<script>
+		new Vue({
+			data() {
+				return {
+					current: "qa",
+					activeName: "first",
+					tabPosition: 'all',
+					searchKeyword: '',
+					tag: true
+				}
+			},
+			created() {
+				service({
+					url: '/questions/queryList',
+					method: 'post',
+					data: {
+						"index": 0,
+						"size": 10,
+						"type": "string"
+					}
+				}).then((res) => {
+					console.log(res)
+				})
+			},
+			methods: {
+				handleClick() {
+
+				}
+			}
+		}).$mount('#app')
+	</script>
+
+</html>
