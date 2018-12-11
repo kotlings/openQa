@@ -4,7 +4,7 @@ Vue.component('app-header', {
         return {
             activeIndex: '1',
             activeIndex2: '1'
-        };
+        }
     },
     created(){
         console.log(this.current)
@@ -32,10 +32,10 @@ Vue.component('app-header', {
             </div>
             <div class="right-nav flex-1 justify-end box-flex">
                 <div class="nav m-r-llg" :class="current === 'login'?'active':''">
-                    <i class="fa fa-user-circle fa-fw p-r-m" aria-hidden="true"></i>登录
+                    <a href="../../pages/user/login.html"><i class="fa fa-user-circle fa-fw p-r-m" aria-hidden="true"></i>登录</a>
                 </div>
                 <div class="nav m-l-llg" :class="current === 'register'?'active':''">
-                        注册
+                     注册
                 </div>
                 <div class="nav m-l-llg">
                     <i class="fa fa-qq fa-fw m-l-llg" aria-hidden="true"></i>

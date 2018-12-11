@@ -21,7 +21,7 @@ i {
     position: fixed;
     top: 0;
     width: 100%;
-	z-index:10000;
+	z-index:1000;
 }
 
 .container {
@@ -72,6 +72,7 @@ a {
     padding: 0;
     padding-top: 60px;
     min-height: calc(100vh - 100px);
+	padding-bottom: 20px;
     background-color: #f2f2f2;
 }
 

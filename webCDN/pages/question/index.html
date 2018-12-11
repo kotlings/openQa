@@ -2,240 +2,141 @@
 <html>
 
 <head>
-	<title>OpenAuth</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width,initial-scale=1.0">
-	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-	<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="../../css/common.css">
-	<link rel="stylesheet" href="../../css/main/index.css">
+    <title>OpenAuth</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="../../css/main/index.css">
 </head>
 
 <body>
-	<div id="app">
-		<el-container>
-			<el-header class="box-flex align-center">
-				<app-header :current="current"></app-header>
-			</el-header>
-			<el-main>
-				<div class="container p-t-m box-flex">
-					<el-card class="left-body flex-1 card-small" shadow="never">
-						<div slot="header" class="clearfix box-flex">
-							<el-radio-group v-model="tabPosition" size="small">
-								<el-radio-button label="all">全部</el-radio-button>
-								<el-radio-button label="unAdopt">未结贴</el-radio-button>
-								<el-radio-button label="adopt">已采纳</el-radio-button>
-								<el-radio-button label="classical">精帖</el-radio-button>
-							</el-radio-group>
-							<div class="p-l-m">
-								<el-input placeholder="请输入内容" size="small" prefix-icon="el-icon-search" v-model="searchKeyword"></el-input>
-							</div>
-							<div class="flex-1 box-flex justify-end">
-								<el-button type="primary" size="small">发布问题</el-button>
-							</div>
-						</div>
-						<div class="card-body">
-							<div class="list box-flex flex-wrap">
-								<div class="left-img">
-									<img src="../../img/001.png" />
-								</div>
-								<div class="content">
-									<div class="title ellipsis">
-										<el-tag type="success" class="p-r-m" size="small">标签三</el-tag>
-										OpenAuth.Net/Core授权说明【即OpenAuth.Pro源码获取说明】
-										/Core授权说明【即OpenAuth.Pro源码获取说明】
-										/Core授权说明【即OpenAuth.Pro源码获取说明
-									</div>
-									<div class="info box-flex">
-										管理员 <span class="p-l-m p-r-m">Nov 29, 2018 9:09:20 AM</span>OpenAuth.Net框架综合
-										<div class="flex-1 text-right">
-											<i class="fa fa-commenting fa-fw" aria-hidden="true"></i>
-											<span class="p-l-sm p-r-sm">123</span>
-											<i class="fa fa-fw fa-eye"></i>123
+    <div id="app">
+        <el-container>
+            <el-header class="box-flex align-center">
+                <app-header :current="current"></app-header>
+            </el-header>
+            <el-main>
+                <div class="container p-t-m box-flex">
+                    <el-card class="left-body flex-1 card-small" shadow="never">
+                        <div slot="header" class="clearfix box-flex">
+                            <el-radio-group v-model="tabPosition" size="small">
+                                <el-radio-button label="">全部</el-radio-button>
+                                <el-radio-button label="unresolved">未结贴</el-radio-button>
+                                <el-radio-button label="resolved">已采纳</el-radio-button>
+                                <el-radio-button label="wonderful">精帖</el-radio-button>
+                            </el-radio-group>
+                            <div class="p-l-m">
+                                <el-input placeholder="请输入内容" size="small" prefix-icon="el-icon-search" v-model="searchKeyword"></el-input>
+                            </div>
+                            <div class="flex-1 box-flex justify-end">
+                                <el-button type="primary" size="small">发布问题</el-button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <template v-for="(item,index) in questions">
+									<div class="list box-flex flex-wrap" :key="index">
+										<div class="left-img">
+											<img :src="'../../img/avatar/' + item.user.pic" alt="" />
+											<!-- <img src="../../img/001.png" /> -->
+										</div>
+										<div class="content">
+											<div class="title ellipsis">
+												<el-tag v-if="item.stick>0" class="p-r-m" size="mini">置顶</el-tag>
+												<el-tag v-if="item.status == 1 " class="p-r-m" size="mini">精帖</el-tag>
+												<!-- <el-tag type="success" class="p-r-m" >标签三</el-tag> -->
+												{{ item.title }}
+											</div>
+											<div class="info box-flex">
+												{{ item.user.name }} <span class="p-l-m p-r-m">{{item.time}}</span>OpenAuth.Net框架综合
+												<div class="flex-1 text-right">
+													<i class="fa fa-commenting fa-fw" aria-hidden="true"></i>
+													<span class="p-l-sm p-r-sm">{{ item.comment }}</span>
+													<i class="fa fa-fw fa-eye"></i>{{ item.hits }}
+												</div>
+											</div>
 										</div>
 									</div>
-								</div>
-							</div>
+								</template>
+                            <el-pagination style="margin:10px 0" v-if="total>10" @current-change="updateIndex" background layout="prev, pager, next" :total="total"></el-pagination>
+                        </div>
+                    </el-card>
 
-							<el-pagination style="margin:10px 0" background layout="prev, pager, next" :total="1000"></el-pagination>
-						</div>
-					</el-card>
+                    <div class="right-body">
+                        <el-card class="left-body flex-1 card-small" shadow="never">
+                            <div slot="header" class="clearfix box-flex">
+                                新注册用户
+                            </div>
+                            <div class="card-body p-m box-flex flex-wrap">
+                                <template v-for="(user,index) in users">
+									<div class="user" :key="index+1">
+										<div class="avatar">
+											<img :src="'../../img/avatar/' +  user.pic">
+											<div class="info">
+												{{ user.name }}
+											</div>
+										</div>
+										<div class="tips">
+											{{ user.answercnt }}次回答
+										</div>
+									</div>
+									</template>
+                            </div>
+                        </el-card>
+                        <el-card class="left-body flex-1 card-small" shadow="never">
+                            <div slot="header" class="clearfix box-flex">
+                                最近热帖
+                            </div>
+                            <div class="p-m news">
+                                <template v-for="(hot,index) in hots">
+										<div class="new ellipsis box-flex align-center" :key="index+1">
+											<div class="num" v-if="index>=9">{{index+1}}.</div>
+											<div class="num" v-else>0{{index+1}}.</div>
+											<div class="title ellipsis">
+												{{ hot.title }}
+											</div>
+											<div class="scan">
+												<i class="fa fa-fw fa-eye">{{ hot.hits }}</i>
+											</div>
+										</div>
+									</template>
 
-					<div class="right-body">
-						<el-card class="left-body flex-1 card-small" shadow="never">
-							<div slot="header" class="clearfix box-flex">
-								新注册用户
-							</div>
-							<div class="card-body p-m box-flex flex-wrap">
-
-								<div class="user">
-									<div class="avatar">
-										<img src="../../img/1.jpg" />
-										<div class="info">
-											万福
-										</div>
-									</div>
-									<div class="tips">
-										5次回答
-									</div>
-								</div>
-								<div class="user">
-									<div class="avatar">
-										<img src="../../img/1.jpg" />
-										<div class="info">
-											万福
-										</div>
-										<div class="tips">
-											5次回答
-										</div>
-									</div>
-								</div>
-								<div class="user">
-									<div class="avatar">
-										<img src="../../img/1.jpg" />
-										<div class="info">
-											万福
-										</div>
-										<div class="tips">
-											5次回答
-										</div>
-									</div>
-								</div>
-								<div class="user">
-									<div class="avatar">
-										<img src="../../img/1.jpg" />
-										<div class="info">
-											万福
-										</div>
-										<div class="tips">
-											5次回答
-										</div>
-									</div>
-								</div>
-								<div class="user">
-									<div class="avatar">
-										<img src="../../img/1.jpg" />
-										<div class="info">
-											万福
-										</div>
-										<div class="tips">
-											4次回答
-										</div>
-									</div>
-								</div>
-								<div class="user">
-									<div class="avatar">
-										<img src="../../img/1.jpg" />
-										<div class="info">
-											万福
-										</div>
-										<div class="tips">
-											3次回答
-										</div>
-									</div>
-								</div>
-								<div class="user">
-									<div class="avatar">
-										<img src="../../img/1.jpg" />
-										<div class="info">
-											万福
-										</div>
-										<div class="tips">
-											1次回答
-										</div>
-									</div>
-								</div>
-								<div class="user">
-									<div class="avatar">
-										<img src="../../img/1.jpg" />
-										<div class="info">
-											万福
-										</div>
-										<div class="tips">
-											2次回答
-										</div>
-									</div>
-								</div>
-							</div>
-						</el-card>
-						<el-card class="left-body flex-1 card-small" shadow="never">
-							<div slot="header" class="clearfix box-flex">
-								最近热帖
-							</div>
-							<div class="p-m news">
-								<div class="new ellipsis box-flex align-center">
-									<div class="num">01.</div>
-									<div class="title ellipsis">
-										我是来写代码得我是来写代码得我是来写代码得我是来写代码得我是来写代码得
-									</div>
-									<div class="scan">
-										<i class="fa fa-fw fa-eye">123213</i>
-									</div>
-								</div>
-								<div class="new box-flex align-center">
-									<div class="num">01</div>
-									<div class="title ellipsis"></div>
-									<div class="scan">
-										<i class="fa fa-fw fa-eye">123213</i>
-									</div>
-								</div>
-								<div class="new ellipsis box-flex align-center">
-									<div class="num">01</div>
-									<div class="title"></div>
-									<div class="scan">
-										<i class="fa fa-fw fa-eye">123213</i>
-									</div>
-								</div>
-								<div class="new ellipsis box-flex align-center">
-									<div class="num">01</div>
-									<div class="title"></div>
-									<div class="scan">
-										<i class="fa fa-fw fa-eye">123213</i>
-									</div>
-								</div>
-								<div class="new ellipsis box-flex align-center">
-									<div class="num">01</div>
-									<div class="title"></div>
-									<div class="scan">
-										<i class="fa fa-fw fa-eye">123213</i>
-									</div>
-								</div>
-
-							</div>
-						</el-card>
-						<el-card class="left-body flex-1 card-small" shadow="never">
-							<div slot="header" class="clearfix box-flex">
-								友情链接
-							</div>
-							<div class="box-flex flex-wrap p-m">
-								<div class="link">
-									<a href="https://cn.vuejs.org/" target="_blank">VUE</a>
-								</div>
-								<div class="link">
-									<a href="http://www.openauth.me/" target="_blank">OpenAuth</a>
-								</div>
-								<div class="link">
-									<a href="http://element.eleme.io/#/zh-CN" target="_blank">ELement-UI</a>
-								</div>
-								<div class="link">
-									<a href="http://mint-ui.github.io/#!/zh-cn" target="_blank">MINT-UI</a>
-								</div>
-								<div class="link">
-									<a href="https://elemefe.github.io/vue-amap/#/" target="_blank">高德VUE</a>
-								</div>
-								<div class="link">
-									<a href="https://fly.layui.com/" target="_blank">LayUI</a>
-								</div>
-							</div>
-						</el-card>
-					</div>
-				</div>
-			</el-main>
-			<el-footer height="100px">
-				<app-footer></app-footer>
-			</el-footer>
-		</el-container>
-	</div>
+                            </div>
+                        </el-card>
+                        <el-card class="left-body flex-1 card-small" shadow="never">
+                            <div slot="header" class="clearfix box-flex">
+                                友情链接A
+                            </div>
+                            <div class="box-flex flex-wrap p-m">
+                                <div class="link">
+                                    <a href="https://cn.vuejs.org/" target="_blank">VUE</a>
+                                </div>
+                                <div class="link">
+                                    <a href="http://www.openauth.me/" target="_blank">OpenAuth</a>
+                                </div>
+                                <div class="link">
+                                    <a href="http://element.eleme.io/#/zh-CN" target="_blank">ELement-UI</a>
+                                </div>
+                                <div class="link">
+                                    <a href="http://mint-ui.github.io/#!/zh-cn" target="_blank">MINT-UI</a>
+                                </div>
+                                <div class="link">
+                                    <a href="https://elemefe.github.io/vue-amap/#/" target="_blank">高德VUE</a>
+                                </div>
+                                <div class="link">
+                                    <a href="https://fly.layui.com/" target="_blank">LayUI</a>
+                                </div>
+                            </div>
+                        </el-card>
+                    </div>
+                </div>
+            </el-main>
+            <el-footer height="100px">
+                <app-footer></app-footer>
+            </el-footer>
+        </el-container>
+    </div>
 
 </body>
 <!-- import Vue before Element -->
@@ -248,35 +149,94 @@
 <script src="../../js/footer.js"></script>
 <script src="../../js/common.js"></script>
 <script>
-	new Vue({
-		data() {
-			return {
-				current: "qa",
-				activeName: "first",
-				tabPosition: 'all',
-				searchKeyword: '',
-				tag: true
-			}
-		},
-		created(){
-			service({
-				url: '/questions/queryList',
-				method:'post',
-				data:{
-					"index": 0,
-					"size": 10,
-					"type": "string"	
-				}
-			}).then((res) => {
-				console.log(res)
-			})
-		},
-		methods: {
-			handleClick() {
+    new Vue({
+        data() {
+            return {
+                current: "qa",
+                activeName: "first",
+                tabPosition: '',
+                tag: true,
+                searchKeyword: '',
+                users: [],
+                questions: [],
+                hots: [],
+                total: 0,
+                search: {
+                    index: 1,
+                    size: 10
+                }
+            }
+        },
+        created() {
+            this.getList()
+            this.getHot()
+            this.getNewUser()
+        },
+        watch: {
+            tabPosition(e) {
+                console.log(e)
+                this.search.type = e
+                this.search.index = 1
+                this.search.size = 10
+                this.getList()
+            }
+        },
+        methods: {
+            handleClick() {
 
-			}
-		}
-	}).$mount('#app')
+            },
+            updateIndex(e) {
+                this.search.index = e
+                this.getList()
+            },
+            getNewUser() {
+                service({
+                    url: '/user/getnew',
+                    method: 'get',
+                }).then((res) => {
+                    console.log(res)
+                    if (res.data.total >= 8) {
+                        for (var i = 0; i < 8; i++) {
+                            this.users.push(res.data.objects[i])
+                        }
+                    } else {
+                        this.users = res.data.objects
+                    }
+                })
+            },
+            getHot() {
+                service({
+                    url: '/questions/gethot',
+                    method: 'get',
+                }).then((res) => {
+                    console.log(res)
+
+                    if (res.data.total >= 10) {
+                        for (var i = 0; i < 10; i++) {
+                            this.hots.push(res.data.objects[i])
+                        }
+                    } else {
+                        this.hots = res.data.objects
+                    }
+                })
+            },
+            getList() {
+                service({
+                    url: '/questions/queryList',
+                    method: 'post',
+                    data: {
+                        "index": this.search.index,
+                        "size": this.search.size,
+                        "type": this.search.type
+                    }
+                }).then((res) => {
+                    console.log(res)
+                    this.questions = res.data.objects
+                    this.total = res.data.total
+                })
+            }
+        }
+    }).$mount('#app')
 </script>
 
 </html>
