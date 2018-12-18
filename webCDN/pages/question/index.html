@@ -14,7 +14,7 @@
 <body>
     <div id="app">
         <el-container>
-            <el-header class="box-flex align-center">
+           <el-header class="box-flex align-center">
                 <app-header :current="current"></app-header>
             </el-header>
             <el-main>
@@ -36,7 +36,7 @@
                         </div>
                         <div class="card-body">
                             <template v-for="(item,index) in questions">
-									<div class="list box-flex flex-wrap" :key="index">
+									<div class="list box-flex flex-wrap" :key="index" @click="linkDetail(item.id)">
 										<div class="left-img">
 											<img :src="'../../img/avatar/' + item.user.pic" alt="" />
 											<!-- <img src="../../img/001.png" /> -->
@@ -66,7 +66,7 @@
                     <div class="right-body">
                         <el-card class="left-body flex-1 card-small" shadow="never">
                             <div slot="header" class="clearfix box-flex">
-                                新注册用户
+                                                                新注册用户
                             </div>
                             <div class="card-body p-m box-flex flex-wrap">
                                 <template v-for="(user,index) in users">
@@ -234,7 +234,11 @@
                     this.questions = res.data.objects
                     this.total = res.data.total
                 })
+            },
+            linkDetail(id){
+            	window.location.href="detail.html?id="+id
             }
+            
         }
     }).$mount('#app')
 </script>
