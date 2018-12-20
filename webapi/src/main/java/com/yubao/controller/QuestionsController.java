@@ -133,7 +133,7 @@ public class QuestionsController extends BaseController {
     @ResponseBody
     @RequestMapping(value="del",method = RequestMethod.POST)
     @ApiOperation(value = "删除贴子")
-    public Response<Boolean> del(@RequestBody String id) throws IOException {
+    public Response<Boolean> del(String id) throws IOException {
         Response<Boolean> response = new Response<>();
         try{
             _service.del(id);
