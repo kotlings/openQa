@@ -8,6 +8,7 @@ import com.yubao.util.ResultConstCode;
 import com.yubao.response.PageObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,7 +28,7 @@ public class MessageController {
 
     @ResponseBody
     @RequestMapping(value = "/get", method = RequestMethod.POST)
-    public Response<PageObject<Message>> get(MsgListReq msgListReq) throws IOException {
+    public Response<PageObject<Message>> get(@RequestBody MsgListReq msgListReq) throws IOException {
         Response<PageObject<Message>> response = new Response();
         try {
             response.data = messageService.get(msgListReq);
