@@ -133,7 +133,7 @@ public class QuestionsController extends BaseController {
     @ResponseBody
     @RequestMapping(value="del",method = RequestMethod.POST)
     @ApiOperation(value = "删除贴子")
-    public Response<Boolean> del(@RequestBody String id) throws IOException {
+    public Response<Boolean> del(String id) throws IOException {
         Response<Boolean> response = new Response<>();
         try{
             _service.del(id);
@@ -220,7 +220,7 @@ public class QuestionsController extends BaseController {
 
     @ResponseBody
     @ApiOperation(value = "获取用户发的贴子")
-    @RequestMapping(value = "/getbyuser", method = RequestMethod.GET)
+    @RequestMapping(value = "/getbyuser", method = RequestMethod.POST)
     public Response<PageObject<QuestionViewModel>> getbyuser(@RequestBody QueryQuestionsByUser request) throws IOException {
         Response<PageObject<QuestionViewModel>> response = new Response<>();
         try {
@@ -237,7 +237,7 @@ public class QuestionsController extends BaseController {
 
     @ResponseBody
     @ApiOperation(value = "获取用户【回复过】的贴子")
-    @RequestMapping(value = "/getbyuseranswer", method = RequestMethod.GET)
+    @RequestMapping(value = "/getbyuseranswer", method = RequestMethod.POST)
     public Response<PageObject<QuestionViewModel>> getByUserAnswer( @RequestBody QueryQuestionsByUser request) throws IOException {
         Response<PageObject<QuestionViewModel>> response = new Response<>();
         try {

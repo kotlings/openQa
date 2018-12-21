@@ -50,6 +50,7 @@ public class ApiController extends BaseController {
     @ApiOperation(value = "文件上传", httpMethod = "POST")
     public com.yubao.response.Response upload(@RequestParam("file") MultipartFile file) throws IOException {
         UserViewModel user = loginService.get();
+        logger.info(JSON.toJSONString(user));
         if(user ==  null)
         {
             response.code = ResultConstCode.ERROR_500;
@@ -63,14 +64,7 @@ public class ApiController extends BaseController {
             //通过CommonsMultipartFile的方法直接写文件（注意这个时候）
             file.transferTo(newFile);
 
-
             String url ="http://" +request.getServerName() +":" + appSettings.getPicfilesport();
-//            logger.info("文件服务器端口："+ request.getServerPort());
-//            if(request.getServerPort() != 80)
-//            {
-//                url += ":" +request.getServerPort();
-//            }
-
             response.data = url + UPLOAD_FOLDER +filename;
         }
 
