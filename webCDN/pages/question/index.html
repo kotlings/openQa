@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" v-cloak>
         <el-container>
            <el-header class="box-flex align-center">
                 <app-header :current="current"></app-header>
@@ -28,10 +28,10 @@
                                 <el-radio-button label="wonderful">精帖</el-radio-button>
                             </el-radio-group>
                             <div class="p-l-m">
-                                <el-input placeholder="请输入内容" size="small" prefix-icon="el-icon-search" v-model="searchKeyword"></el-input>
+                                <el-input placeholder="请输入内容" size="small" prefix-icon="el-icon-search" v-model="searchKeyword" @keyup.enter.native="searchKey"></el-input>
                             </div>
                             <div class="flex-1 box-flex justify-end">
-                                <el-button type="primary" size="small">发布问题</el-button>
+                                <el-button type="primary" size="small" @click="linkAdd">发布问题</el-button>
                             </div>
                         </div>
                         <div class="card-body">
@@ -174,7 +174,6 @@
         },
         watch: {
             tabPosition(e) {
-                console.log(e)
                 this.search.type = e
                 this.search.index = 1
                 this.search.size = 10
@@ -182,9 +181,6 @@
             }
         },
         methods: {
-            handleClick() {
-
-            },
             updateIndex(e) {
                 this.search.index = e
                 this.getList()
@@ -227,7 +223,8 @@
                     data: {
                         "index": this.search.index,
                         "size": this.search.size,
-                        "type": this.search.type
+                        "type": this.search.type,
+                        'key':this.search.key
                     }
                 }).then((res) => {
                     console.log(res)
@@ -237,6 +234,21 @@
             },
             linkDetail(id){
             	window.location.href="detail.html?id="+id
+            },
+            linkAdd(){
+            	if(sessionStorage.isLogin!=='true'){
+            		window.location.href="../user/login.html"
+            	}else{
+            		window.location.href="../question/add.html"
+            	}
+            },
+            searchKey(){
+            	this.tabPosition = ''
+            	this.search.type = ''
+                this.search.index = 1
+                this.search.size = 10
+                this.search.key=this.searchKeyword
+                this.getList()
             }
             
         }

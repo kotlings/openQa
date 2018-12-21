@@ -1,70 +1,145 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-	<title>OpenAuth</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width,initial-scale=1.0">
-	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-	<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="../../css/common.css">
-</head>
-
-<body>
-	<div id="app">
-		<el-container>
-			<el-header class="box-flex align-center">
-				<app-header :current="current"></app-header>
-			</el-header>
-			<el-main>
+	<head>
+		<title>OpenAuth</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="../../css/common.css">
+		<style>
+			.user .user-content{
+				padding-bottom: 20px;
+			}
+			.user {
+				min-height: 200px;
+			}
+			.user .user-content .avator img {
+				width: 100px;
+				height: 100px;
+				border-radius: 50%;
+			}
+			
+			.user .user-content .avator {
+				text-align: center;
+				padding-bottom: 0;
+			}
+			
+			.user .user-content .avator .user-name {
+				font-size: 15px;
+				color: #333333;
+				line-height: 50px;
+			}
+			
+			.user .user-content .avator .tips {
+				font-size: 14px;
+				color: #888;
+				line-height: 30px;
+				padding-bottom: 20px;
+			}
+			.user .user-content .stars i{
+				color:red;
+				vertical-align: top;
+				margin-top: 2px;
 				
-			</el-main>
-			<el-footer height="100px">
-				<app-footer></app-footer>
-			</el-footer>
-		</el-container>
-	</div>
-
-</body>
-<!-- import Vue before Element -->
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
-<!-- import JavaScript -->
-<script src="https://unpkg.com/element-ui/lib/index.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="../../js/header.js"></script>
-<script src="../../js/footer.js"></script>
-<script src="../../js/common.js"></script>
-<script>
-	new Vue({
-		data() {
-			return {
-				current: "qa",
-				activeName: "first",
-				tabPosition: 'all',
-				searchKeyword: '',
-				tag: true
 			}
-		},
-		created(){
-			service({
-				url: '/questions/queryList',
-				method:'post',
-				data:{
-					"index": 0,
-					"size": 10,
-					"type": "string"	
+				.user .user-content .stars {
+				line-height: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<el-container>
+				<el-header class="box-flex align-center">
+					<app-header :current="current"></app-header>
+				</el-header>
+				<el-main>
+					<div class="container">
+						<el-row :gutter="20">
+						<el-col :span="5" class="user m-t-m">
+							<el-card shadow="never">
+								<div class="user-content">
+									<div class="avator">
+										<img src='../../img/1.jpg' />
+										<div class="user-name">
+											{{user.name}}
+										</div>
+										<div class="tips">
+											（这个人懒得留下签名）
+										</div>
+									</div>
+									<div class="stars">
+										<i class="fa fa-star fa-fw" aria-hidden="true"></i>{{user.questioncnt}}
+									</div>
+								</div>
+							</el-card>
+						</el-col>
+						<el-col :span="18" class="m-t-m">
+							<el-card shadow="never">
+								<div class="user-content">
+									<div class="avator">
+										<img src='../../img/1.jpg' />
+										<div class="user-name">
+											{{user.name}}
+										</div>
+										<div class="tips">
+											（这个人懒得留下签名）
+										</div>
+									</div>
+									<div class="stars">
+										<i class="fa fa-star fa-fw" aria-hidden="true"></i>{{user.questioncnt}}
+									</div>
+								</div>
+							</el-card>
+						</el-col>
+					</el-row>
+					</div>
+				</el-main>
+				<el-footer height="100px">
+					<app-footer></app-footer>
+				</el-footer>
+			</el-container>
+		</div>
+
+	</body>
+	<!-- import Vue before Element -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+	<!-- import JavaScript -->
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="../../js/header.js"></script>
+	<script src="../../js/footer.js"></script>
+	<script src="../../js/common.js"></script>
+	<script>
+		new Vue({
+			data() {
+				return {
+					current: "user",
+					user: {}
 				}
-			}).then((res) => {
-				console.log(res)
-			})
-		},
-		methods: {
-			handleClick() {
+			},
+			created() {
+				var id = GetQueryString('id')
+				this.getUser(id)
+			},
+			methods: {
+				handleClick() {
 
+				},
+				getUser(id){
+					service({
+						url: '/user/getbyid?uid='+id,
+						method: 'get',
+					}).then((res) => {
+						this.user = res.data
+					})
+				}
 			}
-		}
-	}).$mount('#app')
-</script>
+		}).$mount('#app')
+	</script>
 
 </html>

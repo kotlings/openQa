@@ -10,6 +10,7 @@ const service = axios.create({
   // request拦截器
   service.interceptors.request.use(
     config => {
+    	config.headers['X-Token'] = sessionStorage.token
         return config
     },
     error => {

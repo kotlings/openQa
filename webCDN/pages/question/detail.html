@@ -8,191 +8,11 @@
 		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 		<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="../../css/common.css">
-		<style>
-			.article .title {
-				font-size: 18px;
-				font-weight: 600;
-				line-height: 40px;
-			}
-			
-			.article .tags .el-tag {
-				font-size: 12px;
-				color: #666666;
-				height: auto;
-				padding: 5px 10px;
-				line-height: 1;
-				border-radius: 2px;
-			}
-			
-			.article .scan-see {
-				font-size: 14px;
-				color: #666666;
-			}
-			
-			.article .scan-see i {
-				margin-top: -2px;
-			}
-			
-			.article .user-info {
-				margin-top: 20px;
-				margin-bottom: 20px;
-				padding: 20px;
-				background-color: #efefef;
-			}
-			
-			.article .user-info .user-avator,
-			.article .user-info .user-avator>img {
-				width: 50px;
-				height: 50px;
-				border-radius: 2px;
-			}
-			
-			.article .user-info .user-avator {
-				margin-right: 10px;
-			}
-			
-			.article .user-info .user {
-				line-height: 25px;
-				height: 25px;
-				font-size: 14px;
-			}
-			
-			.article .user-info .user .name {
-				color: #009E94;
-				padding-right: 10px;
-			}
-			
-			.article .user-info .user .role {
-				color: #FF7200;
-				padding-right: 10px;
-			}
-			
-			.article .user-info .user .time {
-				color: #666666;
-				font-size: 12px;
-			}
-			
-			.article .user-info .sa {
-				color: #FF7200;
-				font-size: 14px;
-				line-height: 25px;
-			}
-			
-			.questions {
-				margin-top: 20px;
-			}
-			
-			.questions .hot {
-				background-color: #f3f5f7;
-				border-left: 4px solid #42b983;
-				padding-left: 20px;
-				line-height: 40px;
-				height: 40px;
-				font-size: 14px;
-				font-weight: 600;
-				color: #2c3e50;
-			}
-			
-			.questions .questions-body {
-				padding: 10px;
-				border: 1px solid #efefef;
-				border-top: 0;
-			}
-			
-			.questions .questions-body .question {
-				border-bottom: 1px dashed #efefef;
-			}
-			
-			.questions .questions-body .question:last-child {
-				border-bottom: 0;
-			}
-			
-			.questions .questions-body .question {
-				border-bottom: 1px dashed #efefef;
-				padding: 10px;
-			}
-			
-			.questions .questions-body .question .user .avator img {
-				width: 50px;
-				height: 50px;
-				border-radius: 50%;
-			}
-			
-			.questions .questions-body .question .user .user-right {
-				line-height: 25px;
-				padding-left: 10px;
-				font-size: 14px;
-			}
-			
-			.questions .questions-body .question .user .user-right .time {
-				color: #666;
-				font-size: 12px;
-			}
-			
-			.question .question-content {
-				font-size: 14px;
-				color: #888;
-				padding: 5px 0;
-			}
-			
-			.question .repeat i {
-				font-size: 16px;
-				color: #888;
-				vertical-align: top;
-			}
-			
-			.question .repeat {
-				cursor: pointer;
-				font-size: 16px;
-				line-height: 16px;
-				color: #888;
-			}
-			
-			.tinymce-container {
-				position: relative;
-			}
-			
-			.tinymce-container .mce-fullscreen {
-				z-index: 10000;
-			}
-			
-			.tinymce-textarea {
-				visibility: hidden;
-				z-index: -1;
-			}
-			
-			.editor-custom-btn-container {
-				position: absolute;
-				right: 4px;
-				top: 4px;
-				/*z-index: 2005;*/
-			}
-			
-			.fullscreen .editor-custom-btn-container {
-				z-index: 10000;
-				position: fixed;
-			}
-			
-			.editor-upload-btn {
-				display: inline-block;
-			}
-			
-			.editor-slide-upload {
-				margin-bottom: 20px;
-			}
-			
-			.editor-slide-upload .el-upload--picture-card {
-				width: 100%;
-			}
-			
-			.tinymce-container {
-				margin-top: 30px;
-			}
-		</style>
+		<link rel="stylesheet" href="../../css/question/detail.css">
 	</head>
 
 	<body>
-		<div id="app">
+		<div id="app" v-cloak>
 			<el-container>
 				<el-header class="box-flex align-center">
 					<app-header :current="current"></app-header>
@@ -227,64 +47,55 @@
 										</div>
 										<div class="sa">
 											悬赏：{{question.experience}}飞吻
+											<span v-if="(user && myself && question.accept == undefined) || user.auth == 1" class="jie-admin" type="edit">
+             									 <a :href="'/questions/edit?id='+question.id">编辑此贴</a>
+            								</span>
 										</div>
 									</div>
 								</div>
 								<div class="body" v-html="question.content">
 								</div>
 							</div>
-							<div class="questions">
+							<div class="questions" v-if="question.answers.length>0">
 								<div class="hot">
 									热门回答
 								</div>
 								<div class="questions-body">
-									<div class="question">
+									<div class="question" v-for="item in question.answers" :key="item.id">
 										<div class="user box-flex align-center">
 											<div class="avator">
-												<img src="../../img/1.jpg" />
+												<img :src="'../../img/avatar/'+item.user.pic">
 											</div>
 											<div class="user-right">
 												<div class="name">
-													宝宝
+													{{item.user.name}}
+													<em v-if="item.user.rmb" style="padding:0 ; color: #FF7200;">VIP{{ item.user.rmb }}</em>
+													<em v-if="item.user.id == question.user.id">(楼主)</em>
+													<em style="color:#5FB878" v-else-if="item.user.auth == 1">(管理员)</em>
+													<em style="color:#FF9E3F" v-else-if="item.user.auth == 2">（活雷锋）</em>
+													<em style="color:#999" v-else-if="item.user.auth == -1">（该号已被封）</em>
 												</div>
 												<div class="time">
-													2018-12-12
+													{{item.time}}
 												</div>
 											</div>
 										</div>
+										<i v-if="item.id == question.accept" class="iconfont icon-caina" title="最佳答案"></i>
+										<div class="question-content" v-html="item.content">
+										</div>
 										<div class="requestion">
-											<el-collapse-transition>
-												<div style="display: none;" class="tinymce-open">
-													<tinymce :height="150" v-model="content"></tinymce>
-												</div>
-											</el-collapse-transition>
+											<div class="repeat" @click="repeat(item)">
+												<i class="fa-commenting fa-fw fa"></i> 回复
+											</div>
 
 										</div>
 									</div>
-									<div class="question">
-										<div class="user box-flex align-center">
-											<div class="avator">
-												<img src="../../img/1.jpg" />
-											</div>
-											<div class="user-right">
-												<div class="name">
-													宝宝
-												</div>
-												<div class="time">
-													2018-12-12
-												</div>
-											</div>
-										</div>
-										<div class="question-content">
-											但，如果觉得它的设计开发符合你的工作场景，并用于企业或商业应用，从事相关的商业活动，请尊重知识产权，授权后再进行使用。
-										</div>
-										<div class="requestion">
-											<div class="repeat">
-												<i class="fa-commenting fa-fw fa"></i> 回复
-											</div>
-										</div>
-									</div>
-									<tinymce :height="200" v-model="content"></tinymce>
+									<el-row class="m-t-m">
+										<tinymce :height="200" v-model="content"></tinymce>
+									</el-row>
+									<el-row class="m-t-m">
+										<el-button type="primary" @click="saveQuestion">提交回答</el-button>
+									</el-row>
 								</div>
 
 							</div>
@@ -296,43 +107,18 @@
 									最近热帖
 								</div>
 								<div class="p-m news">
-									<div class="new ellipsis box-flex align-center">
-										<div class="num">01.</div>
-										<div class="title ellipsis">
-											我是来写代码得我是来写代码得我是来写代码得我是来写代码得我是来写代码得
+									<template v-for="(hot,index) in hots">
+										<div class="new ellipsis box-flex align-center" :key="index+1">
+											<div class="num" v-if="index>=9">{{index+1}}.</div>
+											<div class="num" v-else>0{{index+1}}.</div>
+											<div class="title ellipsis">
+												{{ hot.title }}
+											</div>
+											<div class="scan">
+												<i class="fa fa-fw fa-eye">{{ hot.hits }}</i>
+											</div>
 										</div>
-										<div class="scan">
-											<i class="fa fa-fw fa-eye">123213</i>
-										</div>
-									</div>
-									<div class="new box-flex align-center">
-										<div class="num">01</div>
-										<div class="title ellipsis"></div>
-										<div class="scan">
-											<i class="fa fa-fw fa-eye">123213</i>
-										</div>
-									</div>
-									<div class="new ellipsis box-flex align-center">
-										<div class="num">01</div>
-										<div class="title"></div>
-										<div class="scan">
-											<i class="fa fa-fw fa-eye">123213</i>
-										</div>
-									</div>
-									<div class="new ellipsis box-flex align-center">
-										<div class="num">01</div>
-										<div class="title"></div>
-										<div class="scan">
-											<i class="fa fa-fw fa-eye">123213</i>
-										</div>
-									</div>
-									<div class="new ellipsis box-flex align-center">
-										<div class="num">01</div>
-										<div class="title"></div>
-										<div class="scan">
-											<i class="fa fa-fw fa-eye">123213</i>
-										</div>
-									</div>
+									</template>
 
 								</div>
 							</el-card>
@@ -392,7 +178,6 @@
 	</script>
 	<script src="../../js/TinyMce/eidtorImage.js"></script>
 	<script src="../../js/TinyMce/index.js"></script>
-	<script src="../layui/layui.js"></script>
 	<script>
 		new Vue({
 			components: {
@@ -400,36 +185,68 @@
 			},
 			data() {
 				return {
+					myself: false, //标识该问题是否是登录的用户的
 					current: "qa",
-					activeName: "first",
-					tabPosition: 'all',
-					searchKeyword: '',
-					tag: true,
-					content: "123",
-					question: {}
+					content: "",
+					question: {},
+					user: {},
+					questions: [],
+					hots: [],
 				}
 			},
 			created() {
-
 				var id = GetQueryString('id')
+				var isLogin = sessionStorage.isLogin
+				if(isLogin === 'true') {
+					var user = sessionStorage.user
+					user = JSON.parse(user);
+					this.user = user
+				}
 				service({
 					url: '/questions/getone?id=' + id,
 					method: 'get',
 				}).then((res) => {
 					this.question = res.data;
-					layui.use(['fly', 'form'], function() {
-						var fly = layui.fly;
-						var layer = layui.layer;
-						var content = fly.content(res.data.content)
-						console.log(content)
-//						this.question = res.data;
-
-					})
 				})
+				this.getHot()
 			},
 			methods: {
-				handleClick() {
+				repeat(item) {
+					var ele = document.getElementById('app');
+					window.scrollTo(0, ele.scrollHeight);
+					this.content = '@' + item.user.name
+//					this.currentItem = item
+				},
+				getHot() {
+					service({
+						url: '/questions/gethot',
+						method: 'get',
+					}).then((res) => {
 
+						if(res.data.total >= 10) {
+							for(var i = 0; i < 10; i++) {
+								this.hots.push(res.data.objects[i])
+							}
+						} else {
+							this.hots = res.data.objects
+						}
+					})
+				},
+				saveQuestion() {
+					var data = {
+						content: this.content,
+						jid: this.question.id
+					}
+					service({
+						url: '/questions/addAnswer',
+						method: 'post',
+						data: data
+					}).then((res) => {
+						this.content = ''
+						this.$notify.success({
+							message: '提交成功'
+						})
+					})
 				}
 			}
 		}).$mount('#app')

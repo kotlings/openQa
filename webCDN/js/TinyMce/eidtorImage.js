@@ -9,7 +9,12 @@ Vue.component('editorImage', {
 		return {
 			dialogVisible: false,
 			listObj: {},
-			fileList: []
+			fileList: [],
+		}
+	},
+	computed:{
+		headers(){
+			return {'X-Token':sessionStorage.token}
 		}
 	},
 	methods: {
@@ -32,7 +37,7 @@ Vue.component('editorImage', {
 			const objKeyArr = Object.keys(this.listObj)
 			for (let i = 0, len = objKeyArr.length; i < len; i++) {
 				if (this.listObj[objKeyArr[i]].uid === uid) {
-					this.listObj[objKeyArr[i]].url = response.files.file
+					this.listObj[objKeyArr[i]].url = response.data
 					this.listObj[objKeyArr[i]].hasSuccess = true
 					return
 				}
@@ -80,8 +85,9 @@ Vue.component('editorImage', {
 			:on-remove="handleRemove"
 			:on-success="handleSuccess"
 			:before-upload="beforeUpload"
+			:headers="headers"
 			class="editor-slide-upload"
-			action="https://httpbin.org/post"
+			action="http://119.84.146.233:8889/api/upload/"
 			list-type="picture-card">
 			<el-button size="small" type="primary">点击上传</el-button>
 			</el-upload>
