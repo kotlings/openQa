@@ -217,7 +217,7 @@
 					this.user = user
 				}
 				service({
-					url: '/questions/getone',
+					url: '/questions/getone?id='+id,
 					method: 'get',
 				}).then((res) => {
 					this.question = res.data;
