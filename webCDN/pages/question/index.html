@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../css/common.css">
-    <link rel="stylesheet" href="../../css/main/index.css">
+    <link rel="stylesheet" href="../../css/question/index.css">
 </head>
 
 <body>
@@ -70,7 +70,7 @@
                             </div>
                             <div class="card-body p-m box-flex flex-wrap">
                                 <template v-for="(user,index) in users">
-									<div class="user" :key="index+1">
+									<div class="user" :key="index+1" @click="linkUser(user)">
 										<div class="avatar">
 											<img :src="'../../img/avatar/' +  user.pic">
 											<div class="info">
@@ -90,7 +90,7 @@
                             </div>
                             <div class="p-m news">
                                 <template v-for="(hot,index) in hots">
-										<div class="new ellipsis box-flex align-center" :key="index+1">
+										<div class="new ellipsis box-flex align-center" @click="linkDetail(hot.id)" :key="index+1">
 											<div class="num" v-if="index>=9">{{index+1}}.</div>
 											<div class="num" v-else>0{{index+1}}.</div>
 											<div class="title ellipsis">
@@ -249,6 +249,9 @@
                 this.search.size = 10
                 this.search.key=this.searchKeyword
                 this.getList()
+            },
+            linkUser(e){
+            	window.location.href="../user/index.html?id="+e.id
             }
             
         }

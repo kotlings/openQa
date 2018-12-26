@@ -1,0 +1,139 @@
+.article .title {
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 40px;
+}
+
+.article .tags .el-tag {
+	font-size: 12px;
+	color: #666666;
+	height: auto;
+	padding: 5px 10px;
+	line-height: 1;
+	border-radius: 2px;
+}
+
+.article .scan-see {
+	font-size: 14px;
+	color: #666666;
+}
+
+.article .scan-see i {
+	margin-top: -2px;
+}
+
+.article .user-info {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 20px;
+	background-color: #efefef;
+}
+
+.article .user-info .user-avator,
+.article .user-info .user-avator>img {
+	width: 50px;
+	height: 50px;
+	border-radius: 2px;
+}
+
+.article .user-info .user-avator {
+	margin-right: 10px;
+}
+
+.article .user-info .user {
+	line-height: 25px;
+	height: 25px;
+	font-size: 14px;
+}
+
+.article .user-info .user .name {
+	color: #009E94;
+	padding-right: 10px;
+}
+
+.article .user-info .user .role {
+	color: #FF7200;
+	padding-right: 10px;
+}
+
+.article .user-info .user .time {
+	color: #666666;
+	font-size: 12px;
+}
+
+.article .user-info .sa {
+	color: #FF7200;
+	font-size: 14px;
+	line-height: 25px;
+}
+
+.questions {
+	margin-top: 20px;
+}
+
+.questions .hot {
+	background-color: #f3f5f7;
+	border-left: 4px solid #42b983;
+	padding-left: 20px;
+	line-height: 40px;
+	height: 40px;
+	font-size: 14px;
+	font-weight: 600;
+	color: #2c3e50;
+}
+
+.questions .questions-body {
+	padding: 10px;
+	border: 1px solid #efefef;
+	border-top: 0;
+}
+
+.questions .questions-body .question {
+	border-bottom: 1px dashed #efefef;
+}
+
+.questions .questions-body .question:last-child {
+	border-bottom: 0;
+}
+
+.questions .questions-body .question {
+	border-bottom: 1px dashed #efefef;
+	padding: 10px;
+}
+
+.questions .questions-body .question .user .avator img {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
+
+.questions .questions-body .question .user .user-right {
+	line-height: 25px;
+	padding-left: 10px;
+	font-size: 14px;
+}
+
+.questions .questions-body .question .user .user-right .time {
+	color: #666;
+	font-size: 12px;
+}
+
+.question .question-content {
+	font-size: 14px;
+	color: #888;
+	padding: 5px 0;
+}
+
+.question .repeat i {
+	font-size: 16px;
+	color: #888;
+	vertical-align: top;
+}
+
+.question .repeat {
+	cursor: pointer;
+	font-size: 16px;
+	line-height: 16px;
+	color: #888;
+}
+

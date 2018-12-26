@@ -9,6 +9,18 @@
 		<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="../../css/common.css">
 		<link rel="stylesheet" href="../../css/question/detail.css">
+		<style>
+			code {
+				display: block;
+				overflow: auto;
+				background: #f4f4f4;
+				padding: 5px 10px;
+				border: 1px solid #eee;
+				word-wrap: break-word;
+				width: 844px;
+				/* Internet Explorer 5.5+ */
+			}
+		</style>
 	</head>
 
 	<body>
@@ -19,7 +31,7 @@
 				</el-header>
 				<el-main class="bg-white">
 					<div class="container p-t-m box-flex">
-						<div class="left-body flex-1">
+						<div class="left-body flex-1 flex-wrap">
 							<div class="article">
 								<div class="title">
 									{{question.title}}
@@ -53,7 +65,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="body" v-html="question.content">
+								<div class="body mce-content-body panel-body" v-html="question.content">
 								</div>
 							</div>
 							<div class="questions" v-if="question.answers.length>0">
@@ -90,15 +102,15 @@
 
 										</div>
 									</div>
-									<el-row class="m-t-m">
-										<tinymce :height="200" v-model="content"></tinymce>
-									</el-row>
-									<el-row class="m-t-m">
-										<el-button type="primary" @click="saveQuestion">提交回答</el-button>
-									</el-row>
 								</div>
 
 							</div>
+							<el-row class="m-t-m">
+								<tinymce :height="200" v-model="content"></tinymce>
+							</el-row>
+							<el-row class="m-t-m">
+								<el-button type="primary" @click="saveQuestion">提交回答</el-button>
+							</el-row>
 						</div>
 
 						<div class="right-body">
@@ -108,7 +120,7 @@
 								</div>
 								<div class="p-m news">
 									<template v-for="(hot,index) in hots">
-										<div class="new ellipsis box-flex align-center" :key="index+1">
+										<div class="new ellipsis box-flex align-center" @click="linkDetail(hot)" :key="index+1">
 											<div class="num" v-if="index>=9">{{index+1}}.</div>
 											<div class="num" v-else>0{{index+1}}.</div>
 											<div class="title ellipsis">
@@ -215,7 +227,7 @@
 					var ele = document.getElementById('app');
 					window.scrollTo(0, ele.scrollHeight);
 					this.content = '@' + item.user.name
-//					this.currentItem = item
+					//					this.currentItem = item
 				},
 				getHot() {
 					service({
@@ -247,6 +259,9 @@
 							message: '提交成功'
 						})
 					})
+				},
+				linkDetail(e){
+					window.location.href="detail.html?id="+e.id
 				}
 			}
 		}).$mount('#app')

@@ -69,7 +69,7 @@ Vue.component('app-header', {
                     <a href="../../pages/question/index.html"><i class="fa fa-question-circle-o fa-fw p-l-m p-r-m" aria-hidden="true"></i>问答</a>
                 </div>
                 <div class="nav p-l-m m-l-llg" :class="current === 'ui'?'active':''">
-                    <a href="../../pages/question/index.html"><i class="fa fa-css3 fa-fw p-l-m p-r-m" aria-hidden="true"></i>框架</a>
+                    <a href="../../pages/main/index.html"><i class="fa fa-css3 fa-fw p-l-m p-r-m" aria-hidden="true"></i>框架</a>
                 </div>
             </div>
             <div class="right-nav flex-1 justify-end box-flex">

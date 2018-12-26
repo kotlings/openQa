@@ -9,12 +9,14 @@
 		<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="../../css/common.css">
 		<style>
-			.user .user-content{
+			.user .user-content {
 				padding-bottom: 20px;
 			}
+			
 			.user {
 				min-height: 200px;
 			}
+			
 			.user .user-content .avator img {
 				width: 100px;
 				height: 100px;
@@ -38,14 +40,40 @@
 				line-height: 30px;
 				padding-bottom: 20px;
 			}
-			.user .user-content .stars i{
-				color:red;
+			
+			.user .user-content .stars i {
+				color: red;
 				vertical-align: top;
 				margin-top: 2px;
-				
 			}
-				.user .user-content .stars {
+			
+			.user .user-content .stars {
 				line-height: 20px;
+			}
+			
+			.qustion-list {
+				line-height: 40px;
+				height: 40px;
+				cursor: pointer;
+			}
+			
+			.qustion-list .title {
+				font-size: 15px;
+				color: #212121;
+			}
+			
+			.qustion-list .time {
+				font-size: 12px;
+				color: #888;
+				padding-left: 20px;
+			}
+			
+			.qustion-list .right {
+				font-size: 12px;
+				color: #666;
+				padding-left: 20px;
+				text-align: right;
+				flex: 1;
 			}
 		</style>
 	</head>
@@ -59,43 +87,80 @@
 				<el-main>
 					<div class="container">
 						<el-row :gutter="20">
-						<el-col :span="5" class="user m-t-m">
-							<el-card shadow="never">
-								<div class="user-content">
-									<div class="avator">
-										<img src='../../img/1.jpg' />
-										<div class="user-name">
-											{{user.name}}
+							<el-col :span="5" class="user m-t-m">
+								<el-card shadow="never">
+									<div class="user-content">
+										<div class="avator">
+											<img src='../../img/1.jpg' />
+											<div class="user-name">
+												{{user.name}}
+											</div>
+											<div class="tips">
+												（这个人懒得留下签名）
+											</div>
 										</div>
-										<div class="tips">
-											（这个人懒得留下签名）
-										</div>
-									</div>
-									<div class="stars">
-										<i class="fa fa-star fa-fw" aria-hidden="true"></i>{{user.questioncnt}}
-									</div>
-								</div>
-							</el-card>
-						</el-col>
-						<el-col :span="18" class="m-t-m">
-							<el-card shadow="never">
-								<div class="user-content">
-									<div class="avator">
-										<img src='../../img/1.jpg' />
-										<div class="user-name">
-											{{user.name}}
-										</div>
-										<div class="tips">
-											（这个人懒得留下签名）
+										<div class="stars">
+											<i class="fa fa-star fa-fw" aria-hidden="true"></i>{{user.questioncnt}}
 										</div>
 									</div>
-									<div class="stars">
-										<i class="fa fa-star fa-fw" aria-hidden="true"></i>{{user.questioncnt}}
-									</div>
-								</div>
-							</el-card>
-						</el-col>
-					</el-row>
+								</el-card>
+							</el-col>
+							<el-col :span="18" class="m-t-m">
+								<el-card shadow="never">
+									<el-tabs value="login">
+										<el-tab-pane label="发表的问题" name="login">
+											<template v-if="questions.length == 0">
+												<div class="empty">
+													暂无发表
+												</div>
+											</template>
+											<template v-else>
+												<template v-for="question in questions">
+													<div class="box-flex qustion-list" @click="linkDetail(question)">
+														<div class="title">
+															{{question.title}}
+														</div>
+														<div class="time">
+															{{question.time}}
+														</div>
+														<div class="right text-right">
+															回答
+															<span class="p-l-sm p-r-sm">{{ question.comment }}</span> 浏览{{ question.hits }}
+														</div>
+													</div>
+												</template>
+												<el-pagination @current-change="getNewQ" v-show="questionPagecnt>1" background layout="prev, pager, next" :page-count="questionPagecnt">
+												</el-pagination>
+											</template>
+										</el-tab-pane>
+										<el-tab-pane label="回答" name="register">
+											<template v-if="answers.length == 0">
+												<div class="empty">
+													暂无回答
+												</div>
+											</template>
+											<template v-else>
+												<div v-for="question in answers" class="box-flex qustion-list" @click="linkDetail(question)">
+													<div class="title">
+														{{question.title}}
+													</div>
+													<div class="time">
+														{{question.time}}
+													</div>
+													<div class="right text-right">
+														<i class="fa fa-commenting fa-fw" aria-hidden="true"></i>
+														<span class="p-l-sm p-r-sm">{{ question.comment }}</span>
+														<i class="fa fa-fw fa-eye"></i>{{ question.hits }}
+													</div>
+												</div>
+												<el-pagination @current-change="getNewAnswer" v-show="questionPagecnt>1" background layout="prev, pager, next" :page-count="questionPagecnt">
+												</el-pagination>
+											</template>
+										</el-tab-pane>
+									</el-tabs>
+								</el-card>
+							</el-col>
+						</el-row>
 					</div>
 				</el-main>
 				<el-footer height="100px">
@@ -119,23 +184,75 @@
 			data() {
 				return {
 					current: "user",
-					user: {}
+					user: {},
+					questions: [],
+					answers: [],
+					questionPagecnt: 0,
+					anPagecnt: 0,
+					uid: ''
 				}
 			},
 			created() {
 				var id = GetQueryString('id')
+				this.uid = id
 				this.getUser(id)
+				this.getQuestionByUser({
+					index: 1,
+					size: 10,
+					uid: id
+				})
+				this.getUserAnswer({
+					index: 1,
+					size: 10,
+					uid: id
+				})
 			},
 			methods: {
-				handleClick() {
 
-				},
-				getUser(id){
+				getUser(id) {
 					service({
-						url: '/user/getbyid?uid='+id,
+						url: '/user/getbyid?uid=' + id,
 						method: 'get',
 					}).then((res) => {
 						this.user = res.data
+					})
+				},
+				getQuestionByUser(postData) {
+					service({
+						url: '/questions/getbyuser',
+						method: 'post',
+						data: postData
+					}).then((res) => {
+						this.questions = res.data.objects
+						this.questionPagecnt = res.data.pagecnt
+					})
+				},
+				getUserAnswer(postData) {
+					service({
+						url: '/questions/getbyuseranswer',
+						method: 'post',
+						data: postData
+					}).then((res) => {
+						this.answers = res.data.objects
+						this.anPagecnt = res.data.pagecnt
+					})
+				},
+				linkDetail(item) {
+					window.location.href = "../question/detail.html?id=" + item.id
+				},
+				getNewAnswer(e) {
+					this.getUserAnswer({
+						index: e,
+						size: 10,
+						uid:this.uid
+					})
+				},
+				getNewQ(e) {
+
+					this.getQuestionByUser({
+						index: e,
+						size: 10,
+						uid: this.uid
 					})
 				}
 			}
