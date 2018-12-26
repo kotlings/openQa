@@ -54,7 +54,7 @@
 										<img :src="'../../img/avatar/'+question.user.pic" :alt="question.user.name">
 									</div>
 									<div class="flex-1">
-										<div class="user">
+										<div class="user"  @click="linkUser(question.user.id)">
 											<span class="name">{{question.user.name}}</span>
 											<span class="role" v-if="question.user.rmb">VIP{{question.user.rmb}}</span>
 											<span class="time">发布于{{question.time}}</span>
@@ -76,7 +76,7 @@
 								</div>
 								<div class="questions-body">
 									<div class="question" v-for="item in question.answers" :key="item.id">
-										<div class="user box-flex align-center">
+										<div class="user box-flex align-center" @click="linkUser(item.id)">
 											<div class="avator">
 												<img :src="'../../img/avatar/'+item.user.pic">
 											</div>
@@ -247,6 +247,10 @@
 					})
 				},
 				saveQuestion() {
+					var isLogin = sessionStorage.isLogin
+					if(isLogin !== 'true'){
+						window.location.href="../user/login.html"
+					}
 					var data = {
 						content: this.content,
 						jid: this.question.id
@@ -264,6 +268,9 @@
 				},
 				linkDetail(e){
 					window.location.href="detail.html?id="+e.id
+				},
+				linkUser(id){
+					window.location.href="../user/index.html?id"+id
 				}
 			}
 		}).$mount('#app')

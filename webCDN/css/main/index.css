@@ -93,6 +93,10 @@
 .site-download a{
     cursor: pointer;
 }
+.site-version a{
+	color:#66b1ff;
+	cursor: pointer;
+}
 
 .cards {
 	margin-top: 30px;
@@ -124,8 +128,14 @@
 	color:#212121;
 	margin-bottom: 20px;
 }
-.uses{
-	
+.site-banner-other{
+	margin-top: 20px;
+	text-align: center;
+}
+.site-version{
+	text-align: center;
+	color:white;
+	margin-top: 30px;
 }
 .uses .item{
 	margin: 10px;

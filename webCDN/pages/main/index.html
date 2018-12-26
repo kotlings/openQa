@@ -5,8 +5,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<title>OpenAuth.net官方网站 - 最好用的.net权限工作流框架|.net core快速开发框架|.net core权限管理|.net core工作流</title>
-  		<meta name="Keywords" content="openauth.net,.net开源工作流,.NET开源权限管理">
-  		<meta name="Description" content="最好用的.net开源工作流框架,最好用的.NET开源权限管理框架">
+		<meta name="Keywords" content="openauth.net,.net开源工作流,.NET开源权限管理">
+		<meta name="Description" content="最好用的.net开源工作流框架,最好用的.NET开源权限管理框架">
 		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 		<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="../../css/common.css">
@@ -49,10 +49,17 @@
 								使用文档
 							</a>
 						</div>
+						<div class="site-version">
+							<span>当前版本：{{version}}</span>
+							<span><a href="http://doc.openauth.me/#/changelog" target="_blank">更新日志</a></span>
+							<span>下载量：{{download}}</span>
+						</div>
+						<div class="site-banner-other">
+							<script src='https://git.oschina.net/yubaolee/OpenAuth.Net/star_widget_preview'></script>
+						</div>
 					</div>
 					<div class="container cards">
 						<el-row :gutter="10">
-
 							<el-col :span="8">
 								<el-card class="box-card" shadow="hover">
 									<div slot="header" class="clearfix">
@@ -134,7 +141,7 @@
 							<div class="item">
 								<img alt="三峡水利" src="http://www.cqsxsl.com/images/logo.png" />
 							</div>
-								<div class="item">
+							<div class="item">
 								<img alt="金科" src="http://www.jinke.com/skin/default/images/logo.png" />
 							</div>
 							<div class="item">
@@ -143,7 +150,7 @@
 							<div class="item">
 								<img alt="华润" src="http://www.crc.com.cn/images/logo_80th_new.png" />
 							</div>
-							
+
 						</div>
 					</div>
 				</el-main>
@@ -165,7 +172,26 @@
 	<script src="../../js/common.js"></script>
 	<script src="../../tctip-master/js/tctip.js"></script>
 	<script>
-		new Vue().$mount('#app')
+		new Vue({
+			data() {
+				return {
+					version:0,
+					download:0
+					
+				}
+			},
+			created() {
+				service({
+						url: '/main/getversion',
+						method: 'get',
+						data: this.question
+					}).then((res) => {
+						this.version = res.data.version
+						this.download = res.data.download
+					});
+				
+			}
+		}).$mount('#app')
 	</script>
 
 </html>
