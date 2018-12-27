@@ -36,7 +36,7 @@ Vue.component('app-header', {
 				sessionStorage.isLogin = false
 				sessionStorage.user = ''
 				setTimeout(function() {
-						window.location.href = "/pages/question/index.html"
+						window.location.href = "../question/index.html"
 					}, 1000)
 //				service({
 //					url: '/user/logout',
