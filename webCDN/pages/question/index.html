@@ -61,7 +61,7 @@
 										</div>
 									</div>
 								</template>
-                            <el-pagination style="margin:10px 0" v-if="total>10" @current-change="updateIndex" background layout="prev, pager, next" :total="total"></el-pagination>
+                            <el-pagination style="margin:10px 0" v-if="total>1" @current-change="updateIndex" background layout="prev, pager, next" :page-count="total"></el-pagination>
                         </div>
                     </el-card>
 
@@ -229,9 +229,8 @@
                         'key':this.search.key
                     }
                 }).then((res) => {
-                    console.log(res)
                     this.questions = res.data.objects
-                    this.total = res.data.total
+                    this.total = res.data.pagecnt
                 })
             },
             linkDetail(id){
