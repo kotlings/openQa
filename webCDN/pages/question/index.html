@@ -2,17 +2,19 @@
 <html>
 
 <head>
-    <title>OpenAuth</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>OpenAuth.net官方网站 - 最好用的.net权限工作流框架|.net core快速开发框架|.net core权限管理|.net core工作流</title>
+  		<meta name="Keywords" content="openauth.net,.net开源工作流,.NET开源权限管理">
+  		<meta name="Description" content="最好用的.net开源工作流框架,最好用的.NET开源权限管理框架">
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../css/common.css">
-    <link rel="stylesheet" href="../../css/main/index.css">
+    <link rel="stylesheet" href="../../css/question/index.css">
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" v-cloak>
         <el-container>
            <el-header class="box-flex align-center">
                 <app-header :current="current"></app-header>
@@ -28,10 +30,10 @@
                                 <el-radio-button label="wonderful">精帖</el-radio-button>
                             </el-radio-group>
                             <div class="p-l-m">
-                                <el-input placeholder="请输入内容" size="small" prefix-icon="el-icon-search" v-model="searchKeyword"></el-input>
+                                <el-input placeholder="请输入内容" size="small" prefix-icon="el-icon-search" v-model="searchKeyword" @keyup.enter.native="searchKey"></el-input>
                             </div>
                             <div class="flex-1 box-flex justify-end">
-                                <el-button type="primary" size="small">发布问题</el-button>
+                                <el-button type="primary" size="small" @click="linkAdd">发布问题</el-button>
                             </div>
                         </div>
                         <div class="card-body">
@@ -59,7 +61,7 @@
 										</div>
 									</div>
 								</template>
-                            <el-pagination style="margin:10px 0" v-if="total>10" @current-change="updateIndex" background layout="prev, pager, next" :total="total"></el-pagination>
+                            <el-pagination style="margin:10px 0" v-if="total>1" @current-change="updateIndex" background layout="prev, pager, next" :page-count="total"></el-pagination>
                         </div>
                     </el-card>
 
@@ -70,7 +72,7 @@
                             </div>
                             <div class="card-body p-m box-flex flex-wrap">
                                 <template v-for="(user,index) in users">
-									<div class="user" :key="index+1">
+									<div class="user" :key="index+1" @click="linkUser(user)">
 										<div class="avatar">
 											<img :src="'../../img/avatar/' +  user.pic">
 											<div class="info">
@@ -90,7 +92,7 @@
                             </div>
                             <div class="p-m news">
                                 <template v-for="(hot,index) in hots">
-										<div class="new ellipsis box-flex align-center" :key="index+1">
+										<div class="new ellipsis box-flex align-center" @click="linkDetail(hot.id)" :key="index+1">
 											<div class="num" v-if="index>=9">{{index+1}}.</div>
 											<div class="num" v-else>0{{index+1}}.</div>
 											<div class="title ellipsis">
@@ -174,7 +176,6 @@
         },
         watch: {
             tabPosition(e) {
-                console.log(e)
                 this.search.type = e
                 this.search.index = 1
                 this.search.size = 10
@@ -182,9 +183,6 @@
             }
         },
         methods: {
-            handleClick() {
-
-            },
             updateIndex(e) {
                 this.search.index = e
                 this.getList()
@@ -227,16 +225,34 @@
                     data: {
                         "index": this.search.index,
                         "size": this.search.size,
-                        "type": this.search.type
+                        "type": this.search.type,
+                        'key':this.search.key
                     }
                 }).then((res) => {
-                    console.log(res)
                     this.questions = res.data.objects
-                    this.total = res.data.total
+                    this.total = res.data.pagecnt
                 })
             },
             linkDetail(id){
             	window.location.href="detail.html?id="+id
+            },
+            linkAdd(){
+            	if(sessionStorage.isLogin!=='true'){
+            		window.location.href="../user/login.html"
+            	}else{
+            		window.location.href="../question/add.html"
+            	}
+            },
+            searchKey(){
+            	this.tabPosition = ''
+            	this.search.type = ''
+                this.search.index = 1
+                this.search.size = 10
+                this.search.key=this.searchKeyword
+                this.getList()
+            },
+            linkUser(e){
+            	window.location.href="../user/index.html?id="+e.id
             }
             
         }

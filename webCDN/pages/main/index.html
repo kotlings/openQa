@@ -1,282 +1,197 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-	<title>OpenAuth</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width,initial-scale=1.0">
-	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-	<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="../../css/common.css">
-	<link rel="stylesheet" href="../../css/question/index.css">
-</head>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<title>OpenAuth.net官方网站 - 最好用的.net权限工作流框架|.net core快速开发框架|.net core权限管理|.net core工作流</title>
+		<meta name="Keywords" content="openauth.net,.net开源工作流,.NET开源权限管理">
+		<meta name="Description" content="最好用的.net开源工作流框架,最好用的.NET开源权限管理框架">
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="../../css/common.css">
+		<link rel="stylesheet" href="../../css/main/index.css">
+	</head>
 
-<body>
-	<div id="app">
-		<el-container>
-			<el-header class="box-flex align-center">
-				<app-header :current="current"></app-header>
-			</el-header>
-			<el-main>
-				<div class="container p-t-m box-flex">
-					<el-card class="left-body flex-1 card-small" shadow="never">
-						<div slot="header" class="clearfix box-flex">
-							<el-radio-group v-model="tabPosition" size="small">
-								<el-radio-button label="all">全部</el-radio-button>
-								<el-radio-button label="unAdopt">未结贴</el-radio-button>
-								<el-radio-button label="adopt">已采纳</el-radio-button>
-								<el-radio-button label="classical">精帖</el-radio-button>
-							</el-radio-group>
-							<div class="p-l-m">
-								<el-input placeholder="请输入内容" size="small" prefix-icon="el-icon-search" v-model="searchKeyword"></el-input>
+	<body>
+		<div id="app">
+			<el-container>
+				<el-header>
+					<div class="container">
+						<div class="box-flex align-center">
+							<div class="logo">
+								<img src="../../img/logo_banner.png" />
 							</div>
-							<div class="flex-1 box-flex justify-end">
-								<el-button type="primary" size="small">发布问题</el-button>
+							<div class="right-link box-flex align-end">
+								<div class="item">
+									<a href="../question/index.html">社区</a>
+								</div>
+								<div class="item">
+									<a href="http://www.cnblogs.com/yubaolee/" target="_blank">我的博客</a>
+								</div>
 							</div>
 						</div>
-						<div class="card-body">
-							<div class="list box-flex flex-wrap">
-								<div class="left-img">
-									<img src="../../img/001.png" />
-								</div>
-								<div class="content">
-									<div class="title ellipsis">
-										<el-tag type="success" class="p-r-m" size="small">标签三</el-tag>
-										OpenAuth.Net/Core授权说明【即OpenAuth.Pro源码获取说明】
-										/Core授权说明【即OpenAuth.Pro源码获取说明】
-										/Core授权说明【即OpenAuth.Pro源码获取说明
-									</div>
-									<div class="info box-flex">
-										管理员 <span class="p-l-m p-r-m">Nov 29, 2018 9:09:20 AM</span>OpenAuth.Net框架综合
-										<div class="flex-1 text-right">
-											<i class="fa fa-commenting fa-fw" aria-hidden="true"></i>
-											<span class="p-l-sm p-r-sm">123</span>
-											<i class="fa fa-fw fa-eye"></i>123
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<el-pagination style="margin:10px 0" background layout="prev, pager, next" :total="1000"></el-pagination>
-						</div>
-					</el-card>
-
-					<div class="right-body">
-						<el-card class="left-body flex-1 card-small" shadow="never">
-							<div slot="header" class="clearfix box-flex">
-								新注册用户
-							</div>
-							<div class="card-body p-m box-flex flex-wrap">
-
-								<div class="user">
-									<div class="avatar">
-										<img src="../../img/1.jpg" />
-										<div class="info">
-											万福
-										</div>
-									</div>
-									<div class="tips">
-										5次回答
-									</div>
-								</div>
-								<div class="user">
-									<div class="avatar">
-										<img src="../../img/1.jpg" />
-										<div class="info">
-											万福
-										</div>
-										<div class="tips">
-											5次回答
-										</div>
-									</div>
-								</div>
-								<div class="user">
-									<div class="avatar">
-										<img src="../../img/1.jpg" />
-										<div class="info">
-											万福
-										</div>
-										<div class="tips">
-											5次回答
-										</div>
-									</div>
-								</div>
-								<div class="user">
-									<div class="avatar">
-										<img src="../../img/1.jpg" />
-										<div class="info">
-											万福
-										</div>
-										<div class="tips">
-											5次回答
-										</div>
-									</div>
-								</div>
-								<div class="user">
-									<div class="avatar">
-										<img src="../../img/1.jpg" />
-										<div class="info">
-											万福
-										</div>
-										<div class="tips">
-											4次回答
-										</div>
-									</div>
-								</div>
-								<div class="user">
-									<div class="avatar">
-										<img src="../../img/1.jpg" />
-										<div class="info">
-											万福
-										</div>
-										<div class="tips">
-											3次回答
-										</div>
-									</div>
-								</div>
-								<div class="user">
-									<div class="avatar">
-										<img src="../../img/1.jpg" />
-										<div class="info">
-											万福
-										</div>
-										<div class="tips">
-											1次回答
-										</div>
-									</div>
-								</div>
-								<div class="user">
-									<div class="avatar">
-										<img src="../../img/1.jpg" />
-										<div class="info">
-											万福
-										</div>
-										<div class="tips">
-											2次回答
-										</div>
-									</div>
-								</div>
-							</div>
-						</el-card>
-						<el-card class="left-body flex-1 card-small" shadow="never">
-							<div slot="header" class="clearfix box-flex">
-								最近热帖
-							</div>
-							<div class="p-m news">
-								<div class="new ellipsis box-flex align-center">
-									<div class="num">01.</div>
-									<div class="title ellipsis">
-										我是来写代码得我是来写代码得我是来写代码得我是来写代码得我是来写代码得
-									</div>
-									<div class="scan">
-										<i class="fa fa-fw fa-eye">123213</i>
-									</div>
-								</div>
-								<div class="new box-flex align-center">
-									<div class="num">01</div>
-									<div class="title ellipsis"></div>
-									<div class="scan">
-										<i class="fa fa-fw fa-eye">123213</i>
-									</div>
-								</div>
-								<div class="new ellipsis box-flex align-center">
-									<div class="num">01</div>
-									<div class="title"></div>
-									<div class="scan">
-										<i class="fa fa-fw fa-eye">123213</i>
-									</div>
-								</div>
-								<div class="new ellipsis box-flex align-center">
-									<div class="num">01</div>
-									<div class="title"></div>
-									<div class="scan">
-										<i class="fa fa-fw fa-eye">123213</i>
-									</div>
-								</div>
-								<div class="new ellipsis box-flex align-center">
-									<div class="num">01</div>
-									<div class="title"></div>
-									<div class="scan">
-										<i class="fa fa-fw fa-eye">123213</i>
-									</div>
-								</div>
-
-							</div>
-						</el-card>
-						<el-card class="left-body flex-1 card-small" shadow="never">
-							<div slot="header" class="clearfix box-flex">
-								最近热帖
-							</div>
-							<div class="box-flex flex-wrap p-m">
-								<div class="link">
-									<a href="https://cn.vuejs.org/" target="_blank">VUE</a>
-								</div>
-								<div class="link">
-									<a href="http://www.openauth.me/" target="_blank">OpenAuth</a>
-								</div>
-								<div class="link">
-									<a href="http://element.eleme.io/#/zh-CN" target="_blank">ELement-UI</a>
-								</div>
-								<div class="link">
-									<a href="http://mint-ui.github.io/#!/zh-cn" target="_blank">MINT-UI</a>
-								</div>
-								<div class="link">
-									<a href="https://elemefe.github.io/vue-amap/#/" target="_blank">高德VUE</a>
-								</div>
-								<div class="link">
-									<a href="https://fly.layui.com/" target="_blank">LayUI</a>
-								</div>
-							</div>
-						</el-card>
 					</div>
-				</div>
-			</el-main>
-			<el-footer height="100px">
-				<app-footer></app-footer>
-			</el-footer>
-		</el-container>
-	</div>
+				</el-header>
+				<el-main>
+					<div class="container-banner">
+						<div class="site-zfj site-zfj-anim">
+							<i class="fa fa-fw fa-cog"></i>
+						</div>
+						<div class="layui-anim site-desc site-desc-anim">
+							<cite>简洁实用的工作流引擎，教科书级设计，可作为《企业应用架构模式》《ASP.NET设计模式》参考代码</cite>
+						</div>
+						<div class="site-download">
+							<a href="http://demo.openauth.me:1802" target="_blank" class="el-button el-button--default" target="_blank">
+								演示直达
+							</a>
+							<a href="http://doc.openauth.me" class="el-button el-button--primary" target="_blank">
+								使用文档
+							</a>
+						</div>
+						<div class="site-version">
+							<span>当前版本：{{version}}</span>
+							<span><a href="http://doc.openauth.me/#/changelog" target="_blank">更新日志</a></span>
+							<span>下载量：{{download}}</span>
+						</div>
+						<div class="site-banner-other">
+							<script src='https://git.oschina.net/yubaolee/OpenAuth.Net/star_widget_preview'></script>
+						</div>
+					</div>
+					<div class="container cards">
+						<el-row :gutter="10">
+							<el-col :span="8">
+								<el-card class="box-card" shadow="hover">
+									<div slot="header" class="clearfix">
+										<span>OpenAuth.Core开源版</span>
+									</div>
+									<div>
+										<p>采用.Net Core MVC + layui前后端开发模式</p>
+										<p>全新.net core 2.1跨平台体验</p>
+										<p>在OpenAuth.Net基础上进一步优化代码结构</p>
+									</div>
+									<div class="card-footer">
+										<a href="http://demo.openauth.me:1802" target="_blank" class="el-button el-button--default" target="_blank">
+											在线演示
+										</a>
+										<a href="https://gitee.com/yubaolee/OpenAuth.Core" class="el-button el-button--primary" target="_blank">
+											下载源码
+										</a>
+									</div>
+								</el-card>
+							</el-col>
+							<el-col :span="8">
+								<el-card class="box-card" shadow="hover">
+									<div slot="header" class="clearfix">
+										<span>OpenAuth.Pro企业版</span>
+									</div>
+									<div>
+										<p>采用WebAPI+VUE的前后端完全分离模式</p>
+										<p>后端基于OpenAuth.Core WebAPI接口</p>
+										<p>前端SPA单页面模式，基于VUE全家桶</p>
+									</div>
+									<div class="card-footer">
+										<a href="http://demo.openauth.me:1803" target="_blank" class="el-button el-button--default" target="_blank">
+											在线演示
+										</a>
 
-</body>
-<!-- import Vue before Element -->
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+										<a href="http://www.openauth.me/questions/detail?id=a2be2d61-7fcb-4df8-8be2-9f296c22a89c" class="el-button el-button--primary" target="_blank">
+											获取源码
+										</a>
+									</div>
+								</el-card>
+							</el-col>
+							<el-col :span="8">
+								<el-card class="box-card" shadow="hover">
+									<div slot="header" class="clearfix">
+										<span>OpenAuth.Net开源版</span>
+									</div>
+									<div>
+										<p>采用.Net 4.5 MVC + layui前后端开发模式</p>
+										<p>更适合传统.net framework开发者使用</p>
+										<p>前端深度使用layui界面</p>
+									</div>
+									<div class="card-footer">
+										<a href="http://demo.openauth.me:1802" target="_blank" class="el-button el-button--default" target="_blank">
+											在线演示
+										</a>
 
-<!-- import JavaScript -->
-<script src="https://unpkg.com/element-ui/lib/index.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="../../js/header.js"></script>
-<script src="../../js/footer.js"></script>
-<script src="../../js/common.js"></script>
-<script>
-	new Vue({
-		data() {
-			return {
-				current: "qa",
-				activeName: "first",
-				tabPosition: 'all',
-				searchKeyword: '',
-				tag: true
-			}
-		},
-		created(){
-			service({
-				url: '/questions/queryList',
-				method:'post',
-				data:{
-					"index": 0,
-					"size": 10,
-					"type": "string"	
+										<a href="https://gitee.com/yubaolee/OpenAuth.Net" class="el-button el-button--primary" target="_blank">
+											下载源码
+										</a>
+									</div>
+								</el-card>
+							</el-col>
+						</el-row>
+					</div>
+					<div class="container">
+						<div class="tips">
+							他们正在使用OpenAuth.Pro(Net/Core)
+						</div>
+						<div class="box-flex align-center flex-wrap uses">
+							<div class="item">
+								<img alt="苏州茵凡信息技术有限公司" src="http://www.yinfanit.com/res/images/logo.png" />
+							</div>
+							<div class="item">
+								<img alt="公评网" src="http://www.17gp.com/images/logo5.png" />
+							</div>
+							<div class="item">
+								<img alt="国家电网" src="http://www.sgcc.com.cn/sites/sgcc_main/images/logo2.png" />
+							</div>
+							<div class="item">
+								<img alt="三峡水利" src="http://www.cqsxsl.com/images/logo.png" />
+							</div>
+							<div class="item">
+								<img alt="金科" src="http://www.jinke.com/skin/default/images/logo.png" />
+							</div>
+							<div class="item">
+								<img alt="绿城" src="http://zimg.chinagreentown.com/d0f3a7b327eac3bddf358b05e0084ae3" />
+							</div>
+							<div class="item">
+								<img alt="华润" src="http://www.crc.com.cn/images/logo_80th_new.png" />
+							</div>
+
+						</div>
+					</div>
+				</el-main>
+				<el-footer height="100px">
+					<app-footer></app-footer>
+				</el-footer>
+			</el-container>
+		</div>
+
+	</body>
+	<!-- import Vue before Element -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+	<!-- import JavaScript -->
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="../../js/header.js"></script>
+	<script src="../../js/footer.js"></script>
+	<script src="../../js/common.js"></script>
+	<script src="../../tctip-master/js/tctip.js"></script>
+	<script>
+		new Vue({
+			data() {
+				return {
+					version:0,
+					download:0
+					
 				}
-			}).then((res) => {
-				console.log(res)
-			})
-		},
-		methods: {
-			handleClick() {
-
+			},
+			created() {
+				service({
+						url: '/main/getversion',
+						method: 'get',
+						data: this.question
+					}).then((res) => {
+						this.version = res.data.version
+						this.download = res.data.download
+					});
+				
 			}
-		}
-	}).$mount('#app')
-</script>
+		}).$mount('#app')
+	</script>
 
 </html>

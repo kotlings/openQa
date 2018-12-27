@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>OpenAuth.net官方网站 - 最好用的.net权限工作流框架|.net core快速开发框架|.net core权限管理|.net core工作流</title>
+  		<meta name="Keywords" content="openauth.net,.net开源工作流,.NET开源权限管理">
+  		<meta name="Description" content="最好用的.net开源工作流框架,最好用的.NET开源权限管理框架">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="../../css/common.css">
+		<style>
+			.editor-custom-btn-container {
+				top: -3px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app" v-cloak>
+			<el-container>
+				<el-header class="box-flex align-center">
+					<app-header :current="current"></app-header>
+				</el-header>
+				<el-main>
+					<div class="container m-t-lllg">
+						<el-card class="login" shadow="never">
+							<el-tabs v-model="activeName">
+								<el-tab-pane label="发表提问" name="add">
+									<el-form label-width="100px" :model="question">
+										<el-form-item label="标题" prop="title">
+											<el-input class="w-100-00" size="small" v-model="question.title" clearable></el-input>
+										</el-form-item>
+										<el-form-item label="描述">
+											<div class="p-r-sm">
+												<tinymce :height="200" v-model="question.content"></tinymce>
+											</div>
+										</el-form-item>
+										<el-form-item label="悬赏金额">
+											<el-slider v-model="question.experience" show-input></el-slider>
+										</el-form-item>
+
+										<el-form-item>
+											<el-button type="primary" :loading="loading" @click="save">立即提交</el-button>
+										</el-form-item>
+									</el-form>
+								</el-tab-pane>
+							</el-tabs>
+						</el-card>
+					</div>
+				</el-main>
+				<el-footer height="100px">
+					<app-footer></app-footer>
+				</el-footer>
+			</el-container>
+		</div>
+
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+	<!-- import JavaScript -->
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="../../js/header.js"></script>
+	<script src="../../js/footer.js"></script>
+	<script src="../../tinymce4.7.5/tinymce.min.js"></script>
+	<script src="../../js/common.js"></script>
+	<script type="text/template" id="tiny">
+		<div :class="{fullscreen:fullscreen}" class="tinymce-container editor-container">
+			<textarea :id="tinymceId" class="tinymce-textarea" />
+			<div class="editor-custom-btn-container">
+				<editorImage color="#1890ff" class="editor-upload-btn" @successCBK="imageSuccessCBK" />
+			</div>
+		</div>
+	</script>
+	<script src="../../js/TinyMce/eidtorImage.js"></script>
+	<script src="../../js/TinyMce/index.js"></script>
+	<script>
+		new Vue({
+			components: {
+				'tinymce': tinyMce
+			},
+			data() {
+				return {
+					current: "qa",
+					activeName: "add",
+					question: {
+						content: '',
+						title: '',
+						experience: 5
+					},
+					loading: false,
+					user: {},
+				}
+			},
+			created() {
+				var id = GetQueryString('id')
+				var isLogin = sessionStorage.isLogin
+				if(isLogin === 'true') {
+					var user = sessionStorage.user
+					user = JSON.parse(user);
+					this.user = user
+				}
+			},
+			methods: {
+				save() {
+					this.loading = true
+					if(this.question.title == '') {
+						this.$notify.error({
+							message: '请填写标题'
+						})
+						this.loading = false
+						return
+					}
+					if(this.question.content == '') {
+						this.$notify.error({
+							message: '请填写描述'
+						})
+						this.loading = false
+						return
+					}
+					this.question.userid = this.user.id
+					service({
+						url: '/questions/add',
+						method: 'post',
+						data:this.question
+					}).then((res) => {
+						if(res.code !== 200) {
+							this.$notify.error({
+								title: '错误',
+								message: res.message
+							})
+							this.loading = false
+							return
+						}
+						this.$notify.success({
+							title: '提交成功',
+						})
+						setTimeout(function() {
+							history.go(-1)
+						}, 1000)
+					}).catch(()=>{
+						this.loading = false
+					})
+				}
+			}
+		}).$mount('#app')
+	</script>
+
+</html>

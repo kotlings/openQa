@@ -1,6 +1,6 @@
 const  Message = new Vue().$message
 const service = axios.create({
-    baseURL:'http://119.84.146.233:8889', // api 的 base_url
+    baseURL:'http://demo.openauth.me:8889', // api 的 base_url
     timeout: 25000 ,// 请求超时时间
     headers: {
         'Content-type': 'application/json;charset=UTF-8'
@@ -10,6 +10,7 @@ const service = axios.create({
   // request拦截器
   service.interceptors.request.use(
     config => {
+    	config.headers['X-Token'] = sessionStorage.token
         return config
     },
     error => {
@@ -46,3 +47,5 @@ function GetQueryString(name) {
 	if(r != null) return unescape(r[2]);
 	return null;
 }
+
+

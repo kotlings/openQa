@@ -166,4 +166,3 @@ var tinyMce={
 		},
 }
 
-console.log(tinyMce)

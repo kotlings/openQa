@@ -30,6 +30,9 @@
     line-height: 20px;
     color:#999;
 }
+.el-card__body{
+    padding: 0;
+}
 
 .el-card__body:last-child .list{
     border-bottom: 0;
@@ -99,3 +102,4 @@
     color:#333;
     font-size: 14px;
 }
+
