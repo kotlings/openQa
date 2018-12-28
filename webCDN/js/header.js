@@ -78,7 +78,7 @@ Vue.component('app-header', {
 	                    <a href="../../pages/user/login.html"><i class="fa fa-user-circle fa-fw p-r-m" aria-hidden="true"></i>登录</a>
 	                </div>
 	                <div class="nav m-l-llg" :class="current === 'register'?'active':''">
-	                 <a href="../../pages/user/login.html">注册</a>
+	                 <a href="../../pages/user/login.html?current='register'">注册</a>
 	                </div>
 	                <div class="nav m-l-llg">
 	                    <i class="fa fa-qq fa-fw m-l-llg" aria-hidden="true"></i>

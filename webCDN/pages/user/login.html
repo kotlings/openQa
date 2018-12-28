@@ -35,7 +35,7 @@
 										</el-form-item>
 									</el-form>
 								</el-tab-pane>
-								<!--<el-tab-pane label="注册" name="register">
+								<el-tab-pane label="注册" name="register">
 									<el-form label-width="100px" :model="register" ref="register" :rules="gisterRules">
 										<el-form-item label="邮箱" prop="account">
 											<el-input class="w-300" v-model="register.account" clearable></el-input>
@@ -53,7 +53,7 @@
 											<el-button type="primary" @click="onRegister">立即注册</el-button>
 										</el-form-item>
 									</el-form>
-								</el-tab-pane>-->
+								</el-tab-pane>
 							</el-tabs>
 						</el-card>
 					</div>
@@ -131,6 +131,12 @@
 			},
 			created() {
 				this.activeName = 'login'
+				this.current = 'login'
+				var current = GetQueryString('current')
+				if(current && current !=''){
+					this.activeName = 'register'
+					this.current = 'register'
+				}
 			},
 			methods: {
 				onlogin() {
