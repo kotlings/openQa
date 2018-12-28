@@ -12,15 +12,8 @@
 		<link rel="stylesheet" href="../../css/common.css">
 		<link rel="stylesheet" href="../../css/question/detail.css">
 		<style>
-			code {
-				display: block;
-				overflow: auto;
-				background: #f4f4f4;
-				padding: 5px 10px;
-				border: 1px solid #eee;
-				word-wrap: break-word;
-				width: 844px;
-				/* Internet Explorer 5.5+ */
+			.editor-custom-btn-container {
+				top: -3px;
 			}
 		</style>
 	</head>
@@ -35,84 +28,26 @@
 					<div class="container p-t-m box-flex">
 						<div class="left-body flex-1 flex-wrap">
 							<div class="article">
-								<div class="title">
-									{{question.title}}
-								</div>
-								<div class="box-flex justify-content-space-between align-center">
-									<div class="tags">
-										<el-tag class="fly-tip-stick" v-if="question.stick>0">置顶帖</el-tag>
-										<el-tag class="fly-tip-jing" v-if="question.status==1">精帖</el-tag>
+								
+								<el-form label-width="100px" :model="question">
+										<el-form-item label="标题" prop="title">
+											<el-input class="w-100-00" size="small" v-model="question.title" clearable></el-input>
+										</el-form-item>
+										<el-form-item label="描述">
+											<div class="p-r-sm">
+												<tinymce :height="400" v-model="question.content"></tinymce>
+											</div>
+										</el-form-item>
+										<el-form-item label="悬赏金额">
+											<el-slider v-model="question.experience" show-input></el-slider>
+										</el-form-item>
 
-									</div>
-									<div class="scan-see">
-										<i class="fa fa-fw fa-eye"></i>{{question.hits}}
-										<i class="fa fa-fw fa-commenting"></i>{{question.comment}}
-									</div>
-								</div>
-								<div class="user-info box-flex">
-									<div class="user-avator">
-										<img :src="'../../img/avatar/'+question.user.pic" :alt="question.user.name">
-									</div>
-									<div class="flex-1">
-										<div class="user"  @click="linkUser(question.user.id)">
-											<span class="name">{{question.user.name}}</span>
-											<span class="role" v-if="question.user.rmb">VIP{{question.user.rmb}}</span>
-											<span class="time">发布于{{question.time}}</span>
-										</div>
-										<div class="sa">
-											悬赏：{{question.experience}}飞吻
-											<span v-if="(user && myself && question.accept == undefined) || user.auth == 1" class="jie-admin" type="edit">
-             									 <a :href="'edit.html?id='+question.id">编辑此贴</a>
-            								</span>
-										</div>
-									</div>
-								</div>
-								<div class="body mce-content-body panel-body" v-html="question.content">
-								</div>
+										<el-form-item>
+											<el-button type="primary" :loading="loading" @click="save">立即提交</el-button>
+										</el-form-item>
+									</el-form>
 							</div>
-							<div class="questions" v-if="question.answers.length>0">
-								<div class="hot">
-									热门回答
-								</div>
-								<div class="questions-body">
-									<div class="question" v-for="item in question.answers" :key="item.id">
-										<div class="user box-flex align-center" @click="linkUser(item.id)">
-											<div class="avator">
-												<img :src="'../../img/avatar/'+item.user.pic">
-											</div>
-											<div class="user-right">
-												<div class="name">
-													{{item.user.name}}
-													<em v-if="item.user.rmb" style="padding:0 ; color: #FF7200;">VIP{{ item.user.rmb }}</em>
-													<em v-if="item.user.id == question.user.id">(楼主)</em>
-													<em style="color:#5FB878" v-else-if="item.user.auth == 1">(管理员)</em>
-													<em style="color:#FF9E3F" v-else-if="item.user.auth == 2">（活雷锋）</em>
-													<em style="color:#999" v-else-if="item.user.auth == -1">（该号已被封）</em>
-												</div>
-												<div class="time">
-													{{item.time}}
-												</div>
-											</div>
-										</div>
-										<i v-if="item.id == question.accept" class="iconfont icon-caina" title="最佳答案"></i>
-										<div class="question-content" v-html="item.content">
-										</div>
-										<div class="requestion">
-											<div class="repeat" @click="repeat(item)">
-												<i class="fa-commenting fa-fw fa"></i> 回复
-											</div>
-
-										</div>
-									</div>
-								</div>
-
-							</div>
-							<el-row class="m-t-m">
-								<tinymce :height="200" v-model="content"></tinymce>
-							</el-row>
-							<el-row class="m-t-m">
-								<el-button type="primary" @click="saveQuestion">提交回答</el-button>
-							</el-row>
+							
 						</div>
 
 						<div class="right-body">
@@ -199,11 +134,11 @@
 			},
 			data() {
 				return {
-					myself: false, //标识该问题是否是登录的用户的
 					current: "qa",
-					content: "",
-					question: {},
+					loading: false,
 					user: {},
+					current: "qa",
+					question: {},
 					questions: [],
 					hots: [],
 				}
@@ -220,19 +155,11 @@
 					url: '/questions/getone?id='+id,
 					method: 'get',
 				}).then((res) => {
-					this.myself = this.user.id == res.data.user.id
-					console.log(this.myself)
 					this.question = res.data;
 				})
 				this.getHot()
 			},
 			methods: {
-				repeat(item) {
-					var ele = document.getElementById('app');
-					window.scrollTo(0, ele.scrollHeight);
-					this.content = '@' + item.user.name
-					//					this.currentItem = item
-				},
 				getHot() {
 					service({
 						url: '/questions/gethot',
@@ -248,31 +175,51 @@
 						}
 					})
 				},
-				saveQuestion() {
-					var isLogin = sessionStorage.isLogin
-					if(isLogin !== 'true'){
-						window.location.href="../user/login.html"
-					}
-					var data = {
-						content: this.content,
-						jid: this.question.id
-					}
-					service({
-						url: '/questions/addAnswer',
-						method: 'post',
-						data: data
-					}).then((res) => {
-						this.content = ''
-						this.$notify.success({
-							message: '提交成功'
-						})
-					})
-				},
 				linkDetail(e){
 					window.location.href="detail.html?id="+e.id
 				},
 				linkUser(id){
 					window.location.href="../user/index.html?id="+id
+				},
+				save() {
+					this.loading = true
+					if(this.question.title == '') {
+						this.$notify.error({
+							message: '请填写标题'
+						})
+						this.loading = false
+						return
+					}
+					if(this.question.content == '') {
+						this.$notify.error({
+							message: '请填写描述'
+						})
+						this.loading = false
+						return
+					}
+					this.question.userid = this.user.id
+					service({
+						url: '/questions/edit',
+						method: 'post',
+						data:this.question
+					}).then((res) => {
+						if(res.code !== 200) {
+							this.$notify.error({
+								title: '错误',
+								message: res.message
+							})
+							this.loading = false
+							return
+						}
+						this.$notify.success({
+							title: '提交成功',
+						})
+						setTimeout(function() {
+							history.go(-1)
+						}, 1000)
+					}).catch(()=>{
+						this.loading = false
+					})
 				}
 			}
 		}).$mount('#app')
