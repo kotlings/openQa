@@ -7,6 +7,13 @@ appsettings:
     picfilesport: 8887 #nginx中，上传的静态图片端口
     
 spring:
+
+    servlet:
+        multipart:
+            max-file-size: 10MB
+            max-request-size: 10MB
+            enabled: true
+
     cache:
         type: ehcache
         ehcache:
