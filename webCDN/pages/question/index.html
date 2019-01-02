@@ -1,43 +1,43 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>OpenAuth.net官方网站 - 最好用的.net权限工作流框架|.net core快速开发框架|.net core权限管理|.net core工作流</title>
-  		<meta name="Keywords" content="openauth.net,.net开源工作流,.NET开源权限管理">
-  		<meta name="Description" content="最好用的.net开源工作流框架,最好用的.NET开源权限管理框架">
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/common.css">
-    <link rel="stylesheet" href="../../css/question/index.css">
-</head>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<title>OpenAuth.net官方网站 - 最好用的.net权限工作流框架|.net core快速开发框架|.net core权限管理|.net core工作流</title>
+		<meta name="Keywords" content="openauth.net,.net开源工作流,.NET开源权限管理">
+		<meta name="Description" content="最好用的.net开源工作流框架,最好用的.NET开源权限管理框架">
+		<link rel="stylesheet" href="../../css/element-ui.css">
+		<link href="../../font/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="../../css/common.css">
+		<link rel="stylesheet" href="../../css/question/index.css">
+	</head>
 
-<body>
-    <div id="app" v-cloak>
-        <el-container>
-           <el-header class="box-flex align-center">
-                <app-header :current="current"></app-header>
-            </el-header>
-            <el-main>
-                <div class="container p-t-m box-flex">
-                    <el-card class="left-body flex-1 card-small" shadow="never">
-                        <div slot="header" class="clearfix box-flex">
-                            <el-radio-group v-model="tabPosition" size="small">
-                                <el-radio-button label="">全部</el-radio-button>
-                                <el-radio-button label="unresolved">未结贴</el-radio-button>
-                                <el-radio-button label="resolved">已采纳</el-radio-button>
-                                <el-radio-button label="wonderful">精帖</el-radio-button>
-                            </el-radio-group>
-                            <div class="p-l-m">
-                                <el-input placeholder="请输入内容" size="small" prefix-icon="el-icon-search" v-model="searchKeyword" @keyup.enter.native="searchKey"></el-input>
-                            </div>
-                            <div class="flex-1 box-flex justify-end">
-                                <el-button type="primary" size="small" @click="linkAdd">发布问题</el-button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <template v-for="(item,index) in questions">
+	<body>
+		<div id="app" v-cloak>
+			<el-container>
+				<el-header class="box-flex align-center">
+					<app-header :current="current"></app-header>
+				</el-header>
+				<el-main>
+					<div class="container p-t-m box-flex">
+						<el-card class="left-body flex-1 card-small" shadow="never">
+							<div slot="header" class="clearfix box-flex">
+								<el-radio-group v-model="tabPosition" size="small">
+									<el-radio-button label="">全部</el-radio-button>
+									<el-radio-button label="unresolved">未结贴</el-radio-button>
+									<el-radio-button label="resolved">已采纳</el-radio-button>
+									<el-radio-button label="wonderful">精帖</el-radio-button>
+								</el-radio-group>
+								<div class="p-l-m">
+									<el-input placeholder="请输入内容" size="small" prefix-icon="el-icon-search" v-model="searchKeyword" @keyup.enter.native="searchKey"></el-input>
+								</div>
+								<div class="flex-1 box-flex justify-end">
+									<el-button type="primary" size="small" @click="linkAdd">发布问题</el-button>
+								</div>
+							</div>
+							<div class="card-body">
+								<template v-for="(item,index) in questions">
 									<div class="list box-flex flex-wrap" :key="index" @click="linkDetail(item.id)">
 										<div class="left-img">
 											<img :src="'../../img/avatar/' + item.user.pic" alt="" />
@@ -61,37 +61,37 @@
 										</div>
 									</div>
 								</template>
-                            <el-pagination style="margin:10px 0" v-if="total>1" @current-change="updateIndex" background layout="prev, pager, next" :page-count="total"></el-pagination>
-                        </div>
-                    </el-card>
+								<el-pagination style="margin:10px 0" v-if="total>1" @current-change="updateIndex" background layout="prev, pager, next" :page-count="total"></el-pagination>
+							</div>
+						</el-card>
 
-                    <div class="right-body">
-                        <el-card class="left-body flex-1 card-small" shadow="never">
-                            <div slot="header" class="clearfix box-flex">
-                                                                新注册用户
-                            </div>
-                            <div class="card-body p-m box-flex flex-wrap">
-                                <template v-for="(user,index) in users">
-									<div class="user" :key="index+1" @click="linkUser(user)">
-										<div class="avatar">
-											<img :src="'../../img/avatar/' +  user.pic">
-											<div class="info">
-												{{ user.name }}
+						<div class="right-body">
+							<el-card class="left-body flex-1 card-small" shadow="never">
+								<div slot="header" class="clearfix box-flex">
+									新注册用户
+								</div>
+								<div class="card-body p-m box-flex flex-wrap">
+									<template v-for="(user,index) in users">
+										<div class="user" :key="index+1" @click="linkUser(user)">
+											<div class="avatar">
+												<img :src="'../../img/avatar/' +  user.pic">
+												<div class="info">
+													{{ user.name }}
+												</div>
+											</div>
+											<div class="tips">
+												{{ user.answercnt }}次回答
 											</div>
 										</div>
-										<div class="tips">
-											{{ user.answercnt }}次回答
-										</div>
-									</div>
 									</template>
-                            </div>
-                        </el-card>
-                        <el-card class="left-body flex-1 card-small" shadow="never">
-                            <div slot="header" class="clearfix box-flex">
-                                最近热帖
-                            </div>
-                            <div class="p-m news">
-                                <template v-for="(hot,index) in hots">
+								</div>
+							</el-card>
+							<el-card class="left-body flex-1 card-small" shadow="never">
+								<div slot="header" class="clearfix box-flex">
+									最近热帖
+								</div>
+								<div class="p-m news">
+									<template v-for="(hot,index) in hots">
 										<div class="new ellipsis box-flex align-center" @click="linkDetail(hot.id)" :key="index+1">
 											<div class="num" v-if="index>=9">{{index+1}}.</div>
 											<div class="num" v-else>0{{index+1}}.</div>
@@ -104,159 +104,159 @@
 										</div>
 									</template>
 
-                            </div>
-                        </el-card>
-                        <el-card class="left-body flex-1 card-small" shadow="never">
-                            <div slot="header" class="clearfix box-flex">
-                                友情链接A
-                            </div>
-                            <div class="box-flex flex-wrap p-m">
-                                <div class="link">
-                                    <a href="https://cn.vuejs.org/" target="_blank">VUE</a>
-                                </div>
-                                <div class="link">
-                                    <a href="http://www.openauth.me/" target="_blank">OpenAuth</a>
-                                </div>
-                                <div class="link">
-                                    <a href="http://element.eleme.io/#/zh-CN" target="_blank">ELement-UI</a>
-                                </div>
-                                <div class="link">
-                                    <a href="http://mint-ui.github.io/#!/zh-cn" target="_blank">MINT-UI</a>
-                                </div>
-                                <div class="link">
-                                    <a href="https://elemefe.github.io/vue-amap/#/" target="_blank">高德VUE</a>
-                                </div>
-                                <div class="link">
-                                    <a href="https://fly.layui.com/" target="_blank">LayUI</a>
-                                </div>
-                            </div>
-                        </el-card>
-                    </div>
-                </div>
-            </el-main>
-            <el-footer height="100px">
-                <app-footer></app-footer>
-            </el-footer>
-        </el-container>
-    </div>
+								</div>
+							</el-card>
+							<el-card class="left-body flex-1 card-small" shadow="never">
+								<div slot="header" class="clearfix box-flex">
+									友情链接A
+								</div>
+								<div class="box-flex flex-wrap p-m">
+									<div class="link">
+										<a href="https://cn.vuejs.org/" target="_blank">VUE</a>
+									</div>
+									<div class="link">
+										<a href="http://www.openauth.me/" target="_blank">OpenAuth</a>
+									</div>
+									<div class="link">
+										<a href="http://element.eleme.io/#/zh-CN" target="_blank">ELement-UI</a>
+									</div>
+									<div class="link">
+										<a href="http://mint-ui.github.io/#!/zh-cn" target="_blank">MINT-UI</a>
+									</div>
+									<div class="link">
+										<a href="https://elemefe.github.io/vue-amap/#/" target="_blank">高德VUE</a>
+									</div>
+									<div class="link">
+										<a href="https://fly.layui.com/" target="_blank">LayUI</a>
+									</div>
+								</div>
+							</el-card>
+						</div>
+					</div>
+				</el-main>
+				<el-footer height="100px">
+					<app-footer></app-footer>
+				</el-footer>
+			</el-container>
+		</div>
 
-</body>
-<!-- import Vue before Element -->
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</body>
+	<!-- import Vue before Element -->
+	<script src="../../js/vue.js"></script>
 
-<!-- import JavaScript -->
-<script src="https://unpkg.com/element-ui/lib/index.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="../../js/header.js"></script>
-<script src="../../js/footer.js"></script>
-<script src="../../js/common.js"></script>
-<script>
-    new Vue({
-        data() {
-            return {
-                current: "qa",
-                activeName: "first",
-                tabPosition: '',
-                tag: true,
-                searchKeyword: '',
-                users: [],
-                questions: [],
-                hots: [],
-                total: 0,
-                search: {
-                    index: 1,
-                    size: 10
-                }
-            }
-        },
-        created() {
-            this.getList()
-            this.getHot()
-            this.getNewUser()
-        },
-        watch: {
-            tabPosition(e) {
-                this.search.type = e
-                this.search.index = 1
-                this.search.size = 10
-                this.getList()
-            }
-        },
-        methods: {
-            updateIndex(e) {
-                this.search.index = e
-                this.getList()
-            },
-            getNewUser() {
-                service({
-                    url: '/user/getnew',
-                    method: 'get',
-                }).then((res) => {
-                    console.log(res)
-                    if (res.data.total >= 8) {
-                        for (var i = 0; i < 8; i++) {
-                            this.users.push(res.data.objects[i])
-                        }
-                    } else {
-                        this.users = res.data.objects
-                    }
-                })
-            },
-            getHot() {
-                service({
-                    url: '/questions/gethot',
-                    method: 'get',
-                }).then((res) => {
-                    console.log(res)
+	<!-- import JavaScript -->
+	<script src="../../js/element-ui.js"></script>
+	<script src="../../js/axios.js"></script>
+	<script src="../../js/header.js"></script>
+	<script src="../../js/footer.js"></script>
+	<script src="../../js/common.js"></script>
+	<script>
+		new Vue({
+			data() {
+				return {
+					current: "qa",
+					activeName: "first",
+					tabPosition: '',
+					tag: true,
+					searchKeyword: '',
+					users: [],
+					questions: [],
+					hots: [],
+					total: 0,
+					search: {
+						index: 1,
+						size: 10
+					}
+				}
+			},
+			created() {
+				this.getList()
+				this.getHot()
+				this.getNewUser()
+			},
+			watch: {
+				tabPosition(e) {
+					this.search.type = e
+					this.search.index = 1
+					this.search.size = 10
+					this.getList()
+				}
+			},
+			methods: {
+				updateIndex(e) {
+					this.search.index = e
+					this.getList()
+				},
+				getNewUser() {
+					service({
+						url: '/user/getnew',
+						method: 'get',
+					}).then((res) => {
+						console.log(res)
+						if(res.data.total >= 8) {
+							for(var i = 0; i < 8; i++) {
+								this.users.push(res.data.objects[i])
+							}
+						} else {
+							this.users = res.data.objects
+						}
+					})
+				},
+				getHot() {
+					service({
+						url: '/questions/gethot',
+						method: 'get',
+					}).then((res) => {
+						console.log(res)
 
-                    if (res.data.total >= 10) {
-                        for (var i = 0; i < 10; i++) {
-                            this.hots.push(res.data.objects[i])
-                        }
-                    } else {
-                        this.hots = res.data.objects
-                    }
-                })
-            },
-            getList() {
-                service({
-                    url: '/questions/queryList',
-                    method: 'post',
-                    data: {
-                        "index": this.search.index,
-                        "size": this.search.size,
-                        "type": this.search.type,
-                        'key':this.search.key
-                    }
-                }).then((res) => {
-                    this.questions = res.data.objects
-                    this.total = res.data.pagecnt
-                })
-            },
-            linkDetail(id){
-            	window.location.href="detail.html?id="+id
-            },
-            linkAdd(){
-            	if(sessionStorage.isLogin!=='true'){
-            		window.location.href="../user/login.html"
-            	}else{
-            		window.location.href="../question/add.html"
-            	}
-            },
-            searchKey(){
-            	this.tabPosition = ''
-            	this.search.type = ''
-                this.search.index = 1
-                this.search.size = 10
-                this.search.key=this.searchKeyword
-                this.getList()
-            },
-            linkUser(e){
-            	window.location.href="../user/index.html?id="+e.id
-            }
-            
-        }
-    }).$mount('#app')
-</script>
+						if(res.data.total >= 10) {
+							for(var i = 0; i < 10; i++) {
+								this.hots.push(res.data.objects[i])
+							}
+						} else {
+							this.hots = res.data.objects
+						}
+					})
+				},
+				getList() {
+					service({
+						url: '/questions/queryList',
+						method: 'post',
+						data: {
+							"index": this.search.index,
+							"size": this.search.size,
+							"type": this.search.type,
+							'key': this.search.key
+						}
+					}).then((res) => {
+						this.questions = res.data.objects
+						this.total = res.data.pagecnt
+					})
+				},
+				linkDetail(id) {
+					window.location.href = "detail.html?id=" + id
+				},
+				linkAdd() {
+					if(sessionStorage.isLogin !== 'true') {
+						window.location.href = "../user/login.html"
+					} else {
+						window.location.href = "../question/add.html"
+					}
+				},
+				searchKey() {
+					this.tabPosition = ''
+					this.search.type = ''
+					this.search.index = 1
+					this.search.size = 10
+					this.search.key = this.searchKeyword
+					this.getList()
+				},
+				linkUser(e) {
+					window.location.href = "../user/index.html?id=" + e.id
+				}
+
+			}
+		}).$mount('#app')
+	</script>
 
 </html>
