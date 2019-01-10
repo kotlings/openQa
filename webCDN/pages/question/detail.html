@@ -50,7 +50,7 @@
 									</div>
 								</div>
 								<div class="user-info box-flex">
-									<div class="user-avator">
+									<div class="user-avator" @click="linkUser(question.user.id)">
 										<img :src="'../../img/avatar/'+question.user.pic" :alt="question.user.name">
 									</div>
 									<div class="flex-1">
