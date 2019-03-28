@@ -236,7 +236,7 @@ public class QuestionExample {
         }
 
         public Criteria andTitleLike(String value) {
-            addCriterion("title like", value, "title");
+            addCriterion("title like", '%' + value +'%', "title");
             return (Criteria) this;
         }
 
@@ -306,7 +306,7 @@ public class QuestionExample {
         }
 
         public Criteria andContentLike(String value) {
-            addCriterion("Content like", value, "content");
+            addCriterion("Content like", '%' + value +'%',  "content");
             return (Criteria) this;
         }
 
