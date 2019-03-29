@@ -70,7 +70,7 @@
 								<div class="body mce-content-body panel-body" v-html="question.content">
 								</div>
 							</div>
-							<div class="questions" v-if="question.answers.length>0">
+							<div class="questions" v-if="question.answers && question.answers.length>0">
 								<div class="hot">
 									热门回答
 								</div>
@@ -202,7 +202,9 @@
 					myself: false, //标识该问题是否是登录的用户的
 					current: "qa",
 					content: "",
-					question: {},
+					question: {
+						user: {}
+					},
 					user: {},
 					questions: [],
 					hots: [],
