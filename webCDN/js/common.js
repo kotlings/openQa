@@ -1,12 +1,12 @@
 const  Message = new Vue().$message
 const service = axios.create({
-    baseURL:'http://demo.openauth.me:8889', // api 的 base_url
+    baseURL:'http://localhost:8889', // api 的 base_url
     timeout: 25000 ,// 请求超时时间
     headers: {
         'Content-type': 'application/json;charset=UTF-8'
     },
   })
-  
+
   // request拦截器
   service.interceptors.request.use(
     config => {
@@ -19,7 +19,7 @@ const service = axios.create({
       Promise.reject(error)
     }
   )
-  
+
   // response 拦截器
   service.interceptors.response.use(
     response => {
@@ -39,7 +39,7 @@ const service = axios.create({
       return Promise.reject(error)
     }
   )
-  
+
 //获取url中的字段
 function GetQueryString(name) {
 	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");

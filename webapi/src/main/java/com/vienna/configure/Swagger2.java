@@ -37,6 +37,8 @@ public class Swagger2 {
 				.globalOperationParameters(pars);//************把消息头添加
 	}
 
+
+	/// http://localhost:8080/swagger-ui.html
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title("Spanish.qa")
