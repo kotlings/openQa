@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yubao.dao.DonateMapper" >
-  <resultMap id="BaseResultMap" type="com.yubao.model.Donate" >
+<mapper namespace="com.vienna.dao.DonateMapper" >
+  <resultMap id="BaseResultMap" type="com.vienna.model.Donate" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="time" property="time" jdbcType="TIMESTAMP" />
     <result column="money" property="money" jdbcType="REAL" />
@@ -69,7 +69,7 @@
   <sql id="Base_Column_List" >
     id, time, money, type, name
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yubao.model.DonateExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.vienna.model.DonateExample" >
     select
     <if test="distinct" >
       distinct
@@ -101,19 +101,19 @@
     delete from donate
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.yubao.model.DonateExample" >
+  <delete id="deleteByExample" parameterType="com.vienna.model.DonateExample" >
     delete from donate
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.yubao.model.Donate" >
+  <insert id="insert" parameterType="com.vienna.model.Donate" >
     insert into donate (id, time, money, 
       type, name)
     values (#{id,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, #{money,jdbcType=REAL}, 
       #{type,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.yubao.model.Donate" >
+  <insert id="insertSelective" parameterType="com.vienna.model.Donate" >
     insert into donate
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -150,7 +150,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.yubao.model.DonateExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.vienna.model.DonateExample" resultType="java.lang.Integer" >
     select count(*) from donate
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -190,7 +190,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yubao.model.Donate" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.vienna.model.Donate" >
     update donate
     <set >
       <if test="time != null" >
@@ -208,7 +208,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yubao.model.Donate" >
+  <update id="updateByPrimaryKey" parameterType="com.vienna.model.Donate" >
     update donate
     set time = #{time,jdbcType=TIMESTAMP},
       money = #{money,jdbcType=REAL},

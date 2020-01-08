@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yubao.dao.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.yubao.model.User" >
+<mapper namespace="com.vienna.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.vienna.model.User" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="account" property="account" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -79,7 +79,7 @@
     id, account, name, pwd, rmb, createtime, logintime, wxopenid, qqopenid, questioncnt, 
     answercnt, pic, auth, experience
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yubao.model.UserExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.vienna.model.UserExample" >
     select
     <if test="distinct" >
       distinct
@@ -111,13 +111,13 @@
     delete from user
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.yubao.model.UserExample" >
+  <delete id="deleteByExample" parameterType="com.vienna.model.UserExample" >
     delete from user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.yubao.model.User" >
+  <insert id="insert" parameterType="com.vienna.model.User" >
     insert into user (id, account, name, 
       pwd, rmb, createtime, 
       logintime, wxopenid, qqopenid, 
@@ -129,7 +129,7 @@
       #{questioncnt,jdbcType=INTEGER}, #{answercnt,jdbcType=INTEGER}, #{pic,jdbcType=VARCHAR}, 
       #{auth,jdbcType=INTEGER}, #{experience,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.yubao.model.User" >
+  <insert id="insertSelective" parameterType="com.vienna.model.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -220,7 +220,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.yubao.model.UserExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.vienna.model.UserExample" resultType="java.lang.Integer" >
     select count(*) from user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -296,7 +296,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yubao.model.User" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.vienna.model.User" >
     update user
     <set >
       <if test="account != null" >
@@ -341,7 +341,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yubao.model.User" >
+  <update id="updateByPrimaryKey" parameterType="com.vienna.model.User" >
     update user
     set account = #{account,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},

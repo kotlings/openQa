@@ -13,6 +13,13 @@
 		<relativePath/>
 	</parent>
 
+
+    <properties>
+
+        <swagger.version>2.7.0</swagger.version>
+    </properties>
+
+
 	<dependencies>
 		<dependency>
 			<groupId>org.jsoup</groupId>
@@ -73,8 +80,21 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>1.2.44</version>
+			<version>1.2.18</version>
 		</dependency>
+
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -205,7 +225,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<maimClass>com.yubao.Application</maimClass>
+					<mainClass>com.vienna.Application</mainClass>
 				</configuration>
 				<executions>
 					<execution>
@@ -220,7 +240,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<testFailureIgnore>true</testFailureIgnore>
-					<encoding>UTF-8</encoding>
+					<!--<encoding>UTF-8</encoding>-->
 					<!-- 启动及打包时候Test类不编译运行 -->
 					<skip>true</skip>
 					<testFailureIgnore>true</testFailureIgnore>

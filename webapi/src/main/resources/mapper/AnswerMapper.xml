@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yubao.dao.AnswerMapper" >
-  <resultMap id="BaseResultMap" type="com.yubao.model.Answer" >
+<mapper namespace="com.vienna.dao.AnswerMapper" >
+  <resultMap id="BaseResultMap" type="com.vienna.model.Answer" >
     <id column="Id" property="id" jdbcType="VARCHAR" />
     <result column="Content" property="content" jdbcType="VARCHAR" />
     <result column="SupportCnt" property="supportcnt" jdbcType="INTEGER" />
@@ -75,7 +75,7 @@
   </sql>
 
 
-  <resultMap type="com.yubao.response.AnswerViewModel" id="answervmmapper">
+  <resultMap type="com.vienna.response.AnswerViewModel" id="answervmmapper">
     <id column="Id" property="id" jdbcType="VARCHAR" />
     <result column="Content" property="content" jdbcType="VARCHAR" />
     <result column="SupportCnt" property="supportcnt" jdbcType="INTEGER" />
@@ -85,7 +85,7 @@
     <result column="UserId" property="userid" jdbcType="VARCHAR" />
     <result column="accept" property="accept" jdbcType="INTEGER" />
     <result column="praise" property="praise" jdbcType="INTEGER" />
-    <association property="user" column="UserId" javaType="com.yubao.response.UserViewModel">
+    <association property="user" column="UserId" javaType="com.vienna.response.UserViewModel">
       <id column="UserId" property="id" jdbcType="VARCHAR" />
       <result column="name" property="name" jdbcType="VARCHAR" />
       <result column="rmb" property="rmb" jdbcType="INTEGER" />
@@ -98,7 +98,7 @@
   </select>
 
 
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yubao.model.AnswerExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.vienna.model.AnswerExample" >
     select
     <if test="distinct" >
       distinct
@@ -130,13 +130,13 @@
     delete from answer
     where Id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.yubao.model.AnswerExample" >
+  <delete id="deleteByExample" parameterType="com.vienna.model.AnswerExample" >
     delete from answer
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.yubao.model.Answer" >
+  <insert id="insert" parameterType="com.vienna.model.Answer" >
     insert into answer (Id, Content, SupportCnt, 
       OpposeCnt, AnswerTo, time, 
       UserId, accept, praise
@@ -146,7 +146,7 @@
       #{userid,jdbcType=VARCHAR}, #{accept,jdbcType=INTEGER}, #{praise,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.yubao.model.Answer" >
+  <insert id="insertSelective" parameterType="com.vienna.model.Answer" >
     insert into answer
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -207,7 +207,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.yubao.model.AnswerExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.vienna.model.AnswerExample" resultType="java.lang.Integer" >
     select count(*) from answer
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -263,7 +263,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yubao.model.Answer" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.vienna.model.Answer" >
     update answer
     <set >
       <if test="content != null" >
@@ -293,7 +293,7 @@
     </set>
     where Id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yubao.model.Answer" >
+  <update id="updateByPrimaryKey" parameterType="com.vienna.model.Answer" >
     update answer
     set Content = #{content,jdbcType=VARCHAR},
       SupportCnt = #{supportcnt,jdbcType=INTEGER},

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yubao.dao.MessageMapper">
-  <resultMap id="BaseResultMap" type="com.yubao.model.Message">
+<mapper namespace="com.vienna.dao.MessageMapper">
+  <resultMap id="BaseResultMap" type="com.vienna.model.Message">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
     <result column="content" jdbcType="VARCHAR" property="content" />
@@ -78,7 +78,7 @@
     id, `time`, content, href, `from`, `to`, fromstatus, tostatus, `type`, fromname, toname,
     `read`, title
   </sql>
-  <select id="selectByExample" parameterType="com.yubao.model.MessageExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.vienna.model.MessageExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -110,7 +110,7 @@
     delete from message
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.yubao.model.MessageExample">
+  <delete id="deleteByExample" parameterType="com.vienna.model.MessageExample">
     delete from message
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -119,7 +119,7 @@
   <delete id="deleteByUser" parameterType="String">
     DELETE from message where `to`=#{userid, jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.yubao.model.Message">
+  <insert id="insert" parameterType="com.vienna.model.Message">
     insert into message (id, `time`, content,
       href, `from`, `to`, fromstatus,
       tostatus, `type`, fromname,
@@ -131,7 +131,7 @@
       #{toname,jdbcType=VARCHAR}, #{read,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.yubao.model.Message">
+  <insert id="insertSelective" parameterType="com.vienna.model.Message">
     insert into message
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -216,7 +216,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.yubao.model.MessageExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.vienna.model.MessageExample" resultType="java.lang.Integer">
     select count(*) from message
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -288,7 +288,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yubao.model.Message">
+  <update id="updateByPrimaryKeySelective" parameterType="com.vienna.model.Message">
     update message
     <set>
       <if test="time != null">
@@ -330,7 +330,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yubao.model.Message">
+  <update id="updateByPrimaryKey" parameterType="com.vienna.model.Message">
     update message
     set time = #{time,jdbcType=TIMESTAMP},
       content = #{content,jdbcType=VARCHAR},
