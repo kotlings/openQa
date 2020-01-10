@@ -87,7 +87,7 @@ Vue.component('editorImage', {
 			:before-upload="beforeUpload"
 			:headers="headers"
 			class="editor-slide-upload"
-			action="http://119.84.146.233:8889/api/upload/"
+			action="http://localhost:8889/api/upload/"
 			list-type="picture-card">
 			<el-button size="small" type="primary">点击上传</el-button>
 			</el-upload>

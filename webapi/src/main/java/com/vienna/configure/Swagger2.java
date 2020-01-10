@@ -38,7 +38,7 @@ public class Swagger2 {
 	}
 
 
-	/// http://localhost:8080/swagger-ui.html
+	/// http://localhost:8889/swagger-ui.html
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title("Spanish.qa")

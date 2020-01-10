@@ -144,7 +144,6 @@
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-aop:2.0.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.0.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.8.13" level="project" />
-    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-devtools:2.0.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.0.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.0.3.RELEASE" level="project" />
@@ -176,6 +175,7 @@
     <orderEntry type="library" name="Maven: org.apache.axis2:axis2-transport-http:1.6.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.9" level="project" />
     <orderEntry type="library" name="Maven: org.apache.axis2:axis2-transport-local:1.6.2" level="project" />
+    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.poi:poi:3.9" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.11" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.jexcelapi:jxl:2.6.12" level="project" />

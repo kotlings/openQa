@@ -4,7 +4,7 @@ server:
     port: 8889
 
 appsettings:
-    picfilesport: 8887 #nginx中，上传的静态图片端口
+    picfilesport: 8080 #nginx中，上传的静态图片端口
     
 spring:
 
@@ -48,5 +48,5 @@ logging:
      path: ../logs
      level:
         com:
-             yubao:
+             vienna:
                  dao: debug
