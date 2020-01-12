@@ -1,0 +1,46 @@
+allprojects {
+    group = 'com.vienna'
+    version = '0.0.1-SNAPSHOT'
+
+
+    buildscript {
+        repositories {
+            mavenLocal()
+            mavenCentral()
+            maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+            jcenter()
+            google()
+        }
+    }
+
+
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        jcenter()
+        google()
+    }
+//    dependencies {
+//        compileOnly 'org.projectlombok:lombok:1.18.8'
+//        testCompile group: 'junit', name: 'junit', version: '4.12'
+//    }
+}
+
+
+
+
+ 

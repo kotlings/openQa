@@ -43,6 +43,23 @@ spring:
         #每隔五分钟检测空闲超过10分钟的连接
         min-evictable-idle-time-millis: 600000
         time-between-eviction-runs-millis: 300000
+
+
+freeter:
+    redis:
+        open: false  # 是否开启redis缓存  true开启   false关闭
+    shiro:
+        redis: false # true表示shiro session存到redis里，需要开启redis，才会生效【分布式场景】
+
+         # APP模块，是通过jwt认证的，如果要使用APP模块，则需要修改【加密秘钥】
+    jwt:
+        # 加密秘钥
+        secret: ODk3MTg4NzY4
+        # token有效时长，7天，单位秒
+        expire: 604800
+        header: token
+
+
 logging:
      config: classpath:logback-spring.xml
      path: ../logs
