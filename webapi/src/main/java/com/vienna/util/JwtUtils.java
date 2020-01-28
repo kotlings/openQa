@@ -43,6 +43,21 @@ public class JwtUtils {
                 .compact();
     }
 
+
+    public String generateToken(String userId) {
+        Date nowDate = new Date();
+        //过期时间
+        Date expireDate = new Date(nowDate.getTime() + expire * 1000);
+
+        return Jwts.builder()
+                .setHeaderParam("typ", "JWT")
+                .setSubject(userId)
+                .setIssuedAt(nowDate)
+                .setExpiration(expireDate)
+                .signWith(SignatureAlgorithm.HS512, secret)
+                .compact();
+    }
+
     public Claims getClaimByToken(String token) {
         try {
             return Jwts.parser()

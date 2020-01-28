@@ -67,6 +67,7 @@ dependencies {
     compile 'org.apache.poi:poi:3.9'
     compile 'net.sourceforge.jexcelapi:jxl:2.6.12'
     compile 'com.baomidou:mybatis-plus-boot-starter:3.0.1'
+    compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1'
     compile 'net.sf.dozer:dozer:5.3.2'
 
 
@@ -74,4 +75,6 @@ dependencies {
     compile 'net.sf.ehcache:ehcache:2.10.5'
     compile 'junit:junit:4.12'
     compile 'commons-io:commons-io:2.5'
+
+
 }
