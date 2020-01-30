@@ -198,6 +198,16 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `tb_token`;
+CREATE TABLE `tb_token` (
+  `user_id` varchar(50) NOT NULL,
+  `token` varchar(256) DEFAULT NULL COMMENT 'token',
+  `expire_time` datetime DEFAULT NULL COMMENT '过期时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `token` (`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户Token'
+
 -- ----------------------------
 -- Records of user
 -- ----------------------------
