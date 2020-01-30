@@ -9,8 +9,34 @@
         <result property="token" column="token"/>
     </resultMap>
 
+
+    <resultMap id="tbUser" type="com.vienna.model.User">
+
+        <result property="id" column="id"/>
+        <result property="account" column="account"/>
+        <result property="name" column="name"/>
+        <result property="pwd" column="pwd"/>
+        <result property="rmb" column="rmb"/>
+        <result property="createtime" column="createtime"/>
+        <result property="logintime" column="logintime"/>
+        <result property="wxopenid" column="wxopenid"/>
+        <result property="qqopenid" column="qqopenid"/>
+        <result property="questioncnt" column="questioncnt"/>
+        <result property="answercnt" column="answercnt"/>
+        <result property="pic" column="pic"/>
+        <result property="auth" column="auth"/>
+        <result property="experience" column="experience"/>
+    </resultMap>
+
+
     <select id="getToken" resultMap="tbTokenMap">
-         SELECT * FROM tb_token WHERE user_id = #{userId}
+         SELECT * FROM tb_token WHERE token = #{arg0}
+
+    </select>
+
+    <select id="get" resultMap="tbUser">
+
+         SELECT * FROM user WHERE id = #{arg0}
 
     </select>
 
