@@ -24,3 +24,7 @@ firestorm.log
 !**/build/
 webapi/build/
 *.iml
+out
+gen
+logs
+logs/
