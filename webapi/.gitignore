@@ -1,3 +1,5 @@
+/target/
+/bin/
 .DS_Store
 node_modules/
 /dist/
@@ -14,13 +16,3 @@ yarn-error.log*
 *.sln
 !**/target/
 !**/logs/
-/logs/
-gradlew
-gradlew.bat
-*.log
-.gradle
-firestorm.log
-!**/out/
-!**/build/
-webapi/build/
-*.iml
