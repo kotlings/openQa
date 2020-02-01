@@ -1,7 +1,7 @@
 本项目是基于[openauth](https://gitee.com/yubaolee/openauth.qa) 改造 ,通过Gradle管理的[Spring Boot问答社区项目](https://github.com/kotlings/openQa)
 适用于Spring Boot 入门试手
 
-目前支持完整的网页端的论坛功能，后续将支持App相关功能
+目前包含完整的网页端BBS/问答功能,支持JWT token, ehcache缓存，后续将支持App相关功能
 
 webApi 为api接口部分&ensp;&ensp; webFront为网页前端
 
@@ -27,6 +27,6 @@ webApi 为api接口部分&ensp;&ensp; webFront为网页前端
 
 快速预览：
 
-![输入图片说明](https://github.com/kotlings/openQa/images/001.png "在这里输入图片标题")
+![输入图片说明](https://raw.githubusercontent.com/kotlings/openQa/master/images/001.png "在这里输入图片标题")
 
 
