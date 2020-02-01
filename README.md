@@ -1,5 +1,7 @@
-本项目是基于[openauth](https://gitee.com/yubaolee/openauth.qa) 改造 ,通过Gradle管理的Spring Boot问答社区项目
+本项目是基于[openauth](https://gitee.com/yubaolee/openauth.qa) 改造 ,通过Gradle管理的[Spring Boot问答社区项目](https://github.com/kotlings/openQa)
 适用于Spring Boot 入门试手
+
+目前支持完整的网页端的论坛功能，后续将支持App相关功能
 
 webApi 为api接口部分&ensp;&ensp; webFront为网页前端
 
@@ -20,8 +22,7 @@ webApi 为api接口部分&ensp;&ensp; webFront为网页前端
     
     
 
- 
- 
+ 如果出现Tomcat和Javax.servlet 冲突无法启动情况请将grade缓存目录下的Javax.servlet jar删除在启动
     
 
 快速预览：

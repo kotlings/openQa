@@ -41,23 +41,20 @@ public class UserController extends BaseController {
     @Autowired
     TokenService tokenService;
 
-    //TODO 注销登录.
+    @Autowired
+    private RedisUtils redisUtils;
+
+    //TODO 注销登录.后续兼容app
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @ApiOperation(httpMethod = "GET", value = "注销登陆的用户")
     public String logout(HttpServletResponse out) {
         Cookie cookie = new Cookie(Const.COOKIE_LOGIN_USER, "");
         cookie.setMaxAge(-1);
         cookie.setPath("/");
         out.addCookie(cookie);
-        System.out.println("cookie.." + cookie);
 //        tokenService.deleteToken()
+//        redisUtils.delete();
         return "clubindex";
-    }
-
-
-    //TODO  注销登录.
-    @RequestMapping(value = "/app_logout", method = RequestMethod.GET)
-    public int logout(String userID) {
-        return tokenService.deleteToken(userID);
     }
 
 
@@ -83,8 +80,6 @@ public class UserController extends BaseController {
     }
 
 
-
-
     @ResponseBody
     @RequestMapping(value = "/getbyid", method = RequestMethod.GET)
     @ApiOperation(value = "获取用户的基本信息")
@@ -105,8 +100,6 @@ public class UserController extends BaseController {
         }
         return response;
     }
-
-
 
 
     @ResponseBody
@@ -138,7 +131,7 @@ public class UserController extends BaseController {
             User u = userService.login(loginRequest);
             UserViewModel userVM = UserViewModel.From(u);
             String token = UuidUtil.getUUID();
-            cacheService.create(token, userVM);
+            cacheService.create(token, userVM); //ehcache模式缓存
             tokenService.insertToken(u.getId());
             response.data = token;
         } catch (Exception e) {

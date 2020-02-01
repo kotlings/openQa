@@ -57,23 +57,6 @@ INSERT INTO `answer` VALUES ('bd7daf75-f435-4c22-9551-e6de29b966e3', 'ok', '0', 
 INSERT INTO `answer` VALUES ('d2db22ae-9a74-4418-aba7-5506f3e780c5', 'ok', '0', '0', '7d6f6f41-7144-417d-b5ec-bd3f6f4b9993', '2016-12-20 15:21:54', 'd8c8a352-452f-45ea-b699-4dc566885694', '0', '0');
 INSERT INTO `answer` VALUES ('f20d2e89-cc45-42d6-8da8-45041eb24942', 'ok', '0', '0', '7d6f6f41-7144-417d-b5ec-bd3f6f4b9993', '2016-12-20 08:36:00', 'd8c8a352-452f-45ea-b699-4dc566885694', '0', '0');
 
--- ----------------------------
--- Table structure for donate
--- ----------------------------
-DROP TABLE IF EXISTS `donate`;
-CREATE TABLE `donate` (
-  `id` varchar(50) NOT NULL,
-  `time` datetime NOT NULL,
-  `money` float NOT NULL,
-  `type` varchar(10) NOT NULL,
-  `name` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of donate
--- ----------------------------
-INSERT INTO `donate` VALUES ('998dc1b1-a870-4c5d-8853-434c9ec1a94c', '2016-11-01 13:57:12', '180', '微信', '佚名（做好事要留名，联系我，谢谢！！）');
 
 -- ----------------------------
 -- Table structure for message
@@ -146,35 +129,6 @@ CREATE TABLE `sysconf` (
 INSERT INTO `sysconf` VALUES ('8223baeb-a7e9-4932-a64b-d709300473e2', '2.0', 'version');
 INSERT INTO `sysconf` VALUES ('c0b07303-6e23-4f89-9570-d6aef0d7b92f', '4305', 'download');
 
--- ----------------------------
--- Table structure for tag
--- ----------------------------
-DROP TABLE IF EXISTS `tag`;
-CREATE TABLE `tag` (
-  `Id` varchar(50) NOT NULL,
-  `TagTo` varchar(50) DEFAULT NULL,
-  `Name` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of tag
--- ----------------------------
-
--- ----------------------------
--- Table structure for updatelog
--- ----------------------------
-DROP TABLE IF EXISTS `updatelog`;
-CREATE TABLE `updatelog` (
-  `id` varchar(50) NOT NULL,
-  `description` varchar(1000) NOT NULL,
-  `version` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of updatelog
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for user
@@ -198,6 +152,16 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES ('d8c8a352-452f-45ea-b699-4dc566885694', 'yubaolee', '盖世玉宝', 'lueSGJZetyySpUndWjMBEg==', '2', '2016-12-01 10:44:52', null, null, null, '0', '25', '0.jpg', '1', '0');
+INSERT INTO `user` VALUES ('f77e649d-7159-48b3-bbc1-750f83403cae', 'admin', '无敌&王子', 'lueSGJZetyySpUndWjMBEg==', '0', '2016-12-01 16:50:06', null, null, null, '0', '4', '3.jpg', '0', '0');
+
+-- ----------------------------
+-- Table structure for user Token
+-- ----------------------------
 DROP TABLE IF EXISTS `tb_token`;
 CREATE TABLE `tb_token` (
   `user_id` varchar(50) NOT NULL,
@@ -207,9 +171,3 @@ CREATE TABLE `tb_token` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `token` (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户Token'
-
--- ----------------------------
--- Records of user
--- ----------------------------
-INSERT INTO `user` VALUES ('d8c8a352-452f-45ea-b699-4dc566885694', 'yubaolee', '盖世玉宝', 'lueSGJZetyySpUndWjMBEg==', '2', '2016-12-01 10:44:52', null, null, null, '0', '25', '0.jpg', '1', '0');
-INSERT INTO `user` VALUES ('f77e649d-7159-48b3-bbc1-750f83403cae', 'admin', '无敌&王子', 'lueSGJZetyySpUndWjMBEg==', '0', '2016-12-01 16:50:06', null, null, null, '0', '4', '3.jpg', '0', '0');
