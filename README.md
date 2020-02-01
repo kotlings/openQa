@@ -27,6 +27,6 @@ webApi 为api接口部分&ensp;&ensp; webFront为网页前端
 
 快速预览：
 
-![输入图片说明](http://git.oschina.net/uploads/images/2017/0214/142742_1461ee99_362401.png "在这里输入图片标题")
+![输入图片说明](https://github.com/kotlings/openQa/images/001.png "在这里输入图片标题")
 
 
